@@ -3,7 +3,7 @@ exports.run = async (client, message, args, level) => {
   const Discord = require('discord.js');
   const revive = client.revivedata.get(`revive_${message.channel.id}`);
 
-  if (!revive) return message.channel.send('Nothing to Revive')
+  if (!revive) return message.error('Nothing to Revive');
 
   const embed = new Discord.MessageEmbed()
     //.setTitle(`${message.channel.name}’s Message`)
@@ -12,7 +12,7 @@ exports.run = async (client, message, args, level) => {
     .setColor('GREEN')
     .setTimestamp()
     .setFooter('Revived Message');
-  message.channel.send(embed)
+  message.channel.send(embed);
 };
 
 exports.conf = {

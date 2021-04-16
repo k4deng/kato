@@ -26,7 +26,7 @@ exports.run = async (client, message, args, level) => {
       const embed = new Discord.MessageEmbed()
         .setColor('GREEN')
         .setTitle(`<:yea:813181281265254460> Deletion of messages successful!`)
-        .setDescription(`Total messages deleted including command: **${newamount}**`)
+        .setDescription(`Total messages deleted including command: **${newamount}**`);
       message.channel.send(embed).then(message => message.del(5000));
     })
     .catch(err => {

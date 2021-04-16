@@ -3,11 +3,11 @@ exports.run = async (client, message, args, level) => {
 const Discord = require('discord.js');
 moment = require('moment');
 
-const strings = args.join(' ').split(',')
+const strings = args.join(' ').split(',');
 const title = strings[0];
 const desc = strings[1];
 
-const emojiArray = ['813181281265254460','813181280899301458']
+const emojiArray = ['813181281265254460','813181280899301458'];
 const suggestionsChannel = client.channels.cache.get(client.config.suggestionsChannel);
 
 var embed = new Discord.MessageEmbed()
@@ -21,11 +21,11 @@ var embed = new Discord.MessageEmbed()
   }
 
 suggestionsChannel.send(embed).then(async (msg) => {
-  await msg.react(emojiArray[0])
-  await msg.react(emojiArray[1])
+  await msg.react(emojiArray[0]);
+  await msg.react(emojiArray[1]);
 });
 
-message.success("Your idea has been submitted.")
+message.success("Your idea has been submitted.");
 };
 
 exports.conf = {

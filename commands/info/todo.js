@@ -18,7 +18,7 @@ exports.run = async (client, message, args, level) => {
       • Add reaction roles
       • Change nickname based on server prefix
       • Add music commands
-    `)
+    `);
   message.channel.send(embed);
 };
 

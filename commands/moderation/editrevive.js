@@ -3,7 +3,7 @@ exports.run = async (client, message, args, level) => {
   const Discord = require('discord.js');
   const editrevive = client.revivedata.get(`editrevive_${message.channel.id}`);
 
-  if (!editrevive) return message.channel.send('Nothing to Edit Revive')
+  if (!editrevive) return message.error('Nothing to Edit Revive');
 
   const embed = new Discord.MessageEmbed()
     //.setTitle(`${message.channel.name}’s Message`)
@@ -12,7 +12,7 @@ exports.run = async (client, message, args, level) => {
     .setColor('GREEN')
     .setTimestamp()
     .setFooter('Orignal Message');
-  message.channel.send(embed)
+  message.channel.send(embed);
 };
 
 exports.conf = {

@@ -12,7 +12,7 @@ module.exports = async (client, message) => {
   if (message.author.bot) return;
 
   //We do this for embeds.
-  const Discord = require("discord.js")
+  const Discord = require("discord.js");
 
   // Grab the settings for this server from Enmap.
   // If there is no guild, get default conf (DMs)
@@ -120,7 +120,7 @@ module.exports = async (client, message) => {
       }
 
     } else {
-      return message.error("Please use 4 or fewer permissions in the botPermissions array.")
+      return message.error("Please use 4 or fewer permissions in the botPermissions array.");
     }  
   }
 
@@ -129,7 +129,7 @@ module.exports = async (client, message) => {
   //send message if user doesnt have the needed permissions
   if (level < client.levelCache[cmd.conf.permLevel]) {
     if (settings.systemNotice === "true") {
-      return message.userperms(level, cmd)
+      return message.userperms(level, cmd);
     } else {
       return;
     }

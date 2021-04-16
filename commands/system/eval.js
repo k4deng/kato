@@ -8,7 +8,7 @@
 // you don't want to put in a command.
 exports.run = async (client, message, args, level) => { // eslint-disable-line no-unused-vars
 
-  const Discord = require("discord.js")
+  const Discord = require("discord.js");
 
   if (args[0] === "clean") {
     const code = args.slice(1).join(" ");

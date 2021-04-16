@@ -48,7 +48,7 @@ morgan.token('statusColor', (req, res, args) => {
     // get the status code if response written
     var status = (typeof res.headersSent !== 'boolean' ? Boolean(res.header) : res.headersSent)
         ? res.statusCode
-        : undefined
+        : undefined;
     // get status color
     var color = status >= 500 ? 31 // red
         : status >= 400 ? 33 // yellow
@@ -57,20 +57,20 @@ morgan.token('statusColor', (req, res, args) => {
                     : 0; // no color
     return '\x1b[' + color + 'm' + status + '\x1b[0m';
 });
-morgan.token("morgan-output", `${chalk.bgBlue(":method")} :url ${chalk.blue("=>")} :response-time ms ${chalk.blue("=>")}  :statusColor`)
+morgan.token("morgan-output", `${chalk.bgBlue(":method")} :url ${chalk.blue("=>")} :response-time ms ${chalk.blue("=>")}  :statusColor`);
 
 // For CORS which fixes some problems with the api
-const cors = require('cors')
+const cors = require('cors');
 
 module.exports = (client) => {
 
-  app.use(cors())
+  app.use(cors());
 
   //this is for the apis
   const apiDir = path.resolve(`${process.cwd()}${path.sep}dashboard${path.sep}api`);
-  app.use('/api/statistics', require(`${apiDir}${path.sep}statistics.js`)(client))
-  app.use('/api/commands', require(`${apiDir}${path.sep}commands.js`)(client))
-  app.use('/api/guilds', require(`${apiDir}${path.sep}guilds.js`)(client))
+  app.use('/api/statistics', require(`${apiDir}${path.sep}statistics.js`)(client));
+  app.use('/api/commands', require(`${apiDir}${path.sep}commands.js`)(client);)
+  app.use('/api/guilds', require(`${apiDir}${path.sep}guilds.js`)(client));
   client.apiURL = `https://${client.config.dashboard.domain}/api`;
   client.logger.log(`API URL: ${client.apiURL}`);
 

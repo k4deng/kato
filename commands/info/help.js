@@ -45,7 +45,7 @@ exports.run = (client, message, args, level) => {
           **Category:** ${command.help.category}
           **Aliases:** ${command.conf.aliases.join(", ") || "None"}
           **Usage:** ${command.help.usage}`)
-        .setColor('BLUE')
+        .setColor('BLUE');
       message.channel.send(embed);
 
     }

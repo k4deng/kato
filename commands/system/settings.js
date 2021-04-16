@@ -86,8 +86,8 @@ exports.run = async (client, message, [action, key, ...value], level) => { // es
 <\:blue:813181113031852082>\`welcomeEnabled\` is for if you want the welcome messages to be sent.
 
 *Remember to do \`${message.settings.prefix}settings edit <key> <value>\` to edit your settings!*
-      `)
-      message.channel.send(embed)
+      `);
+      message.channel.send(embed);
   } else {
     // Otherwise, the default action is to return the whole configuration;
     const array = [];

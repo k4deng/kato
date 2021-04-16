@@ -3,7 +3,7 @@ exports.run = async (client, message, args, level) => {
 const Discord = require('discord.js');
 moment = require('moment');
 
-const strings = args.join(' ').split(',')
+const strings = args.join(' ').split(',');
 const question = strings[0];
 const desc = strings[1];
 const stringTime = strings[2];
@@ -20,9 +20,9 @@ var embed = new Discord.MessageEmbed()
     .setTimestamp();
     
 if (time) {
-    embed.setFooter(`The vote will last ${formatTime}`)
+    embed.setFooter(`The vote will last ${formatTime}`);
 } else {
-    embed.setFooter(`The vote has no end time`)
+    embed.setFooter(`The vote has no end time`);
 }
     
 message.del(); // Remove the user's command message
@@ -53,7 +53,7 @@ message.channel.send({embed}) // Use a 2d array?
                         console.log(reactionCountsArray); // Debugging votes
                         var winnersText = "";
                         if (reactionCountsArray[indexMax[0]] == 0) {
-                            winnersText = "No one voted!"
+                            winnersText = "No one voted!";
                         } else {
                             for (var i = 0; i < indexMax.length; i++) {
                                 winnersText += 

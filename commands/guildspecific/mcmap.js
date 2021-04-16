@@ -7,7 +7,7 @@ exports.run = async (client, message, args, level) => {
       .addField(`<:minecraft:812110264795136050> Minecraft Server Map`, `http://${process.env.SERVERIP}:8123`)
     message.channel.send(embed);
   } else {
-    message.error("You cant use this command in this server!")
+    message.error("You cant use this command in this server!");
   }
 };
 

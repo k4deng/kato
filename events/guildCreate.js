@@ -5,7 +5,7 @@ module.exports = (client, guild) => {
 
 
     const Discord = require("discord.js");
-    const channel = guild.channels.cache.find(channel => channel.type === 'text' && channel.permissionsFor(guild.me).has('SEND_MESSAGES'))
+    const channel = guild.channels.cache.find(channel => channel.type === 'text' && channel.permissionsFor(guild.me).has('SEND_MESSAGES'));
     const embed = new Discord.MessageEmbed()
       .setTitle(`Thanks for adding me to your server! <a\:join:816009748935344168>`)
       .setColor("GREEN")
@@ -19,7 +19,7 @@ module.exports = (client, guild) => {
       .addField(`Bot Website`, `[jiro.k4deng.ml](https://jiro.k4deng.ml)`, true)
       .addField(`Bot Code`, `[jiro.k4deng.ml/code](https://jiro.k4deng.ml/code)`, true)
       .addField(`Support Server`, `[jiro.k4deng.ml/support](https://jiro.k4deng.ml/support)`, true)
-      .setFooter(`Created and Coded by k4deng`, `https://k4deng.ml/pfp.jpg`)
+      .setFooter(`Created and Coded by k4deng`, `https://k4deng.ml/pfp.jpg`);
       channel.send(embed);
 
 };
