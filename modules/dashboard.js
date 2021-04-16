@@ -256,7 +256,7 @@ module.exports = (client) => {
 		});
 	});
 
-	app.get('/legal', function (req, res) {
+	app.get('/legal', function(req, res) {
 
 		md.setOptions({
 			renderer: new md.Renderer(),
@@ -298,7 +298,7 @@ module.exports = (client) => {
 	// then throws the user to the Discord OAuth2 login page.
 	app.get('/login', (req, res, next) => {
 		if (req.session.backURL) {
-			req.session.backURL = req.session.backURL;
+
 		} else if (req.headers.referer) {
 			const parsed = url.parse(req.headers.referer);
 			if (parsed.hostname === app.locals.domain) {
@@ -386,9 +386,9 @@ module.exports = (client) => {
 					settings[key] = iWArray;
 				} if (key === "swearWords") {
 					var sWArray = [];
-				 	value = value.replace(/\s/g, '');
+          value = value.replace(/\s/g, '');
 					value.indexOf(',') > -1 ? sWArray = value.split(',') : sWArray.push(value);
-				 	settings[key] = sWArray;
+          settings[key] = sWArray;
 				} else {
 					settings[key] = value;
 					//console.log(typeof value);
@@ -465,7 +465,7 @@ module.exports = (client) => {
 		}
 	});
 
-	app.get('/logout', function (req, res) {
+	app.get('/logout', function(req, res) {
 		req.logout();
 		res.redirect('/');
 	});
