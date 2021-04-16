@@ -29,7 +29,7 @@ const config = {
 		oauthSecret: process.env.dashboardOauthSecret, // The client secret from the Discord bot page
 		secure: 'true', // HTTPS: 'true' for true, 'false' for false
 		sessionSecret: process.env.dashboardSessionSecret, // Go crazy on the keyboard here, this is used as a session secret
-		domain: 'kato.katodiscordbot.repl.co', // Domain name (with port if not running behind proxy running on port 80). Example: 'domain': 'dashboard.bot-website.com' OR 'domain': 'localhost:33445'
+		domain: 'katobot.tk', // Domain name (with port if not running behind proxy running on port 80). Example: 'domain': 'dashboard.bot-website.com' OR 'domain': 'localhost:33445'
 		port: '3000', // The port that it should run on
 		invitePerm: '536079575', //the bots invite link oauth permission integer
 		protectStats: 'false', //if stats page is visible
