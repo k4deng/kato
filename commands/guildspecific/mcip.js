@@ -7,7 +7,7 @@ exports.run = async (client, message, args, level) => {
       .addField(`<:minecraft:812110264795136050> Minecraft Server IP`, `IP for Java & Bedrock: ${process.env.SERVERIP}`);
     message.channel.send(embed);
   } else {
-    message.error("You cant use this command in this server!")
+    message.error("You cant use this command in this server!");
   }
 };
 
@@ -23,6 +23,6 @@ exports.help = {
   name: "mcip",
   subfolder: "guildspecific",
   category: "Info",
-  description: "Shows the IP of k4deng\'s minecraft server.",
+  description: "Shows the IP of k4deng's minecraft server.",
   usage: "mcip"
 };

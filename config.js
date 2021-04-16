@@ -37,7 +37,7 @@ const config = {
 		legalTemplates: {
 			contactEmail: 'contact@k4deng.ml', // This email will be used in the legal page of the dashboard if someone needs to contact you for any reason regarding this page
 			lastEdited: '4 April 2021' // Change this if you update the `TERMS.md` or `PRIVACY.md` files in `dashboard/public/`
-	  }
+    }
   },
 
   // Default per-server settings. New guilds have these settings. 

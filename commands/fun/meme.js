@@ -15,12 +15,12 @@ exports.run = async (client, message, args, level) => {
     var index = response.data.children[Math.floor(Math.random() * 98) + 2].data;
 
     if (index.post_hint == 'image') {
-      var image = index.preview.images[0].source.url.replace('&amp;', '&');
-      var title = index.title;
-      var link = 'https://reddit.com' + index.permalink;
-      var memeUpvotes = index.ups;
-      var memeNumComments = index.num_comments;
-      var subRedditName = index.subreddit_name_prefixed;
+      let image = index.preview.images[0].source.url.replace('&amp;', '&');
+      let title = index.title;
+      let link = 'https://reddit.com' + index.permalink;
+      let memeUpvotes = index.ups;
+      let memeNumComments = index.num_comments;
+      let subRedditName = index.subreddit_name_prefixed;
 
       if (index.post_hint !== 'image') {
           const textembed = new Discord.RichEmbed()
@@ -42,11 +42,11 @@ exports.run = async (client, message, args, level) => {
     }
 
     if (index.post_hint !== 'image') {
-      var title = index.title;
-      var link = 'https://reddit.com' + index.permalink;
-      var memeUpvotes = index.ups;
-      var memeNumComments = index.num_comments;
-      var subRedditName = index.subreddit_name_prefixed;
+      let title = index.title;
+      let link = 'https://reddit.com' + index.permalink;
+      let memeUpvotes = index.ups;
+      let memeNumComments = index.num_comments;
+      let subRedditName = index.subreddit_name_prefixed;
 
       var text = index.selftext;
       const textembed = new Discord.MessageEmbed()
@@ -59,7 +59,7 @@ exports.run = async (client, message, args, level) => {
       message.channel.send(textembed);
     }
 
-    }).on('error', function (e) {
+    }).on('error', function(e) {
         console.log('Got an error: ', e);
     });
   });

@@ -7,14 +7,14 @@ module.exports = (client, guild) => {
     const Discord = require("discord.js");
     const channel = guild.channels.cache.find(channel => channel.type === 'text' && channel.permissionsFor(guild.me).has('SEND_MESSAGES'));
     const embed = new Discord.MessageEmbed()
-      .setTitle(`Thanks for adding me to your server! <a\:join:816009748935344168>`)
+      .setTitle(`Thanks for adding me to your server! <a:join:816009748935344168>`)
       .setColor("GREEN")
       .setDescription(`
-<a\:yellowstar:816009746192531486>Hi there, I'm JiroBot, the all in one Discord bot for all your needs. JiroBot utilizes many discord features to enhance your server with stuff like bulk message clearing, deleted message viewing, and much, much, more!
+<a:yellowstar:816009746192531486>Hi there, I'm JiroBot, the all in one Discord bot for all your needs. JiroBot utilizes many discord features to enhance your server with stuff like bulk message clearing, deleted message viewing, and much, much, more!
 
-<a\:purplestar:816009745928421477>To get started, do \`${client.settings.get("default").prefix}settings help\` to see info about each setting and \`${client.settings.get("default").prefix}settings edit <key> <value>\` to edit the default settings you want.
+<a:purplestar:816009745928421477>To get started, do \`${client.settings.get("default").prefix}settings help\` to see info about each setting and \`${client.settings.get("default").prefix}settings edit <key> <value>\` to edit the default settings you want.
 
-<a\:redstar:816009745848336384>**Aaanndd thats it! You're done now! Do \`${client.settings.get("default").prefix}help\` to see all my commands.**
+<a:redstar:816009745848336384>**Aaanndd thats it! You're done now! Do \`${client.settings.get("default").prefix}help\` to see all my commands.**
 `)
       .addField(`Bot Website`, `[jiro.k4deng.ml](https://jiro.k4deng.ml)`, true)
       .addField(`Bot Code`, `[jiro.k4deng.ml/code](https://jiro.k4deng.ml/code)`, true)

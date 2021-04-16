@@ -11,9 +11,6 @@ module.exports = async (client, message) => {
   // and not get into a spam loop (we call that "botception").
   if (message.author.bot) return;
 
-  //We do this for embeds.
-  const Discord = require("discord.js");
-
   // Grab the settings for this server from Enmap.
   // If there is no guild, get default conf (DMs)
   const settings = message.settings = client.getSettings(message.guild);
@@ -73,17 +70,17 @@ module.exports = async (client, message) => {
     }
 
     //now we go through the rest of the perms listed.
-    if (!message.guild){
+    if (!message.guild) {
     
-    } else if (!cmd.conf.botPermissions[0]){
+    } else if (!cmd.conf.botPermissions[0]) {
 
-    } else if (cmd.conf.botPermissions[0]){
+    } else if (cmd.conf.botPermissions[0]) {
       
       if (!message.channel.permissionsFor(client.user).has(cmd.conf.botPermissions[0])) {
         return message.botperms(cmd.conf.botPermissions[0]);
       }
 
-    } else if (cmd.conf.botPermissions[1]){
+    } else if (cmd.conf.botPermissions[1]) {
 
       if (!message.channel.permissionsFor(client.user).has(cmd.conf.botPermissions[0])) {
         message.botperms(cmd.conf.botPermissions[0]);
@@ -92,7 +89,7 @@ module.exports = async (client, message) => {
         return message.botperms(cmd.conf.botPermissions[1]);
       }
 
-    } else if (cmd.conf.botPermissions[2]){
+    } else if (cmd.conf.botPermissions[2]) {
 
       if (!message.channel.permissionsFor(client.user).has(cmd.conf.botPermissions[0])) {
         message.botperms(cmd.conf.botPermissions[0]);
@@ -104,7 +101,7 @@ module.exports = async (client, message) => {
         return message.botperms(cmd.conf.botPermissions[2]);
       }
 
-    } else if (cmd.conf.botPermissions[3]){
+    } else if (cmd.conf.botPermissions[3]) {
 
       if (!message.channel.permissionsFor(client.user).has(cmd.conf.botPermissions[0])) {
         message.botperms(cmd.conf.botPermissions[0]);

@@ -75,15 +75,15 @@ exports.run = async (client, message, [action, key, ...value], level) => { // es
 
     const embed = new Discord.MessageEmbed()
       .setDescription(`
-<\:blue:813181113031852082>\`prefix\` is the prefix for this server.
-<\:blue:813181113031852082>\`modLogChannel\` is where information like kicks, bans, and other server actions are logged.
-<\:blue:813181113031852082>\`modRole\` is the Moderator role for your server which will have access to commands like clear, kick, ban and others.
-<\:blue:813181113031852082>\`adminRole\` is the Admin role for your server which will have access to commands like settings, and others.
-<\:blue:813181113031852082>\`systemNotice\` is for if you want users to be noticed when the try to run a command that they don't have access to.
-<\:blue:813181113031852082>\`welcomeChannel\` is the channel that the welcome messages are sent to.(***You have to use the channel ID***)
-<\:blue:813181113031852082>\`welcomeMessage\` is the message that is sent whenever a user joins this server.
-  (*{{user}} = username#1234, {{join}} = <a\:join:816009748935344168>*)
-<\:blue:813181113031852082>\`welcomeEnabled\` is for if you want the welcome messages to be sent.
+<:blue:813181113031852082>\`prefix\` is the prefix for this server.
+<:blue:813181113031852082>\`modLogChannel\` is where information like kicks, bans, and other server actions are logged.
+<:blue:813181113031852082>\`modRole\` is the Moderator role for your server which will have access to commands like clear, kick, ban and others.
+<:blue:813181113031852082>\`adminRole\` is the Admin role for your server which will have access to commands like settings, and others.
+<:blue:813181113031852082>\`systemNotice\` is for if you want users to be noticed when the try to run a command that they don't have access to.
+<:blue:813181113031852082>\`welcomeChannel\` is the channel that the welcome messages are sent to.(***You have to use the channel ID***)
+<:blue:813181113031852082>\`welcomeMessage\` is the message that is sent whenever a user joins this server.
+  (*{{user}} = username#1234, {{join}} = <a:join:816009748935344168>*)
+<:blue:813181113031852082>\`welcomeEnabled\` is for if you want the welcome messages to be sent.
 
 *Remember to do \`${message.settings.prefix}settings edit <key> <value>\` to edit your settings!*
       `);

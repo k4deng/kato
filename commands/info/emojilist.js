@@ -1,9 +1,9 @@
 exports.run = async (client, message, args, level) => {
 
-  if (!args[0]){
+  if (!args[0]) {
     message.channel.send(`**${message.guild.name}'s emoji's:**\n${message.guild.emojis.cache.map(e => e.toString()).join(' ')}`);
   } else {
-    guild = client.guilds.cache.get(args[0]);
+    const guild = client.guilds.cache.get(args[0]);
     message.channel.send(`**${guild.name}'s emoji's:**\n${guild.emojis.cache.map(e => e.toString()).join(' ')}`);
   }
 

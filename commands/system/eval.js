@@ -8,14 +8,12 @@
 // you don't want to put in a command.
 exports.run = async (client, message, args, level) => { // eslint-disable-line no-unused-vars
 
-  const Discord = require("discord.js");
-
   if (args[0] === "clean") {
     const code = args.slice(1).join(" ");
     try {
       const evaled = eval(code);
       const clean = await client.clean(client, evaled);
-      message.channel.send(`\`\`\`js\n${clean}\n\`\`\``, { split: {prepend: "\`\`\`js\n", append: "\n\`\`\`"} });
+      message.channel.send(`\`\`\`js\n${clean}\n\`\`\``, { split: {prepend: "```js\n", append: "\n```"} });
     } catch (err) {
       message.channel.send(`\`ERROR\` \`\`\`xl\n${await client.clean(client, err)}\n\`\`\``);
     } 
@@ -23,8 +21,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
     const code = args.join(" ");
     try {
       const evaled = eval(code);
-      const clean = await client.clean(client, evaled);
-      message.channel.send(`\`\`\`js\n${evaled}\n\`\`\``, { split: {prepend: "\`\`\`js\n", append: "\n\`\`\`"} });
+      message.channel.send(`\`\`\`js\n${evaled}\n\`\`\``, { split: {prepend: "```js\n", append: "\n```"} });
     } catch (err) {
       message.channel.send(`\`ERROR\` \`\`\`xl\n${await client.clean(client, err)}\n\`\`\``);
     }    

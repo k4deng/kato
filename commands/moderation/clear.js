@@ -6,13 +6,13 @@ exports.run = async (client, message, args, level) => {
   if (!args[0]) {
     newamount = 2;
   } else {
-    let amount = Number(args[0]);
-    let adding = 1;
+    var amount = Number(args[0]);
+    var adding = 1;
     newamount = amount + adding;
   }
-  let messagecount = newamount.toString();
+  const messagecount = newamount.toString();
 
-  if (messagecount > 100){
+  if (messagecount > 100) {
     message.delete();
     return message.error("Due to Discord limits, you cannot delete more than 100 messages. Please try again with a number less than 100").then(message => message.del(5000));
   }

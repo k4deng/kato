@@ -1,7 +1,7 @@
 exports.run = async (client, message, args, level) => {
 
 const Discord = require('discord.js');
-moment = require('moment');
+const moment = require('moment');
 
 const strings = args.join(' ').split(',');
 const title = strings[0];

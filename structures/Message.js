@@ -11,7 +11,7 @@ module.exports = Structures.extend('Message', Message => {
         if (this.deletable) this.delete(({ timeout: args}));
       } else {
         if (this.deletable) this.delete();
-      };
+      }
 		}
 
     nosetchannel(args) {
@@ -31,7 +31,7 @@ module.exports = Structures.extend('Message', Message => {
 			try {
 				const emoji = this.channel.permissionsFor(this.client.user).has('USE_EXTERNAL_EMOJIS') ? "<:nah:813181113056755762>" : ':negative_squared_cross_mark:';
 
-				return this.channel.send({ embed:{ color:"RED", description:`${emoji} **I don't have the required permissions to execute this command!**\n  • I need the **${args}** permission.` } });
+				return this.channel.send({ embed:{ color:"RED", description:`${emoji} **I don't have the required permissions to execute this command!**\n  • I need the **${args}** permission.` } });
 			} catch (err) {
 				this.client.logger.error(err.message);
 			}
@@ -41,7 +41,7 @@ module.exports = Structures.extend('Message', Message => {
 			try {
 				const emoji = this.channel.permissionsFor(this.client.user).has('USE_EXTERNAL_EMOJIS') ? "<:nah:813181113056755762>" : ':negative_squared_cross_mark:';
 
-				return this.channel.send({ embed:{ color:"RED", description:`${emoji} **You don\'t have the required permissions to use this command!**\n  • Your permission level is ${level} (${this.client.config.permLevels.find(l => l.level === level).name})\n  • This command requires level ${this.client.levelCache[cmd.conf.permLevel]} (${cmd.conf.permLevel})` } });
+				return this.channel.send({ embed:{ color:"RED", description:`${emoji} **You don't have the required permissions to use this command!**\n  • Your permission level is ${level} (${this.client.config.permLevels.find(l => l.level === level).name})\n  • This command requires level ${this.client.levelCache[cmd.conf.permLevel]} (${cmd.conf.permLevel})` } });
 
 
 			} catch (err) {

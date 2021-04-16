@@ -69,7 +69,7 @@ module.exports = (client) => {
   //this is for the apis
   const apiDir = path.resolve(`${process.cwd()}${path.sep}dashboard${path.sep}api`);
   app.use('/api/statistics', require(`${apiDir}${path.sep}statistics.js`)(client));
-  app.use('/api/commands', require(`${apiDir}${path.sep}commands.js`)(client);)
+  app.use('/api/commands', require(`${apiDir}${path.sep}commands.js`)(client));
   app.use('/api/guilds', require(`${apiDir}${path.sep}guilds.js`)(client));
   client.apiURL = `https://${client.config.dashboard.domain}/api`;
   client.logger.log(`API URL: ${client.apiURL}`);

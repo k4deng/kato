@@ -7,7 +7,7 @@ exports.run = async (client, message, args, level) => {
     .addFields(
       { name: '**What can kato do?**', value: '*If anything is marked as Coming soon!, then it may not be fully complete, and is only planned for the future.*' },
       { name: ':shield: Moderation', value: 'Protect your server with features like revive, editrevive and more!', inline: true },
-      { name: '\<\:purple\:813181112754503751\> Leveling', value: '*Coming soon!*\nEarn points that sync between all your servers and brag about all the points you have!', inline: true },
+      { name: '<:purple:813181112754503751> Leveling', value: '*Coming soon!*\nEarn points that sync between all your servers and brag about all the points you have!', inline: true },
       { name: ':gear: Automation', value: 'Automatically do things, like welcome messages, moderation, and polls!', inline: true },
       { name: '\u200B', value: '**More information**\nWant to know more about kato? Do so here!' },
       { name: 'About the creator', value: 'Jirobot was made by k4deng to help his discord server. You can find k4deng here: [k4deng.ml](https://k4deng.ml)', inline: true },

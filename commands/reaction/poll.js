@@ -1,7 +1,7 @@
 exports.run = async (client, message, args, level) => {
 
 const Discord = require('discord.js');
-moment = require('moment');
+const moment = require('moment');
 
 const strings = args.join(' ').split(',');
 const question = strings[0];
@@ -28,7 +28,7 @@ if (time) {
 message.del(); // Remove the user's command message
 
 message.channel.send({embed}) // Use a 2d array?
-    .then(async function (message) {
+    .then(async function(message) {
         var reactionArray = [];
         reactionArray[0] = await message.react(emojiList[0]);
         reactionArray[1] = await message.react(emojiList[1]);
@@ -37,7 +37,7 @@ message.channel.send({embed}) // Use a 2d array?
             setTimeout(() => {
                 // Re-fetch the message and get reaction counts
                 message.channel.messages.fetch(message.id)
-                    .then(async function (message) {
+                    .then(async function(message) {
                         var reactionCountsArray = [];                               
                         for (var i = 0; i < reactionArray.length; i++) {
                             reactionCountsArray[i] = message.reactions.cache.get(emojiList[i]).count-1;
@@ -45,9 +45,9 @@ message.channel.send({embed}) // Use a 2d array?
                         
                         // Find winner(s)
                         var max = -Infinity, indexMax = [];
-                        for(var i = 0; i < reactionCountsArray.length; ++i)
-                            if(reactionCountsArray[i] > max) max = reactionCountsArray[i], indexMax = [i];
-                            else if(reactionCountsArray[i] === max) indexMax.push(i);
+                        for (var i = 0; i < reactionCountsArray.length; ++i)
+                            if (reactionCountsArray[i] > max) max = reactionCountsArray[i], indexMax = [i];
+                            else if (reactionCountsArray[i] === max) indexMax.push(i);
                           
                         // Display winner(s)
                         console.log(reactionCountsArray); // Debugging votes
@@ -67,7 +67,7 @@ message.channel.send({embed}) // Use a 2d array?
                     });
             }, time * 60 * 1000);
         }
-    })
+    });
 
 };
 
