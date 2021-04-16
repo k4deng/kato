@@ -29,15 +29,15 @@ const config = {
 		oauthSecret: process.env.dashboardOauthSecret, // The client secret from the Discord bot page
 		secure: 'true', // HTTPS: 'true' for true, 'false' for false
 		sessionSecret: process.env.dashboardSessionSecret, // Go crazy on the keyboard here, this is used as a session secret
-		domain: 'kato.katodiscordbot.repl.co', // Domain name (with port if not running behind proxy running on port 80). Example: 'domain': 'dashboard.bot-website.com' OR 'domain': 'localhost:33445'
+		domain: 'dev.katobot.tk', // Domain name (with port if not running behind proxy running on port 80). Example: 'domain': 'dashboard.bot-website.com' OR 'domain': 'localhost:33445'
 		port: '3000', // The port that it should run on
 		invitePerm: '536079575', //the bots invite link oauth permission integer
 		protectStats: 'false', //if stats page is visible
 		borderedStats: 'true', // Controls whether stats in the dashboard should have a border or not
 		legalTemplates: {
 			contactEmail: 'contact@k4deng.ml', // This email will be used in the legal page of the dashboard if someone needs to contact you for any reason regarding this page
-			lastEdited: '4 April 2021' // Change this if you update the `TERMS.md` or `PRIVACY.md` files in `dashboard/public/`
-    }
+			lastEdited: '16 April 2021' // Change this if you update the `TERMS.md` or `PRIVACY.md` files in `dashboard/public/`
+	  }
   },
 
   // Default per-server settings. New guilds have these settings. 

@@ -40,54 +40,104 @@ const moment = require('moment');
 require('moment-duration-format');
 
 // For logging
-const chalk = require("chalk");
+const chalk = require('chalk');
 const morgan = require('morgan');
 // The output
 // Valid variables: https://www.npmjs.com/package/morgan#dateformat
 morgan.token('statusColor', (req, res, args) => {
-    // get the status code if response written
-    var status = (typeof res.headersSent !== 'boolean' ? Boolean(res.header) : res.headersSent)
-        ? res.statusCode
-        : undefined;
-    // get status color
-    var color = status >= 500 ? 31 // red
-        : status >= 400 ? 33 // yellow
-            : status >= 300 ? 36 // cyan
-                : status >= 200 ? 32 // green
-                    : 0; // no color
-    return '\x1b[' + color + 'm' + status + '\x1b[0m';
+	// get the status code if response written
+	var status = (typeof res.headersSent !== 'boolean'
+	? Boolean(res.header)
+	: res.headersSent)
+		? res.statusCode
+		: undefined;
+	// get status color
+	var color =
+		status >= 500
+			? 31 // red
+			: status >= 400
+				? 33 // yellow
+				: status >= 300
+					? 36 // cyan
+					: status >= 200
+						? 32 // green
+						: 0; // no color
+	return '\x1b[' + color + 'm' + status + '\x1b[0m';
 });
-morgan.token("morgan-output", `${chalk.bgBlue(":method")} :url ${chalk.blue("=>")} :response-time ms ${chalk.blue("=>")}  :statusColor`);
+morgan.token(
+	'morgan-output',
+	`${chalk.bgBlue(':method')} :url ${chalk.blue(
+		'=>'
+	)} :response-time ms ${chalk.blue('=>')}  :statusColor`
+);
 
 // For CORS which fixes some problems with the api
 const cors = require('cors');
 
-module.exports = (client) => {
+module.exports = client => {
+	app.use(cors());
 
-  app.use(cors());
+	//this is for the apis
+	const apiDir = path.resolve(`${process.cwd()}${path.sep}http${path.sep}api`);
+	app.use(
+		'/api/statistics',
+		require(`${apiDir}${path.sep}statistics.js`)(client)
+	);
+	app.use('/api/commands', require(`${apiDir}${path.sep}commands.js`)(client));
+	app.use('/api/guilds', require(`${apiDir}${path.sep}guilds.js`)(client));
+	client.apiURL = `https://${client.config.dashboard.domain}/api`;
+	client.logger.log(`API URL: ${client.apiURL}`);
 
-  //this is for the apis
-  const apiDir = path.resolve(`${process.cwd()}${path.sep}dashboard${path.sep}api`);
-  app.use('/api/statistics', require(`${apiDir}${path.sep}statistics.js`)(client));
-  app.use('/api/commands', require(`${apiDir}${path.sep}commands.js`)(client));
-  app.use('/api/guilds', require(`${apiDir}${path.sep}guilds.js`)(client));
-  client.apiURL = `https://${client.config.dashboard.domain}/api`;
-  client.logger.log(`API URL: ${client.apiURL}`);
-
-	if (client.config.dashboard.enabled !== 'true') return client.logger.log( 'Dashboard disabled');
+	if (client.config.dashboard.enabled !== 'true')
+		return client.logger.log('Dashboard disabled');
 	// It's easier to deal with complex paths.
 	// This resolves to: yourbotdir/dashboard/
-	const dataDir = path.resolve(`${process.cwd()}${path.sep}dashboard`);
+	const dataDir = path.resolve(
+		`${process.cwd()}${path.sep}http${path.sep}dashboard`
+	);
 
-	// This resolves to: yourbotdir/dashboard/templates/
-	// which is the folder that stores all the internal template files.
-	const templateDir = path.resolve(`${dataDir}${path.sep}templates`);
+	// This resolves to: yourbotdir/dashboard/pages/
+	// which is the folder that stores all the internal page files.
+	const templateDir = path.resolve(`${dataDir}${path.sep}views`);
 
 	app.set('trust proxy', 5); // Proxy support
 	// The public data directory, which is accessible from the *browser*.
 	// It contains all css, client javascript, and images needed for the site.
-	app.use('/public', express.static(path.resolve(`${dataDir}${path.sep}public`), { maxAge: '10d' }));
+	app.use(
+		'/dist',
+		express.static(path.resolve(`${dataDir}${path.sep}dist`), { maxAge: '10d' })
+	);
+	app.use(
+		'/build',
+		express.static(path.resolve(`${dataDir}${path.sep}build`), {
+			maxAge: '10d'
+		})
+	);
+	app.use(
+		'/plugins',
+		express.static(path.resolve(`${dataDir}${path.sep}plugins`), {
+			maxAge: '10d'
+		})
+	);
+	app.use(
+		'/dashboard/dist',
+		express.static(path.resolve(`${dataDir}${path.sep}dist`), { maxAge: '10d' })
+	);
+	app.use(
+		'/dashboard/build',
+		express.static(path.resolve(`${dataDir}${path.sep}build`), {
+			maxAge: '10d'
+		})
+	);
+	app.use(
+		'/dashboard/plugins',
+		express.static(path.resolve(`${dataDir}${path.sep}plugins`), {
+			maxAge: '10d'
+		})
+	);
 	app.use(morgan('morgan-output')); // Logger
+
+	app.use('/pages', express.static(path.resolve(`${dataDir}${path.sep}pages`)));
 
 	// uhhhh check what these do.
 	passport.serializeUser((user, done) => {
@@ -124,24 +174,29 @@ module.exports = (client) => {
 
 	client.callbackURL = `${protocol}${client.config.dashboard.domain}/callback`;
 	client.logger.log(`Callback URL: ${client.callbackURL}`);
-	passport.use(new Strategy({
-		clientID: client.config.dashboard.clientID,
-		clientSecret: client.config.dashboard.oauthSecret,
-		callbackURL: client.callbackURL,
-		scope: ['identify', 'guilds']
-	},
-	(accessToken, refreshToken, profile, done) => {
-		process.nextTick(() => done(null, profile));
-	}));
-
+	passport.use(
+		new Strategy(
+			{
+				clientID: client.config.dashboard.clientID,
+				clientSecret: client.config.dashboard.oauthSecret,
+				callbackURL: client.callbackURL,
+				scope: ['identify', 'guilds']
+			},
+			(accessToken, refreshToken, profile, done) => {
+				process.nextTick(() => done(null, profile));
+			}
+		)
+	);
 
 	// Session data, used for temporary storage of your visitor's session information.
 	// the `secret` is in fact a 'salt' for the data, and should not be shared publicly.
-	app.use(session({
-		secret: client.config.dashboard.sessionSecret,
-		resave: false,
-		saveUninitialized: false,
-	}));
+	app.use(
+		session({
+			secret: client.config.dashboard.sessionSecret,
+			resave: false,
+			saveUninitialized: false
+		})
+	);
 
 	// Initializes passport and session.
 	app.use(passport.initialize());
@@ -158,9 +213,17 @@ module.exports = (client) => {
 	// use in code.
 	var bodyParser = require('body-parser');
 	app.use(bodyParser.json()); // to support JSON-encoded bodies
-	app.use(bodyParser.urlencoded({ // to support URL-encoded bodies
-		extended: true
-	}));
+	app.use(
+		bodyParser.urlencoded({
+			// to support URL-encoded bodies
+			extended: true
+		})
+	);
+
+	app.use(function(req, res, next) {
+		req.active = req.path.split('/')[1]; // [0] will be empty since routes start with '/'
+		next();
+	});
 
 	/*
 	Authentication Checks. checkAuth verifies regular authentication,
@@ -180,13 +243,14 @@ module.exports = (client) => {
 	}
 
 	function checkAdmin(req, res, next) {
-		if (req.isAuthenticated() && req.user.id === client.config.ownerID) return next();
+		if (req.isAuthenticated() && req.user.id === client.config.ownerID)
+			return next();
 		req.session.backURL = req.originalURL;
 		res.redirect('/');
 	}
 
-	var privacyMD = '';
-	fs.readFile(`${process.cwd()}${path.sep}dashboard${path.sep}public${path.sep}PRIVACY.md`, function(err, data) {
+	/*var privacyMD = '';
+	fs.readFile(`${dataDir}${path.sep}public${path.sep}PRIVACY.md`, function(err, data) {
 		if (err) {
 			console.log(err);
 			privacyMD = 'Error';
@@ -199,46 +263,59 @@ module.exports = (client) => {
 	});
 
 	var termsMD = '';
-	fs.readFile(`${process.cwd()}${path.sep}dashboard${path.sep}public${path.sep}TERMS.md`, function(err, data) {
+	fs.readFile(`${dataDir}${path.sep}public${path.sep}TERMS.md`, function(err, data) {
 		if (err) {
 			console.log(err);
 			privacyMD = 'Error';
 			return;
 		}
 		termsMD = data.toString().replace(/\{\{botName\}\}/g, client.user.username).replace(/\{\{email\}\}/g, client.config.dashboard.legalTemplates.contactEmail);
-	});
+	});*/
 
 	// Index page. If the user is authenticated, it shows their info
 	// at the top right of the screen.
 	app.get('/', (req, res) => {
 		if (req.isAuthenticated()) {
-			res.render(path.resolve(`${templateDir}${path.sep}index.ejs`), {
-				bot: client,
-				auth: true,
-				user: req.user
-			});
+			res.render(
+				path.resolve(`${dataDir}${path.sep}views${path.sep}index.ejs`),
+				{
+					perms: Permissions,
+					bot: client,
+					auth: true,
+					user: req.user
+				}
+			);
 		} else {
-			res.render(path.resolve(`${templateDir}${path.sep}index.ejs`), {
-				bot: client,
-				auth: false,
-				user: null
-			});
+			res.render(
+				path.resolve(`${dataDir}${path.sep}views${path.sep}index.ejs`),
+				{
+					bot: client,
+					auth: false,
+					user: null
+				}
+			);
 		}
 	});
-
 
 	app.get('/stats', (req, res) => {
 		if (client.config.dashboard.protectStats === 'true') {
 			cAuth(req, res);
 		}
-		const duration = moment.duration(client.uptime).format(' D [days], H [hrs], m [mins], s [secs]');
+		const duration = moment
+			.duration(client.uptime)
+			.format(' D [days], H [hrs], m [mins], s [secs]');
 		//const members = client.guilds.reduce((p, c) => p + c.memberCount, 0);
-		const members = `${client.users.cache.filter(u => u.id !== '1').size} (${client.users.cache.filter(u => u.id !== '1').filter(u => u.bot).size} bots)`;
-		const textChannels = client.channels.cache.filter(c => c.type === 'text').size;
-		const voiceChannels = client.channels.cache.filter(c => c.type === 'voice').size;
+		const members = `${client.users.cache.filter(u => u.id !== '1').size} (${
+			client.users.cache.filter(u => u.id !== '1').filter(u => u.bot).size
+		} bots)`;
+		const textChannels = client.channels.cache.filter(c => c.type === 'text')
+			.size;
+		const voiceChannels = client.channels.cache.filter(c => c.type === 'voice')
+			.size;
 		const guilds = client.guilds.cache.size;
 		res.render(path.resolve(`${templateDir}${path.sep}stats.ejs`), {
 			bot: client,
+			perms: req.isAuthenticated() ? Permissions : null,
 			auth: req.isAuthenticated() ? true : false,
 			user: req.isAuthenticated() ? req.user : null,
 			stats: {
@@ -257,7 +334,6 @@ module.exports = (client) => {
 	});
 
 	app.get('/legal', function(req, res) {
-
 		md.setOptions({
 			renderer: new md.Renderer(),
 			gfm: true,
@@ -286,6 +362,7 @@ module.exports = (client) => {
 
 		res.render(path.resolve(`${templateDir}${path.sep}legal.ejs`), {
 			bot: client,
+			perms: req.isAuthenticated() ? Permissions : null,
 			auth: req.isAuthenticated() ? true : false,
 			user: req.isAuthenticated() ? req.user : null,
 			privacy: md(privacyMD),
@@ -296,42 +373,76 @@ module.exports = (client) => {
 
 	// The login page saves the page the person was on in the session,
 	// then throws the user to the Discord OAuth2 login page.
-	app.get('/login', (req, res, next) => {
-		if (req.session.backURL) {
-
-		} else if (req.headers.referer) {
-			const parsed = url.parse(req.headers.referer);
-			if (parsed.hostname === app.locals.domain) {
-				req.session.backURL = parsed.path;
+	app.get(
+		'/login',
+		(req, res, next) => {
+			if (req.session.backURL) {
+				req.session.backURL = req.session.backURL;
+			} else if (req.headers.referer) {
+				const parsed = url.parse(req.headers.referer);
+				if (parsed.hostname === app.locals.domain) {
+					req.session.backURL = parsed.path;
+				}
+			} else {
+				req.session.backURL = '/';
 			}
-		} else {
-			req.session.backURL = '/';
-		}
-		next();
-	},
-	passport.authenticate('discord'));
+			next();
+		},
+		passport.authenticate('discord')
+	);
 
-	app.get('/callback', passport.authenticate('discord', {
-		failureRedirect: '/'
-	}), (req, res) => {
-		if (req.session.backURL) {
-			res.redirect(req.session.backURL);
-			req.session.backURL = null;
-		} else {
-			res.redirect('/');
+	app.get(
+		'/callback',
+		passport.authenticate('discord', {
+			failureRedirect: '/'
+		}),
+		(req, res) => {
+			if (req.session.backURL) {
+				res.redirect(req.session.backURL);
+				req.session.backURL = null;
+			} else {
+				res.redirect('/');
+			}
 		}
-	});
+	);
 
 	app.get('/admin', checkAdmin, (req, res) => {
+		//const members = client.guilds.reduce((p, c) => p + c.memberCount, 0);
+		const memoryUsage = (process.memoryUsage().heapUsed / 1024 / 1024).toFixed(
+			2
+		);
+		const totalMemory = (process.memoryUsage().heapTotal / 1024 / 1024).toFixed(
+			2
+		);
 		res.render(path.resolve(`${templateDir}${path.sep}admin.ejs`), {
+			perms: Permissions,
 			bot: client,
 			user: req.user,
-			auth: true
+			auth: true,
+			stats: {
+				members: client.users.cache.filter(u => u.id !== '1').size,
+				bots: client.users.cache.filter(u => u.id !== '1').filter(u => u.bot)
+					.size,
+				text: client.channels.cache.filter(c => c.type === 'text').size,
+				voice: client.channels.cache.filter(c => c.type === 'voice').size,
+				servers: client.guilds.cache.size,
+				commands: client.commands.size,
+				uptime: moment
+					.duration(client.uptime)
+					.format(' D [d], H [h], m [m], s [s]'),
+				msgps: client.botMessagesSent / (client.uptime / 1000).toFixed(2),
+				memoryUsage: memoryUsage,
+				totalMemory: totalMemory,
+				memoryUsagePercent: parseInt((memoryUsage / totalMemory) * 100),
+				dVersion: Discord.version,
+				nVersion: process.version,
+				bVersion: client.config.version
+			}
 		});
 	});
 
-	app.get('/dashboard', checkAuth, (req, res) => {
-		res.render(path.resolve(`${templateDir}${path.sep}dashboard.ejs`), {
+	app.get('/servers', checkAuth, (req, res) => {
+		res.render(path.resolve(`${templateDir}${path.sep}servers.ejs`), {
 			perms: Permissions,
 			bot: client,
 			user: req.user,
@@ -342,114 +453,130 @@ module.exports = (client) => {
 	app.get('/add/:guildID', checkAuth, (req, res) => {
 		req.session.backURL = '/dashboard';
 		var invitePerm = client.config.dashboard.invitePerm;
-		var inviteURL = `https://discordapp.com/oauth2/authorize?client_id=${client.config.dashboard.clientID}&scope=bot&guild_id=${req.params.guildID}&response_type=code&redirect_uri=${encodeURIComponent(`${client.callbackURL}`)}&permissions=${invitePerm}`;
+		var inviteURL = `https://discordapp.com/oauth2/authorize?client_id=${
+			client.config.dashboard.clientID
+		}&scope=bot&guild_id=${
+			req.params.guildID
+		}&response_type=code&redirect_uri=${encodeURIComponent(
+			`${client.callbackURL}`
+		)}&permissions=${invitePerm}`;
 		if (client.guilds.cache.has(req.params.guildID)) {
-			res.send('<p>The bot is already there... <script>setTimeout(function () { window.location="/dashboard"; }, 1000);</script><noscript><meta http-equiv="refresh" content="1; url=/dashboard" /></noscript>');
+			res.send(
+				'<p>The bot is already there... <script>setTimeout(function () { window.location="/servers"; }, 1000);</script><noscript><meta http-equiv="refresh" content="1; url=/servers" /></noscript>'
+			);
 		} else {
 			res.redirect(inviteURL);
 		}
 	});
 
-	app.post('/manage/:guildID', checkAuth, (req, res) => {
+//------------------------ Dashboard Main Page -------------------------------------
+
+	app.post('/dashboard/:guildID', checkAuth, (req, res) => {
 		const guild = client.guilds.cache.get(req.params.guildID);
 		if (!guild) return res.status(404);
-		const isManaged = guild && !!guild.member(req.user.id) ? guild.member(req.user.id).permissions.has('MANAGE_GUILD') : false;
+		const isManaged =
+			guild && !!guild.member(req.user.id)
+				? guild.member(req.user.id).permissions.has('MANAGE_GUILD')
+				: false;
 		if (req.user.id === client.config.ownerID) {
 			console.log(`Admin bypass for managing server: ${req.params.guildID}`);
 		} else if (!isManaged) {
 			res.redirect('/');
 		}
+    
 		const settings = client.settings.get(guild.id);
-		for (const key in settings) {
-			var value = req.body[key];
-			//console.log(typeof value);
-			//console.log(value);
-			/*if (value.length > 1) {
-				for (var i = 0; i < value.length; i++) {
-					console.log(value[i]);
-					value[i] = value[i].replace(',', '');
-					console.log(value[i]);
-				}
-			} else {*/
-			if (value.indexOf(',') > -1) {
-				settings[key] = value.split(',');
-				//console.log('S: ' + settings[key]);
-				//console.log(typeof settings[key]);
-				//console.log('Split');
-				//console.log(typeof value);
-				//console.log(value);
 
-			} else if (key === "inviteWhitelist") {
-					var iWArray = [];
-					value = value.replace(/\s/g, '');
-					value.indexOf(',') > -1 ? iWArray = value.split(',') : iWArray.push(value);
-					settings[key] = iWArray;
-				} if (key === "swearWords") {
-					var sWArray = [];
-          value = value.replace(/\s/g, '');
-					value.indexOf(',') > -1 ? sWArray = value.split(',') : sWArray.push(value);
-          settings[key] = sWArray;
-				} else {
-					settings[key] = value;
-					//console.log(typeof value);
-					//console.log(value);
-				}
-			//settings[key] = req.body[key];
+		if (req.body.nickname) {
+			client.guilds.cache.get(req.params.guildID).members.cache.get(client.user.id).setNickname(req.body.nickname);
 		}
+		if (req.body.prefix) {
+			settings.prefix = req.body.prefix;
+		}
+		if (req.body.adminRole) {
+			settings.adminRole = req.body.adminRole;
+		}
+		if (req.body.modRole) {
+			settings.modRole = req.body.modRole;
+		}
+		if (!req.body.systemNotice) {
+			settings.systemNotice = "false"
+		} else {
+		  settings.systemNotice = "true"
+		}
+
+
 		client.settings.set(guild.id, settings);
-		res.redirect(`/manage/${req.params.guildID}`);
+		res.redirect(`/dashboard/${req.params.guildID}`);
 	});
 
-	app.get('/manage/:guildID', checkAuth, (req, res) => {
+	app.get('/dashboard/:guildID', checkAuth, (req, res) => {
 		const guild = client.guilds.cache.get(req.params.guildID);
 		if (!guild) return res.status(404);
-		const isManaged = guild && !!guild.member(req.user.id) ? guild.member(req.user.id).permissions.has('MANAGE_GUILD') : false;
+		const isManaged =
+			guild && !!guild.member(req.user.id)
+				? guild.member(req.user.id).permissions.has('MANAGE_GUILD')
+				: false;
 		if (req.user.id === client.config.ownerID) {
 			console.log(`Admin bypass for managing server: ${req.params.guildID}`);
 		} else if (!isManaged) {
-			res.redirect('/dashboard');
+			res.redirect('/servers');
 		}
-		res.render(path.resolve(`${templateDir}${path.sep}manage.ejs`), {
-			bot: client,
-			guild: guild,
-			user: req.user,
-			auth: true
-		});
+
+		res.render(
+			path.resolve(
+				`${templateDir}${path.sep}dashboard${path.sep}dashboard.ejs`
+			),
+			{
+				perms: Permissions,
+				bot: client,
+				guild: guild,
+				user: req.user,
+				auth: true
+			}
+		);
 	});
+
+//------------------------ Dashboard Modertion Page -------------------------------------
 
 	app.get('/leave/:guildID', checkAuth, async (req, res) => {
 		const guild = client.guilds.cache.get(req.params.guildID);
 		if (!guild) return res.status(404);
-		const isManaged = guild && !!guild.member(req.user.id) ? guild.member(req.user.id).permissions.has('MANAGE_GUILD') : false;
+		const isManaged =
+			guild && !!guild.member(req.user.id)
+				? guild.member(req.user.id).permissions.has('MANAGE_GUILD')
+				: false;
 		if (req.user.id === client.config.ownerID) {
 			console.log(`Admin bypass for managing server: ${req.params.guildID}`);
 		} else if (!isManaged) {
-			res.redirect('/dashboard');
+			res.redirect('/servers');
 		}
 		await guild.leave();
 		if (req.user.id === client.config.ownerID) {
 			return res.redirect('/admin');
 		}
-		res.redirect('/dashboard');
+		res.redirect('/servers');
 	});
 
 	app.get('/reset/:guildID', checkAuth, async (req, res) => {
 		const guild = client.guilds.cache.get(req.params.guildID);
 		if (!guild) return res.status(404);
-		const isManaged = guild && !!guild.member(req.user.id) ? guild.member(req.user.id).permissions.has('MANAGE_GUILD') : false;
+		const isManaged =
+			guild && !!guild.member(req.user.id)
+				? guild.member(req.user.id).permissions.has('MANAGE_GUILD')
+				: false;
 		if (req.user.id === client.config.ownerID) {
 			console.log(`Admin bypass for managing server: ${req.params.guildID}`);
 		} else if (!isManaged) {
-			res.redirect('/dashboard');
+			res.redirect('/servers');
 		}
 		client.settings.set(guild.id, client.config.defaultSettings);
-		res.redirect(`/manage/${req.params.guildID}`);
+		res.redirect(`/dashboard/${req.params.guildID}`);
 	});
-
 
 	app.get('/commands', (req, res) => {
 		if (req.isAuthenticated()) {
 			res.render(path.resolve(`${templateDir}${path.sep}commands.ejs`), {
+				perms: Permissions,
 				bot: client,
 				auth: true,
 				user: req.user,
@@ -470,14 +597,21 @@ module.exports = (client) => {
 		res.redirect('/');
 	});
 
-	app.get('*', function(req, res) { // Catch-all 404
-		res.send('<p>404 File Not Found. Please wait...<p> <script>setTimeout(function () { window.location = "/"; }, 1000);</script><noscript><meta http-equiv="refresh" content="1; url=/" /></noscript>');
+	app.get('*', function(req, res) {
+		// Catch-all 404
+		res.send(
+			'<p>404 File Not Found. Please wait...<p> <script>setTimeout(function () { window.location = "/"; }, 1000);</script><noscript><meta http-equiv="refresh" content="1; url=/" /></noscript>'
+		);
 	});
 
-	client.site = app.listen(client.config.dashboard.port, function() {
-		client.logger.log(`Dashboard and API running on port ${client.config.dashboard.port}`);
-	}).on('error', (err) => {
-		client.logger.log('ERROR', `Error with starting dashboard: ${err.code}`);
-		return process.exit(0);
-	});
+	client.site = app
+		.listen(client.config.dashboard.port, function() {
+			client.logger.log(
+				`Dashboard and API running on port ${client.config.dashboard.port}`
+			);
+		})
+		.on('error', err => {
+			client.logger.log('ERROR', `Error with starting dashboard: ${err.code}`);
+			return process.exit(0);
+		});
 };

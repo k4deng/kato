@@ -54,4 +54,4 @@ kato is in a continuous state of development. New features/updates may come at a
 
 ## Credits
 * **[k4deng#2003](https://k4deng.ml)** - *Main developer and Everything*
-* **[✨SparkleBoy✨#6815](https://www.youtube.com/channel/UCvQ4VTIAC0kHNf5vYM0767w)** - *Profile Pitcure + Bot's name*
+* **[✨SparkleBoy✨#6815](https://www.youtube.com/channel/UCvQ4VTIAC0kHNf5vYM0767w)** - *Profile Picture + Bot's name + some random code bits*
