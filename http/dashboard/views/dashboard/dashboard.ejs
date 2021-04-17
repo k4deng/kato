@@ -104,7 +104,7 @@
             <form method="post">
               <div class="card-body">
 
-                <% const settings = bot.settings.get(guild.id) || bot.settings.get("defualt"); %>
+                <% const settings = bot.getSettings(guild) %>
                 
                 <div class="form-group">
                   <h5><b>Nickname</b></h5>
@@ -115,7 +115,7 @@
                 <div class="form-group">
                   <h5><b>Prefix</b></h5>
                   <p class="">Sets the bots prefix in <%= guild.name %></p>
-                  <input type="text" class="form-control" name="prefix" placeholder="j!" value="<%= settings.prefix %>">
+                  <input type="text" class="form-control" name="prefix" placeholder="<%= bot.settings.get("default").prefix %>" value="<%= settings.prefix %>">
                 </div>
 
                 <div class="form-group">
@@ -125,9 +125,9 @@
                     <option value="AdministratorRole" <% if (!settings.adminRole  || settings.adminRole === "AdministratorRole") { %> selected <% } else { %> disabled <% } %> >Please select a role</option>
                     <% for (i = 0; i < guild.roles.cache.array().length; i++) { %>
                       <% if (guild.roles.cache.array()[i].name == settings.adminRole) { %>
-                        <option value=<%= guild.roles.cache.array()[i].name%> selected><%= guild.roles.cache.array()[i].name%></option>
+                        <option value=<%= guild.roles.cache.array()[i].name %> selected><%= guild.roles.cache.array()[i].name%></option>
                       <% } else { %>
-                        <option value=<%= guild.roles.cache.array()[i].name%>><%= guild.roles.cache.array()[i].name%></option>
+                        <option value=<%= guild.roles.cache.array()[i].name %>><%= guild.roles.cache.array()[i].name%></option>
                       <% } %>
                     <% } %>
                   </select>
@@ -140,9 +140,9 @@
                     <option value="ModeratorRole" <% if (!settings.modRole || settings.modRole === "ModeratorRole") { %> selected <% } else { %> disabled <% } %> >Please select a role</option>
                     <% for (i = 0; i < guild.roles.cache.array().length; i++) { %>
                       <% if (guild.roles.cache.array()[i].name == settings.modRole) { %>
-                        <option value=<%= guild.roles.cache.array()[i].name%> selected><%= guild.roles.cache.array()[i].name%></option>
+                        <option value=<%= guild.roles.cache.array()[i].name %> selected><%= guild.roles.cache.array()[i].name%></option>
                       <% } else { %>
-                        <option value=<%= guild.roles.cache.array()[i].name%>><%= guild.roles.cache.array()[i].name%></option>
+                        <option value=<%= guild.roles.cache.array()[i].name %>><%= guild.roles.cache.array()[i].name%></option>
                       <% } %>
                     <% } %>
                   </select>

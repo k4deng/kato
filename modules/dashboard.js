@@ -139,13 +139,14 @@ module.exports = client => {
 
 	app.use('/pages', express.static(path.resolve(`${dataDir}${path.sep}pages`)));
 
-	// uhhhh check what these do.
-	passport.serializeUser((user, done) => {
-		done(null, user);
-	});
-	passport.deserializeUser((obj, done) => {
-		done(null, obj);
-	});
+  // These are... internal things related to passport. Honestly I have no clue either.
+  // Just leave 'em there.
+  passport.serializeUser((user, done) => {
+    done(null, user);
+  });
+  passport.deserializeUser((obj, done) => {
+    done(null, obj);
+  });
 
 	/*
 	This defines the **Passport** oauth2 data. A few things are necessary here.
@@ -484,7 +485,7 @@ module.exports = client => {
 			res.redirect('/');
 		}
     
-		const settings = client.settings.get(guild.id);
+		const settings = client.getSettings(guild);
 
 		if (req.body.nickname) {
 			client.guilds.cache.get(req.params.guildID).members.cache.get(client.user.id).setNickname(req.body.nickname);
@@ -536,7 +537,7 @@ module.exports = client => {
 		);
 	});
 
-//------------------------ Dashboard Modertion Page -------------------------------------
+//------------------------ Dashboard Moderation Page -------------------------------------
 
 	app.get('/leave/:guildID', checkAuth, async (req, res) => {
 		const guild = client.guilds.cache.get(req.params.guildID);
@@ -569,7 +570,7 @@ module.exports = client => {
 		} else if (!isManaged) {
 			res.redirect('/servers');
 		}
-		client.settings.set(guild.id, client.config.defaultSettings);
+		client.settings.delete(guild.id);
 		res.redirect(`/dashboard/${req.params.guildID}`);
 	});
 
@@ -592,10 +593,14 @@ module.exports = client => {
 		}
 	});
 
-	app.get('/logout', function(req, res) {
-		req.logout();
-		res.redirect('/');
-	});
+
+  // Destroys the session to log out the user.
+  app.get("/logout", function(req, res) {
+    req.session.destroy(() => {
+      req.logout();
+      res.redirect("/");
+    });
+  });
 
 	app.get('*', function(req, res) {
 		// Catch-all 404

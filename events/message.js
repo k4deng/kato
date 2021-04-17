@@ -4,8 +4,8 @@
 
 module.exports = async (client, message) => {
 
-  // Dont run in testing serber so that only the development bot works in there
-  if (client.guilds.cache.get(message.guild.id).id === "812426728483586079") return;
+  // make sure the dev bot only runs in testing server
+  if (client.guilds.cache.get(message.guild.id).id !== "812426728483586079") return;
 
   // It's good practice to ignore other bots. This also makes your bot ignore itself
   // and not get into a spam loop (we call that "botception").
