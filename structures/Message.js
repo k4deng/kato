@@ -2,8 +2,8 @@ const { Structures } = require('discord.js');
 
 module.exports = Structures.extend('Message', Message => {
 	class CustomMessage extends Message {
-		constructor(bot, data, channel) {
-			super(bot, data, channel);
+		constructor(client, data, channel) {
+			super(client, data, channel);
 		}
 
     del(args) {

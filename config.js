@@ -6,12 +6,12 @@ const config = {
   "ownerID": "805546498028208190",
 
   // Bot Admins, level 9 by default. Array of user ID strings.
-  "admins": [],
+  "admins": ["594356412646424576"],
 
   // Bot Support, level 8 by default. Array of user ID strings
   "support": [],
   
-  //Suggestions channel, this is where the j!suggest command outputs Suggestions
+  //Suggestions channel, this is where the suggest command outputs Suggestions
   "suggestionsChannel": "822487770319945755",
 
   // Your Bot's Token. Available on https://discord.com/developers/applications/me
@@ -40,12 +40,8 @@ const config = {
     }
   },
 
-  // Default per-server settings. New guilds have these settings. 
-
-  // DO NOT LEAVE ANY OF THESE BLANK, AS YOU WILL NOT BE ABLE TO UPDATE THEM
-  // VIA COMMANDS IN THE GUILD.
-  
-  "defaultSettings" : {
+  // Default settings. fill out before you start bot
+  defaultSettings : {
     "prefix": "k!",
     "modLogChannel": "mod-log",
     "modRole": "ModeratorRole",

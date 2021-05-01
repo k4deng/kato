@@ -11,7 +11,18 @@ module.exports = async client => {
     client.owners = [];
     client.application = await client.fetchApplication();
     client.application.team ? client.owners.push(...client.application.team.members.keys()) : client.owners.push(client.application.owner.id);
+    client.application.description = client.application.description
+      .replace('{{username}}', client.user.username)
+      .replace('{{users}}', client.users.cache.size)
+      .replace('{{servers}}', client.guilds.cache.size);
   }, 60000);
+
+  // Check whether the "Default" guild settings are loaded in the enmap.
+  // If they're not, write them in. This should only happen on first load.
+  if (!client.settings.has("default")) {
+    if (!client.config.defaultSettings) throw new Error("defaultSettings not preset in config.js or settings database. Bot cannot load.");
+    client.settings.set("default", client.config.defaultSettings);
+  }
 
   // Make the bot status "Watching" which is the help command with default prefix.
   client.user.setActivity(`${client.settings.get("default").prefix}help`, {type: "WATCHING"});
@@ -24,24 +35,4 @@ module.exports = async client => {
 		console.log(err);
   }
 
-  // Were gonna go and set the bots nickname to "[prefix] JiroBot" with the correct prefix for each server its in.
-  /*const guildsArray = client.guilds.cache.map(guild => guild.id);
-  for (let i = 0; i < guildsArray.length; i++){
-    try {
-      const guild = client.guilds.cache.get(guildsArray[i]);
-      const prefix = client.settings.get(`${guildsArray[i]}`).prefix || client.settings.get("default").prefix;
-      
-      if (client.settings.get(`${guildsArray[i]}`).prefix){
-        const prefix = client.settings.get(`${guildsArray[i]}`).prefix;
-      } else {
-        const prefix = client.settings.get("default").prefix;
-      }
-      
-      //guilds.cache.array()[i].me.setNickname(`[${prefix}] JiroBot`)
-      console.log(prefix)
-    } catch (e) {
-      console.log(e);
-      return;
-    }
-  };*/
 };
