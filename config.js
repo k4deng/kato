@@ -6,7 +6,7 @@ const config = {
   "ownerID": "805546498028208190",
 
   // Bot Admins, level 9 by default. Array of user ID strings.
-  "admins": ["594356412646424576"],
+  "admins": ["686964467086524436"],
 
   // Bot Support, level 8 by default. Array of user ID strings
   "support": [],
