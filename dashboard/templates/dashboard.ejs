@@ -22,7 +22,7 @@
       } else {
         href = `/add/${guild.id}`;
         text = "Invite Bot";
-        enabled = user.id === bot.config.ownerID || bot.appInfo.botPublic;
+        enabled = user.id === bot.config.ownerID/* || bot.appInfo.botPublic;*/
       }
       %>
       <a class="btn btn-primary btn-lg<% if(!enabled) { %> disabled<% } %>" role="button" href="<%= href %>">
