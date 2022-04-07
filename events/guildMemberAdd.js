@@ -8,12 +8,9 @@ module.exports = (client, member) => {
   if (settings.welcomeEnabled !== "true") return;
 
   // Replace the placeholders in the welcome message with actual data
-  const welcomeMessage = settings.welcomeMessage.replace("{{user}}", member.user.tag).replace("{{join}}","<a:join:816009748935344168>");
+  const welcomeMessage = settings.welcomeMessage.replace("{{user}}", member.user.tag);
 
   // Send the welcome message to the welcome channel
   // There's a place for more configs here.
-  const channel = member.guild.channels.cache.find(channel => channel.type === 'text' && channel.permissionsFor(member.guild.me).has('SEND_MESSAGES'));
-  if (!member.guild.channels.cache.get(settings.welcomeChannel)) return channel.send(`Sorry to bother you in this channel, but your welcomeChannel id is wrong! Please check your value with \`${settings.prefix}settings help\`.`);
-
-  member.guild.channels.cache.get(settings.welcomeChannel).send(welcomeMessage).catch(console.error);
+  member.guild.channels.cache.find(c => c.name === settings.welcomeChannel).send(welcomeMessage).catch(console.error);
 };
