@@ -25,7 +25,7 @@ module.exports = async (client, interaction) => {
   if (level < client.container.levelCache[cmd.conf.permLevel]) {
     // Due to the nature of interactions we **must** respond to them otherwise
     // they will error out because we didn't respond to them.
-    var embed = error(`This command can only be used by ${cmd.conf.permLevel}s only`, interaction, false, true)
+    var embed = error(`This command can only be used by ${cmd.conf.permLevel}s only`, interaction, false, true);
     return await interaction.reply({
       //content: `This command can only be used by ${cmd.conf.permLevel}'s only`,
       embeds: [embed],

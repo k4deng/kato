@@ -1,5 +1,4 @@
 const { MessageEmbed } = require('discord.js');
-const { settings } = require("../../modules/settings.js");
 
 exports.run = async (client, interaction) => { // eslint-disable-line no-unused-vars
   

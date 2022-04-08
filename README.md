@@ -53,4 +53,4 @@ kato is in a continuous state of development. New features/updates may come at a
   * many stuffs
 
 ## Credits
-* **[k4deng#2003](https://k4deng.ml)** - *Main developer and Everything*
+* **[k4deng#2003](https://k4deng.net)** - *Main developer and Everything*

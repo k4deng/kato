@@ -15,7 +15,7 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
       .setDescription(joke)
       .setColor("RANDOM");
     
-    await interaction.reply({ embeds: [embed] })
+    await interaction.reply({ embeds: [embed] });
   } catch (err) {
     logger.error(err.stack);
     messages.error("Please try again in a few seconds", interaction, true);

@@ -19,7 +19,6 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
   const serverSettings = interaction.settings;
   const defaults = settings.get("default");
   const overrides = settings.get(interaction.guild.id);
-  const replying = serverSettings.commandReply;
   if (!settings.has(interaction.guild.id)) settings.set(interaction.guild.id, {});
 
   await interaction.deferReply();
@@ -64,11 +63,11 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
     if (conf == true) {
       // We delete the `key` here.
       settings.delete(interaction.guild.id, key);
-      var embed = messages.success(`\`${key}\` was successfully reset to default.`, interaction, false, true)
-      await interaction.editReply({ embeds: [embed], content: " ", components: [] });;
+      var embed = messages.success(`\`${key}\` was successfully reset to default.`, interaction, false, true);
+      await interaction.editReply({ embeds: [embed], content: " ", components: [] });
     } else if (conf == false) {
       // They did not click the button so we cancel.
-      var embed = messages.error(`Your setting for \`${key}\` remains at \`${serverSettings[key]}\``, interaction, false, true)
+      var embed = messages.error(`Your setting for \`${key}\` remains at \`${serverSettings[key]}\``, interaction, false, true);
       await interaction.editReply({ embeds: [embed], content: " ", components: [] });
     }
   } else
