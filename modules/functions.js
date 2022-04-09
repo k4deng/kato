@@ -1,6 +1,6 @@
 const logger = require("./logger.js");
 const config = require("../config.js");
-const { settings } = require("./settings.js");
+const { settings, points } = require("./settings.js");
 // Let's start by getting some useful functions that we'll use throughout
 // the bot, like logs and elevation features.
 
@@ -43,6 +43,21 @@ function getSettings(guild) {
   // This "..." thing is the "Spread Operator". It's awesome!
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax
   return ({...settings.get("default"), ...guildConf});
+}
+
+// same but with points
+function getPoints(user, guild) {
+  points.ensure(`${guild.id}-${user.id}`, {
+    guild: guild.id,
+    user: user.id,
+    points: 0,
+    level: 1
+  });
+  
+  const guildConf = points.get(guild.id) || {};
+  // This "..." thing is the "Spread Operator". It's awesome!
+  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax
+  return (points.get(`${guild.id}-${user.id}`));
 }
 
 /*
@@ -103,4 +118,4 @@ process.on("unhandledRejection", err => {
   console.error(err);
 });
 
-module.exports = { getSettings, permlevel, awaitReply, awaitButton, toProperCase };
+module.exports = { getSettings, getPoints, permlevel, awaitReply, awaitButton, toProperCase };

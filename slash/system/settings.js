@@ -73,17 +73,19 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
   } else
     
   if (action === "view") {
-    if (!defaults[key]) return messages.error("This key does not exist in the settings", interaction);
-    const isDefault = !overrides[key] ? "\nThis is the default global default value." : "";
-    messages.success(`The value of \`${key}\` is currently \`${serverSettings[key]}\`${isDefault}`, interaction);
-  } else {
-    // Otherwise, the default action is to return the whole configuration;
-    const array = [];
-    Object.entries(serverSettings).forEach(([key, value]) => {
-      array.push(`${key}${" ".repeat(20 - key.length)}::  ${value}`); 
-    });
-    await interaction.reply(codeBlock("asciidoc", `= Current Guild Settings =
-${array.join("\n")}`));    
+    if (key){
+      if (!defaults[key]) return messages.error("This key does not exist in the settings", interaction);
+      const isDefault = !overrides[key] ? "\nThis is the default global default value." : "";
+      messages.success(`The value of \`${key}\` is currently \`${serverSettings[key]}\`${isDefault}`, interaction);
+    } else {
+      // Otherwise, the default action is to return the whole configuration;
+      const array = [];
+      Object.entries(serverSettings).forEach(([key, value]) => {
+        array.push(`${key}${" ".repeat(20 - key.length)}::  ${value}`); 
+      });
+      await interaction.editReply(codeBlock("asciidoc", `= Current Server Settings =
+  ${array.join("\n")}`));    
+    }
   }
 };
 
@@ -98,7 +100,7 @@ exports.commandData = {
       name: 'key',
       type: 'STRING',
       description: 'desc',
-      required: true,
+      required: false,
     }],
   },
   {

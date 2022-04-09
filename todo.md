@@ -2,14 +2,10 @@
 - admin commands
   - conf
   - deploy
-  - eval
   - reboot/shutdown
-  - reload
-- suggest
 - help
 
 ## must to before release
-- leveling/points
 - basic moderation (ban, kick, etc.)
   - ban
   - kick

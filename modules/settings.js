@@ -6,4 +6,7 @@ module.exports = {
   settings: new Enmap({
     name: "settings",
   }),
+  points: new Enmap({
+    name: "points",
+  }),
 };

@@ -8,7 +8,7 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
     .addFields(
       { name: '**What can kato do?**', value: '*If anything is marked as Coming soon!, then it may not be fully complete, and is only planned for the future.*' },
       { name: ':shield: Moderation', value: '*Coming soon!*\nProtect your server with features like revive, editrevive and more!', inline: true },
-      { name: '<:purple:813181112754503751> Leveling', value: '*Coming soon!*\nEarn points that sync between all your servers and brag about all the points you have!', inline: true },
+      { name: '<:purple:813181112754503751> Leveling', value: 'Earn points for talking in your server and brag about all the points you have to your friends!', inline: true },
       { name: ':gear: Automation', value: '*Coming soon!*\nAutomatically do things, like welcome messages, moderation, and polls!', inline: true },
       { name: '\u200B', value: '**More information**\nWant to know more about kato? Keep reading below!' },
       { name: 'About the creator', value: 'kato was made by k4deng to help his discord server. You can find k4deng here: [k4deng.net](https://k4deng.net)', inline: true },
