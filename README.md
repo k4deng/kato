@@ -8,12 +8,11 @@
 
 
 <div align=center>
-
- [![Discord](https://img.shields.io/discord/822487769816367114.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.com/invite/VERRW3TEUD)
-![GitHub commit activity](https://img.shields.io/github/commit-activity/m/k4deng/kato)
+  
+[![Discord](https://img.shields.io/discord/822487769816367114.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.com/invite/VERRW3TEUD)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/m/k4deng/kato/v13)
 [![CodeFactor](https://www.codefactor.io/repository/github/k4deng/kato/badge/v13)](https://www.codefactor.io/repository/github/k4deng/kato/overview/v13)
 ![Website](https://img.shields.io/website?down_color=red&down_message=offline&up_color=green&up_message=online&url=https://katobot.tk)
-
 </div>
 
 <p align="center">
@@ -32,19 +31,18 @@ If you liked this repository, feel free to leave a star ⭐ to help promote kato
 
 ## Features
 
-**21** commands and counting across **5** different categories!
+**13** commands and counting across **5** different categories!
 
-*   🎉  **Fun**: `meme`, `clap`! 
-*   💬  **Info**: `emojilist`, `mylevel`, `todo`, `help`, and **3** more! 
-*   👑  **System**: `reload`, `shutdown`, `suggest`, `eval` and **4** more! 
-*   🚓  **Moderation**: `clear`, `editrevive`, `revive`! 
-*   ❔  **Reaction**: `poll`!
+*   🎉  **Fun**: `yomomma`, `clap`! 
+*   💬  **Info**: `emojilist`, `mylevel`, `about`! 
+*   👑  **System**: `reload`, `settings`, `suggest`, `eval`! 
+*   💠  **Points**: `rank`, `leaderboard`! 
+*   ❔   **Misc**: `ping`, `stats`, `uptime`!
 
 kato also comes packed with a variety of features, such as:
 
-  * **Welcome messages**.
-  * And much more! There are over **6+** settings to tweak!
-
+  * **Leveling & Points**, **Welcome Messages**.
+  * And much more! There are over **9+** settings to tweak!
 
 ## To-Do
 

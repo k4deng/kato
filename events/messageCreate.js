@@ -2,10 +2,10 @@ const logger = require("../modules/logger.js");
 const { getSettings, permlevel } = require("../modules/functions.js");
 const { points } = require("../modules/settings.js");
 const config = require("../config.js");
+const cooldown = new Set();
 
-let cooldown = new Set();
 function between(min, max) { 
-  return Math.floor(Math.random() * (max - min + 1) + min)
+  return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
 // The MESSAGE event runs anytime a message is received
@@ -37,7 +37,7 @@ module.exports = async (client, message) => {
   const prefix = new RegExp(`^<@!?${client.user.id}> |^\\${settings.prefix}`).exec(message.content);
 
   // Points system
-  if (message.guild && !prefix){
+  if (message.guild && !prefix) {
     const key = `${message.guild.id}-${message.author.id}`;
     // Make sure there are defualts for all new users
     points.ensure(key, {
@@ -49,12 +49,12 @@ module.exports = async (client, message) => {
 
     // if the user isnt on cooldown, give them the random points
     if (!cooldown.has(key))
-      points.math(key, "+", between(config.points.xpMin, config.points.xpMax), "points")
+      points.math(key, "+", between(config.points.xpMin, config.points.xpMax), "points");
 
     var dblevel = points.get(key, "level");
     // calculate if points needed for next level is more than user currently has
     // and if so level them up :)
-    var xpNeed = 2*Math.pow(dblevel+1, 3)+25 
+    var xpNeed = 2*Math.pow(dblevel+1, 3)+25;
     if (points.get(key, "points") >= xpNeed) {
       var newLevel = dblevel + 1;
       message.reply(settings.levelMessage.replace('{user}', message.author).replace('{level}', newLevel));

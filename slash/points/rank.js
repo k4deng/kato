@@ -1,13 +1,14 @@
 const { getPoints } = require("../../modules/functions.js");
 const { points } = require("../../modules/settings.js");
 const { error } = require("../../modules/messages.js");
+const { themeColor } = require("../../config.js");
 const { Rank: rank } = require('canvacord');
 
 exports.run = async (client, interaction) => { // eslint-disable-line no-unused-vars
   var user = interaction.guild.members.cache.get(interaction.options.get('user')?.value) ?? interaction.member;
   
   var key = `${interaction.guild.id}-${user.user.id}`;
-  if (user.user?.bot) return error("You cannot get the points of a bot, silly.", interaction);
+  if (user.user?.bot) return error("You cannot get the rank of a bot, silly.", interaction);
   if (!points.has(key)) return error(`${user.user.id == interaction.member.id ? 'You dont' : 'That user doesnt'} have any data.`, interaction);
   
   const res = await createRankCard(interaction.guild, user);
@@ -32,7 +33,7 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
 			.setRequiredXP(2*Math.pow(user.level + 1, 3)+25)
 			.setStatus(target.presence?.status ?? 'offline', true)
       //.setCustomStatusColor('#FFA800') -for theme color if wanted later
-			.setProgressBar(['#FFFFFF', '#FFA800'], 'GRADIENT')
+			.setProgressBar(['#FFFFFF', themeColor], 'GRADIENT')
 			.setUsername(target.user.username)
 			.setDiscriminator(target.user.discriminator);
     

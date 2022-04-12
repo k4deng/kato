@@ -1,5 +1,3 @@
-const config = require("../../config.js");
-const { settings } = require("../../modules/settings.js");
 const messages = require("../../modules/messages.js");
 
 exports.run = async (client, interaction) => { // eslint-disable-line no-unused-vars

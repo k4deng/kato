@@ -1,7 +1,6 @@
-const { getPoints } = require("../../modules/functions.js");
 const { points } = require("../../modules/settings.js");
-const { error } = require("../../modules/messages.js");
 const { MessageEmbed } = require('discord.js');
+const { themeColor } = require("../../config.js");
 
 exports.run = async (client, interaction) => { // eslint-disable-line no-unused-vars 
   await interaction.deferReply();
@@ -10,6 +9,7 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
 
   var embed = new MessageEmbed()
     .setTitle('Leaderboard')
+    .setColor(themeColor);
 
   if (!res[0]) {
     // If there no results

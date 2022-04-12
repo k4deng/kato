@@ -1,5 +1,6 @@
 const { MessageEmbed } = require('discord.js');
 const { settings } = require("../../modules/settings.js");
+const { points } = require("../../modules/settings.js");
 const logger = require("../../modules/logger.js");
 const messages = require("../../modules/messages.js");
 

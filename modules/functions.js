@@ -51,12 +51,9 @@ function getPoints(user, guild) {
     guild: guild.id,
     user: user.id,
     points: 0,
-    level: 1
+    level: 0
   });
-  
-  const guildConf = points.get(guild.id) || {};
-  // This "..." thing is the "Spread Operator". It's awesome!
-  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax
+
   return (points.get(`${guild.id}-${user.id}`));
 }
 

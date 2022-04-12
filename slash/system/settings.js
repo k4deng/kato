@@ -73,7 +73,7 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
   } else
     
   if (action === "view") {
-    if (key){
+    if (key) {
       if (!defaults[key]) return messages.error("This key does not exist in the settings", interaction);
       const isDefault = !overrides[key] ? "\nThis is the default global default value." : "";
       messages.success(`The value of \`${key}\` is currently \`${serverSettings[key]}\`${isDefault}`, interaction);

@@ -18,13 +18,16 @@
 
 ## not urgent
 - music system
+- leveling improvements
+  - no announcement/reply/choosen channel options
+  - ignore roles & ignore channels
+  - multiplier
 - idk commands
   - reverse message
   - random color
   - spaces inbetween text like clap
   - random caps/mock
 - system commands
-  - uptime
   - invite link
 - fun commands
   - coin flip
@@ -34,8 +37,6 @@
   - fact
   - meme
 - server commands
-  - server icon
-  - avatar
   - role info
   - server info
   - user info

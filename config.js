@@ -12,6 +12,9 @@ const config = {
   // Partials your bot may need should go here, CHANNEL is required for DM's
   partials: ["CHANNEL"],
 
+  // The hex code "color" of your bot. used for embeds and leveling and other things
+  "themeColor": "#FFA800",
+
   // Bot Admins, level 9 by default. Array of user ID strings.
   "admins": [],
 
@@ -27,6 +30,9 @@ const config = {
     "xpMin": 1,
     "xpMax": 10
   },
+
+  // This will spam your console if you enable this but will help with bug fixing
+	"debug": false,
   
   /*
   * Default per-server settings. These settings are entered in a database on first load, 
