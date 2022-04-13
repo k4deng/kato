@@ -34,9 +34,10 @@ If you liked this repository, feel free to leave a star ⭐ to help promote kato
 **13** commands and counting across **5** different categories!
 
 *   🎉  **Fun**: `yomomma`, `clap`! 
-*   💬  **Info**: `emojilist`, `mylevel`, `about`! 
+*   💬  **Info**: `mylevel`, `about`!
+*   💠  **Points**: `rank`, `leaderboard`!
+*   😎  **Server**: `avatar`, `emojilist`, `servericon`, `serverinfo` and **2** more! 
 *   👑  **System**: `reload`, `settings`, `suggest`, `eval`! 
-*   💠  **Points**: `rank`, `leaderboard`! 
 *   ❔   **Misc**: `ping`, `stats`, `uptime`!
 
 kato also comes packed with a variety of features, such as:

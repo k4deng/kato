@@ -27,10 +27,10 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
 		// create rank card
 		const rankcard = new rank()
 			.setAvatar(target.user.displayAvatarURL({ format: 'png', dynamic: true, size: 1024 }))
-			.setCurrentXP(user.points)
+			.setCurrentXP(user.points-(2*Math.pow(user.level, 3)+25))
 			.setLevel(user.level)
 			.setRank(rankScore + 1)
-			.setRequiredXP(2*Math.pow(user.level + 1, 3)+25)
+			.setRequiredXP((2*Math.pow(user.level + 1, 3)+25)-(2*Math.pow(user.level, 3)+25))
 			.setStatus(target.presence?.status ?? 'offline', true)
       //.setCustomStatusColor('#FFA800') -for theme color if wanted later
 			.setProgressBar(['#FFFFFF', themeColor], 'GRADIENT')
