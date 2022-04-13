@@ -1,5 +1,5 @@
 const { MessageEmbed } = require('discord.js');
-const { toProperCase } = require("../../modules/functions.js")
+const { toProperCase } = require("../../modules/functions.js");
 const moment = require('moment');
 
 exports.run = async (client, interaction) => { // eslint-disable-line no-unused-vars

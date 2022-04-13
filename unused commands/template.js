@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 const { MessageEmbed } = require('discord.js');
 const { settings } = require("../../modules/settings.js");
 const { points } = require("../../modules/settings.js");

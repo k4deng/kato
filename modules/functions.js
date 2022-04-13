@@ -80,10 +80,10 @@ async function awaitButton(interaction, id, limit = 60000) {
   const filter = i => (i.customId === id && i.user.id === interaction.user.id);
   try {
     const collected = await interaction.channel.awaitMessageComponent({ filter, time: limit })
-      .then(i => {
+      .then(() => {
         return true;
       })
-      .catch(err => {
+      .catch(() => {
         return false;
       });
     return collected;

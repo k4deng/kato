@@ -22,7 +22,6 @@
   - no announcement/reply/choosen channel options
   - ignore roles & ignore channels
   - multiplier
-  - change rank to only show needed xp not total xp
 - idk commands
   - reverse message
   - random color

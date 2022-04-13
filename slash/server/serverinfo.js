@@ -14,7 +14,7 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
   // Send server information
   const member = interaction.guild.members.cache;
   const embed = new MessageEmbed()
-    .setAuthor(`${guild.name}\'s server info`, guild.iconURL())
+    .setAuthor(`${guild.name}'s server info`, guild.iconURL())
     .setColor(themeColor)
     .setThumbnail(guild.iconURL())
     .addField('__**Generic**__', `

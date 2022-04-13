@@ -67,8 +67,8 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
       await interaction.editReply({ embeds: [embed], content: " ", components: [] });
     } else if (conf == false) {
       // They did not click the button so we cancel.
-      var embed = messages.error(`Your setting for \`${key}\` remains at \`${serverSettings[key]}\``, interaction, false, true);
-      await interaction.editReply({ embeds: [embed], content: " ", components: [] });
+      var embed2 = messages.error(`Your setting for \`${key}\` remains at \`${serverSettings[key]}\``, interaction, false, true);
+      await interaction.editReply({ embeds: [embed2], content: " ", components: [] });
     }
   } else
     
