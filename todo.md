@@ -36,7 +36,3 @@
   - advice
   - fact
   - meme
-- server commands
-  - role info
-  - server info
-  - user info

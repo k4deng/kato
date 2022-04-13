@@ -3,7 +3,6 @@ const { error } = require("../../modules/messages.js");
 const { themeColor } = require("../../config.js");
 
 exports.run = async (client, interaction) => { // eslint-disable-line no-unused-vars
-  const channel = interaction.guild.channels.cache.get(interaction.guild.id);
   // Check for guild icon & send message
   if (interaction.guild.icon) {
     const embed = new MessageEmbed()
@@ -19,7 +18,7 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
 
 exports.commandData = {
   name: "servericon",
-  description: "Get the server\'s icon.",
+  description: "Get the server's icon.",
   options: [],
   defaultPermission: true,
 };

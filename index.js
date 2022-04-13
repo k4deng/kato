@@ -16,12 +16,12 @@ const logger = require("./modules/logger.js");
 const client = new Client({ intents, partials });
 
 // Here we start up a webserver to keep the bot online 24/7 with replit
-const express = require("express")
+const express = require("express");
 express().get("/", (req, res) => {
-  res.send("Bot is online! | Created by k4deng#2003")
+  res.send("Bot is online! | Created by k4deng#2003");
 }).listen(3000, () => {
   logger.log(`Web server started!`, "ready");
-})
+});
 
 // Aliases, commands and slash commands are put in collections where they can be
 // read from, catalogued, listed, etc.
