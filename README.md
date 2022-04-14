@@ -31,7 +31,7 @@ If you liked this repository, feel free to leave a star ⭐ to help promote kato
 
 ## Features
 
-**13** commands and counting across **5** different categories!
+**19** commands and counting across **6** different categories!
 
 *   🎉  **Fun**: `yomomma`, `clap`! 
 *   💬  **Info**: `mylevel`, `about`!

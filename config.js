@@ -21,8 +21,11 @@ const config = {
   // Bot Support, level 8 by default. Array of user ID strings
   "support": [],
   
-  //Suggestions channel, this is where the suggest command outputs Suggestions
+  // Suggestions channel, this is where the suggest command outputs Suggestions
   "suggestionsChannel": "822487770319945755",
+
+  // Channel to post rate limits to
+  "rateLimitChannelID": "964162431985254450",
   
   // Points
   "points": {
