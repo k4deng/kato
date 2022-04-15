@@ -38,6 +38,11 @@ module.exports = async (client, message) => {
 
   // Points system
   if (message.guild && !prefix) {
+    if (settings.levelIgnoreChannel?.includes(message.channel.id)) return;
+    
+    const roles = message.member.roles.cache.map(r => r.id);
+		if (roles.some(r => settings.levelIgnoreRoles?.includes(r))) return;
+    
     const key = `${message.guild.id}-${message.author.id}`;
     // Make sure there are defualts for all new users
     points.ensure(key, {
@@ -49,7 +54,7 @@ module.exports = async (client, message) => {
 
     // if the user isnt on cooldown, give them the random points
     if (!cooldown.has(key))
-      points.math(key, "+", between(config.points.xpMin, config.points.xpMax), "points");
+      points.math(key, "+", between(config.points.xpMin, config.points.xpMax)*settings.levelMultiplier, "points");
 
     var dblevel = points.get(key, "level");
     // calculate if points needed for next level is more than user currently has
@@ -57,8 +62,13 @@ module.exports = async (client, message) => {
     var xpNeed = 2*Math.pow(dblevel+1, 3)+25;
     if (points.get(key, "points") >= xpNeed) {
       var newLevel = dblevel + 1;
-      message.reply(settings.levelMessage.replace('{user}', message.author).replace('{level}', newLevel));
-      points.inc(key, "level");
+      if (settings.levelOption == 1) {
+        message.reply(settings.levelMessage.replace('{user}', message.author).replace('{level}', newLevel));
+      } else if (settings.levelOption == 2) {
+        const lvlChannel = message.guild.channels.cache.get(settings.levelChannel);
+        if (lvlChannel) lvlChannel.send(settings.levelMessage.replace('{user}', message.author).replace('{level}', newLevel));
+      }
+      points.inc(key, "level");      
     }
     
     // add cooldown

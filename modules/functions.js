@@ -53,8 +53,9 @@ function getPoints(user, guild) {
     points: 0,
     level: 0
   });
+  const userPoints = points.get(`${guild.id}-${user.id}`) || {};
 
-  return (points.get(`${guild.id}-${user.id}`));
+  return ({...userPoints});
 }
 
 /*

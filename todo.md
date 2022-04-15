@@ -19,9 +19,6 @@
 ## not urgent
 - music system
 - leveling improvements
-  - no announcement/reply/choosen channel options
-  - ignore roles & ignore channels
-  - multiplier
 - idk commands
   - reverse message
   - random color

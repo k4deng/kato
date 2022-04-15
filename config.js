@@ -44,15 +44,22 @@ const config = {
   */
   "defaultSettings" : {
     "prefix": "~",
-    "modLogChannel": "mod-log",
+    "modLogChannel": "",
     "modRole": "Moderator",
     "adminRole": "Administrator",
     "systemNotice": "true", // This gives a notice when a user tries to run a command that they do not have permission to use.
     "commandReply": "true", // Toggle this if you want the bot to ping the command executor or not.
+    
     "welcomeChannel": "welcome",
     "welcomeMessage": "Say hello to {{user}}, everyone! We all need a warm welcome sometimes :D",
     "welcomeEnabled": "false",
-    "levelMessage": "{user} leveled up to level **{level}**!"
+
+    "levelOption": 1, // 0 = no announcement, 1 = reply, 2 = choosen channel
+    "levelChannel": "",
+    "levelMessage": "{user} leveled up to level **{level}**!",
+    "levelIgnoreRoles": [""],
+    "levelIgnoreChannel": [""],
+    "levelMultiplier": 1
   },
 
   // PERMISSION LEVEL DEFINITIONS.
