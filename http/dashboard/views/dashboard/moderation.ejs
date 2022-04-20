@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include(`../../partials/head`) %>
+  <meta content="<%= guild.name %> Dashboard" property="og:title">
+  <meta content="Manage <%= guild.name %> with <%= bot.user.username %>'s Dashboard!" property="og:description">
+  <meta content="<%= bot.protocol + bot.config.dashboard.domain %>/moderation/<%= guild.id %>" property="og:url">
+  <meta content="https://cdn.discordapp.com/icons/<%= guild.id %>/<%= guild.icon %>.jpg?size=2048" property="og:image">
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+  <!-- Preloader -->
+  <%- include(`../../partials/preloader`) %>
+
+  <!-- Navbar -->
+  <%- include(`../../partials/navbar`) %>
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  <%- include(`../../partials/sidebar`) %>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0"><%= guild.name %>'s Dashboard</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="/">Home</a></li>
+              <li class="breadcrumb-item"><a href="/servers">Servers</a></li>
+              <li class="breadcrumb-item active"> <%= guild.name %>  /  Moderation</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="col-8 mx-auto">
+        <%- include(`../../partials/serverwidget`) %>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <div class="card card-info">
+            <!-- /.card-header -->
+            <!-- form start -->
+            <form method="post">
+              <div class="card-body">
+
+                <% const settings = bot.getSettings(guild) %>
+
+                <div class="form-group">
+                  <h5><b>Moderator Log Channel</b></h5>
+                  <p class="">The channel that Moderator logs go to.</p>
+                  <select name="modLogChannel" class="custom-select">
+                    <option value="ModLogChannel" <% if (!settings.modLogChannel || settings.modLogChannel === "") { %> selected <% } else { %> disabled <% } %> >Please select a channel</option>
+                    <% const channels = guild.channels.cache.sort((a, b) => a.rawPosition - b.rawPosition) %>
+                    <% for (const channel of channels.values()) { %>
+                      <% if (channel.type == 'GUILD_TEXT') { %>
+                        <% if (settings.modLogChannel == channel.id) { %>
+                          <option value=<%= channel.id%> selected>#<%= channel.name%></option>
+                        <% } else { %>
+                          <option value=<%= channel.id%> >#<%= channel.name%></option>
+                        <% } %>
+                      <% } %>
+                    <% } %>
+                  </select>
+                </div>
+
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer">
+                <button type="submit" class="btn btn-success">Save Changes</button>
+              </div>
+              <!-- /.card-footer -->
+            </form>
+          </div>
+        </div>
+      </div>
+
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+  <footer class="main-footer">
+    <%- include(`../../partials/footer`) %>
+  </footer>
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+  <%- include(`../../partials/doc_end`) %>
+</body>
+</html>

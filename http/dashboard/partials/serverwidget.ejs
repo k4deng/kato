@@ -1,0 +1,41 @@
+        <!-- Widget: user widget style 1 -->
+        <div class="card card-widget widget-user shadow mx-auto">
+          <!-- Add the bg color to the header using any of the bg-* classes -->
+          <div class="widget-user-header bg-info">
+            <h3 class="widget-user-username"><%= guild.name %></h3>
+            <span class="widget-user-desc">Owner: <%= guild.members.cache.get(guild.ownerId).user.tag %></span>
+          </div>
+          <div class="widget-user-image">
+            <% if (guild.iconURL()) { %><img class="img-circle elevation-2" src="https://cdn.discordapp.com/icons/<%= guild.id %>/<%= guild.icon %>.jpg?size=256" alt="Server Icon"> <% } %>
+          </div>
+          <div class="card-footer">
+            <div class="row">
+              <div class="col-sm-4 border-right">
+                <div class="description-block">
+                  <h5 class="description-header"><%= guild.roles.cache.size %></h5>
+                  <span class="description-text">ROLES</span>
+                </div>
+                <!-- /.description-block -->
+              </div>
+              <!-- /.col -->
+              <div class="col-sm-4 border-right">
+                <div class="description-block">
+                  <h5 class="description-header"><%= guild.members.cache.size %></h5>
+                  <span class="description-text">MEMBERS</span>
+                </div>
+                <!-- /.description-block -->
+              </div>
+              <!-- /.col -->
+              <div class="col-sm-4">
+                <div class="description-block">
+                  <h5 class="description-header"><%= guild.channels.cache.size %></h5>
+                  <span class="description-text">CHANNELS</span>
+                </div>
+                <!-- /.description-block -->
+              </div>
+              <!-- /.col -->
+            </div>
+            <!-- /.row -->
+          </div>
+        </div>
+        <!-- /.widget-user -->

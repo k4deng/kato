@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include(`../../partials/head`) %>
+  <meta content="<%= guild.name %> Dashboard" property="og:title">
+  <meta content="Manage <%= guild.name %> with <%= bot.user.username %>'s Dashboard!" property="og:description">
+  <meta content="<%= bot.protocol + bot.config.dashboard.domain %>/dashboard/<%= guild.id %>" property="og:url">
+  <meta content="https://cdn.discordapp.com/icons/<%= guild.id %>/<%= guild.icon %>.jpg?size=2048" property="og:image">
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+  <!-- Preloader -->
+  <%- include(`../../partials/preloader`) %>
+
+  <!-- Navbar -->
+  <%- include(`../../partials/navbar`) %>
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  <%- include(`../../partials/sidebar`) %>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0"><%= guild.name %>'s Dashboard</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="/">Home</a></li>
+              <li class="breadcrumb-item"><a href="/servers">Servers</a></li>
+              <li class="breadcrumb-item active"><%= guild.name %></li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="col-8 mx-auto">
+        <%- include(`../../partials/serverwidget`) %>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <div class="card card-info">
+            <!-- form start -->
+            <form method="post">
+              <div class="card-body">
+
+                <% const settings = bot.getSettings(guild) %>
+                
+                <div class="form-group">
+                  <h5><b>Nickname</b></h5>
+                  <p class="">Sets the bots nickname in <%= guild.name %></p>
+                  <input type="text" class="form-control" name="nickname" placeholder="<%= bot.user.username %>" value="<%= (guild.members.cache.get(bot.user.id).nickname) ? guild.members.cache.get(bot.user.id).nickname : bot.user.username %>">
+                </div>
+
+                <div class="form-group">
+                  <h5><b>Prefix</b></h5>
+                  <p class="">Sets the bots prefix in <%= guild.name %></p>
+                  <input type="text" class="form-control" name="prefix" placeholder="<%= bot.settings.get("default").prefix %>" value="<%= settings.prefix %>">
+                </div>
+
+                <div class="form-group">
+                  <h5><b>Admin Role</b></h5>
+                  <p class="">The role that Admins have in <%= guild.name %></p>
+                  <select name="adminRole" class="custom-select">
+                    <option value="" <% if (!settings.adminRole  || settings.adminRole === "") { %> selected <% } else { %> disabled <% } %> >Please select a role</option>
+                    <% for (const role of guild.roles.cache.values()) { %>
+                      <% if (role.id == settings.adminRole) { %>
+                        <option value=<%= role.id %> selected><%= role.name%></option>
+                      <% } else { %>
+                        <option value=<%= role.id %>><%= role.name%></option>
+                      <% } %>
+                    <% } %>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <h5><b>Moderator Role</b></h5>
+                  <p class="">The role that Moderators have in <%= guild.name %></p>
+                  <select name="modRole" class="custom-select">
+                    <option value="" <% if (!settings.modRole || settings.modRole === "") { %> selected <% } else { %> disabled <% } %> >Please select a role</option>
+                    <% for (const role of guild.roles.cache.values()) { %>
+                      <% if (role.id == settings.modRole) { %>
+                        <option value=<%= role.id %> selected><%= role.name%></option>
+                      <% } else { %>
+                        <option value=<%= role.id %>><%= role.name%></option>
+                      <% } %>
+                    <% } %>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <h5><b>System Notice</b></h5>
+                  <p class="">Send a notice when a user tries to use a command they dont have access to</p>
+                  <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="systemNotice" name="systemNotice" <% if (settings.systemNotice === "true") {%> checked="checked" <% } %>>
+                    <label class="custom-control-label" for="systemNotice"></label>
+                  </div>
+                </div>
+
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer">
+                <button type="submit" class="btn btn-success">Save Changes</button>
+                <a class="btn btn-danger button float-right" data-toggle="modal" data-target="#serverLeaveModal">Leave Server</a>
+              </div>
+              <!-- /.card-footer -->
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Manage Page Modals -->
+      <div class="modal fade" id="serverLeaveModal" tabindex="-1" role="dialog" aria-labelledby="serverLeaveModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="serverLeaveModalLabel">Leave Server?</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>
+                Are you sure you want <%= bot.user.username %> to leave this server?
+              </p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+              <a class="btn btn-primary" href="/leave/<%= guild.id %>" role="button">Leave</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+  <footer class="main-footer">
+    <%- include(`../../partials/footer`) %>
+  </footer>
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+  <%- include(`../../partials/doc_end`) %>
+</body>
+</html>

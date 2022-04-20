@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include(`../../partials/head`) %>
+  <meta content="<%= guild.name %> Dashboard" property="og:title">
+  <meta content="Manage <%= guild.name %> with <%= bot.user.username %>'s Dashboard!" property="og:description">
+  <meta content="<%= bot.protocol + bot.config.dashboard.domain %>/leveling/<%= guild.id %>" property="og:url">
+  <meta content="https://cdn.discordapp.com/icons/<%= guild.id %>/<%= guild.icon %>.jpg?size=2048" property="og:image">
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+  <!-- Preloader -->
+  <%- include(`../../partials/preloader`) %>
+
+  <!-- Navbar -->
+  <%- include(`../../partials/navbar`) %>
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  <%- include(`../../partials/sidebar`) %>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0"><%= guild.name %>'s Dashboard</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="/">Home</a></li>
+              <li class="breadcrumb-item"><a href="/servers">Servers</a></li>
+              <li class="breadcrumb-item active"> <%= guild.name %>  /  Leveling</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="col-8 mx-auto">
+        <%- include(`../../partials/serverwidget`) %>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <div class="card card-info">
+            <!-- /.card-header -->
+            <!-- form start -->
+            <form id="form" method="post">
+              <div class="card-body">
+
+                <% const settings = bot.getSettings(guild) %>
+
+                <div class="form-group">
+                  <h5><b>Level channel</b></h5>
+                  <p>Whether or not to send level up messages</p>
+                  <select name="levelOption" class="custom-select" id="levelOption" onchange="levelOptionCheck()">
+                    <option value="0" <% if (settings.levelOption == 0) { %> selected <% } %>>Disabled</option>
+                    <option value="1" <% if (settings.levelOption == 1) { %> selected <% } %>>Same Channel</option>
+                    <option value="2" <% if (settings.levelOption == 2) { %> selected <% } %>>Custom Channel</option>
+                  </select>       
+                </div>
+
+                <div class="form-group" style="display: none" id="levelChannel">
+                  <h5><b>Annoucement Channel</b></h5>
+                  <p class="card-text">Where to send level messages to</p>
+                  <select name="levelChannel" class="custom-select">
+                    <option value="" <% if (!settings.levelChannel || settings.levelChannel === "") { %> selected <% } else { %> disabled <% } %> >Please select a channel</option>
+                    <% const channels = guild.channels.cache.sort((a, b) => a.rawPosition - b.rawPosition) %>
+                    <% for (const channel of channels.values()) { %>
+                      <% if (channel.type == 'GUILD_TEXT') { %>
+                        <% if (settings.levelChannel == channel.id) { %>
+                          <option value=<%= channel.id%> selected>#<%= channel.name%></option>
+                        <% } else { %>
+                          <option value=<%= channel.id%>>#<%= channel.name%></option>
+                        <% } %>
+                      <% } %>
+                    <% } %>
+                  </select>
+                </div>
+
+                <div class="form-group" id="levelMessage">
+                  <h5><b>Level Up Message</b></h5>
+                  <p class="card-text">Message to send to members who level up</p>
+                  <input name="levelMessage" class="form-control" value="<%= String(settings.levelMessage) %>">
+                </div>
+
+                <div class="form-group">
+                  <h5><b>Level Multiplier</b></h5>
+                  <p class="card-text" id="card-text">Multiplier of base XP gained: <b><%= settings.levelMultiplier %>x</b></p>
+                  <input type="range" class="custom-range" name="levelMultiplier" id="levelMultiplier" min="1" max="3" value="<%= settings.levelMultiplier %>" step=".5" onchange="document.getElementById('card-text').innerHTML = `Multiplier of base XP gained: <b>${this.value}x</b>`">
+                </div>
+     
+                <div class="form-group">
+                  <h5><b>Ignored Roles</b></h5>
+                  <p class="card-text">Roles to not give points to</p>
+                  <select name="levelIgnoreRoles" class="custom-select" multiple>
+                    <% for (const role of guild.roles.cache.values()) { %>
+                      <% if (settings.levelIgnoreRoles.includes(role.id)) { %>
+                        <option value=<%= role.id %> selected><%= role.name %></option>
+                      <% } else { %>
+                        <option value=<%= role.id %>><%= role.name %></option>
+                      <% } %>
+                    <% } %>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <h5><b>Ignored Channels</b></h5>
+                  <p class="card-text">Channels to not give points in</p>
+                  <select name="levelIgnoreChannels" class="custom-select" multiple>
+                    <% for (const channel of channels.values()) { %>
+                      <% if (channel.type == 'GUILD_TEXT') { %>
+                        <% if (settings.levelIgnoreChannels.includes(channel.id)) { %>
+                          <option value=<%= channel.id %> selected>#<%= channel.name %></option>
+                        <% } else { %>
+                          <option value=<%= channel.id %>>#<%= channel.name %></option>
+                        <% } %>
+                      <% } %>
+                    <% } %>
+                  </select>
+                </div>
+
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer">
+                <button type="submit" class="btn btn-success">Save Changes</button>
+                <!--<a class="btn btn-danger button float-right" data-toggle="modal" data-target="#levelsResetModal">Reset Server Levels</a>-->
+              </div>
+              <!-- /.card-footer -->
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Manage Page Modals -->
+      <div class="modal fade" id="levelsResetModal" tabindex="-1" role="dialog" aria-labelledby="levelsResetModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="levelsResetModalLabel">Reset Levels?</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>
+                Are you sure you want to reset <%= guild.name %>'s levels?
+              </p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+              <a class="btn btn-primary" href="/levelreset/<%= guild.id %>" role="button">Reset</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+  <footer class="main-footer">
+    <%- include(`../../partials/footer`) %>
+  </footer>
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+                      
+  <%- include(`../../partials/doc_end`) %>
+
+<!-- jquery-validation -->
+<script src="plugins/jquery-validation/jquery.validate.min.js"></script>
+<script src="plugins/jquery-validation/additional-methods.min.js"></script>
+
+<script>
+  $(document).ready(function() {
+    var x = document.getElementById("levelOption").value;
+    if (x == '2') {
+      document.getElementById("levelChannel").style.display = "";
+    } else {
+      document.getElementById("levelChannel").style.display = "none";
+    }
+  })
+
+  function levelOptionCheck() {
+    var x = document.getElementById("levelOption").value;
+    if (x == '2') {
+      document.getElementById("levelChannel").style.display = "";
+    } else {
+      document.getElementById("levelChannel").style.display = "none";
+    }
+  }
+  
+$(function () {
+
+  // Form validation
+  $('#form').validate({
+    rules: {
+      levelChannel: {
+        required: true
+      },
+    },
+    messages: {
+      levelChannel: "You must select a channel"
+    },
+    errorElement: 'span',
+    errorPlacement: function (error, element) {
+      error.addClass('invalid-feedback');
+      element.closest('.form-group').append(error);
+    },
+    highlight: function (element, errorClass, validClass) {
+      $(element).addClass('is-invalid');
+    },
+    unhighlight: function (element, errorClass, validClass) {
+      $(element).removeClass('is-invalid');
+    }
+  });
+});
+</script>
+    
+</body>
+</html>

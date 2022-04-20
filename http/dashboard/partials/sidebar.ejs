@@ -1,0 +1,271 @@
+  <aside class="main-sidebar main-sidebar-custom sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="/" class="brand-link">
+      <img src="https://cdn.discordapp.com/avatars/<%= bot.user.id %>/<%= bot.user.avatar %>.png?size=512" alt="<%= bot.user.username %>" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <span class="brand-text font-weight-light"><%= bot.user.username %></span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar user panel (optional) -->
+      <% if(auth) { %>
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+          <div class="image">
+            <% if (user.avatar) { %>
+              <img src="https://cdn.discordapp.com/avatars/<%= user.id %>/<%= user.avatar %>.png?size=512" width="160" height="160" class="img-circle elevation-2" alt="User Image">
+            <% } else { %>
+              <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+            <% } %>
+          </div>
+          <div class="info">
+            <a href="#" class="d-block"><%= user.username %>#<%= user.discriminator %></a>
+          </div>
+        </div>
+
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+          <div class="info">
+            <a href="/logout" class="d-block"><i class="fa fa-sign-out-alt fa-fw" aria-hidden="true"></i> Logout</a>
+          </div>
+        </div>
+      <% } else { %>
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+          <div class="info">
+            <a href="/login" class="d-block"><i class="fa fa-sign-in-alt fa-fw" aria-hidden="true"></i> Login</a>
+          </div>
+        </div>
+      <% } %>
+
+      <!-- SidebarSearch Form -->
+      <div class="form-inline">
+        <div class="input-group" data-widget="sidebar-search">
+          <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+          <div class="input-group-append">
+            <button class="btn btn-sidebar">
+              <i class="fas fa-search fa-fw"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+          <li class="nav-item">
+            <a href="/" class="nav-link">
+              <i class="nav-icon fas fa-home"></i>
+              <p>
+                Home
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/docs" class="nav-link disabled">
+              <i class="nav-icon fas fa-book"></i>
+              <p>
+                Docs
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/commands" class="nav-link">
+              <i class="nav-icon fas fa-code"></i>
+              <p>
+                Commands
+              </p>
+            </a>
+          </li>
+          <% if(auth === true) { %>
+            <li class="nav-item">
+              <a href="/servers" class="nav-link">
+                <i class="nav-icon fas fa-server"></i>
+                <p>
+                  Servers
+                  <% let counter = 0; %>
+                  <% user.guilds.forEach(guild => { %>
+                    <% const permsOnGuild = new perms(guild.permissions_new); %>
+                    <% if(!permsOnGuild.has("MANAGE_GUILD")) return; %>
+                    <% counter++ %>
+                  <% }); %>
+                  <span class="right badge badge-info"><%= counter %></span>
+                </p>
+              </a>
+            </li>
+          <% } %>
+          <% var guild; %>
+          <% if (guild){ %>
+            <li class="nav-item menu menu-open"> <!--menu-open-->
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-database"></i>
+                <p>
+                  <%= guild.name %>
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="/dashboard/<%= guild.id %>" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Settings</p>
+                  </a>
+                </li>
+              </ul>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="/leveling/<%= guild.id %>" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Leveling</p>
+                  </a>
+                </li>
+              </ul>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="/leaderboard/<%= guild.id %>" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Leaderboard</p>
+                  </a>
+                </li>
+              </ul>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="/moderation/<%= guild.id %>" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Moderation</p>
+                  </a>
+                </li>
+              </ul>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="/welcome/<%= guild.id %>" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Welcome</p>
+                  </a>
+                </li>
+              </ul>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="/music/<%= guild.id %>" class="nav-link text-gray disabled">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Music</p>
+                  </a>
+                </li>
+              </ul>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="/members/<%= guild.id %>" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Server Members</p>
+                  </a>
+                </li>
+              </ul>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="/stats/<%= guild.id %>" class="nav-link text-gray disabled">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Server Stats</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+          <% } %>
+          <!--
+          <li class="nav-header">MULTI LEVEL EXAMPLE</li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="fas fa-circle nav-icon"></i>
+              <p>Level 1</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-circle"></i>
+              <p>
+                Level 1
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Level 2</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>
+                    Level 2
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="#" class="nav-link">
+                      <i class="far fa-dot-circle nav-icon"></i>
+                      <p>Level 3</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="#" class="nav-link">
+                      <i class="far fa-dot-circle nav-icon"></i>
+                      <p>Level 3</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="#" class="nav-link">
+                      <i class="far fa-dot-circle nav-icon"></i>
+                      <p>Level 3</p>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Level 2</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="fas fa-circle nav-icon"></i>
+              <p>Level 1</p>
+            </a>
+          </li>
+          <li class="nav-header">LABELS</li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon far fa-circle text-danger"></i>
+              <p class="text">Important</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon far fa-circle text-warning"></i>
+              <p>Warning</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon far fa-circle text-info"></i>
+              <p>Informational</p>
+            </a>
+          </li>
+          -->
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+
+    <div class="sidebar-custom">
+      <% if (auth === true && user.id === process.env.OWNER) { %>
+        <a href="/admin" class="btn btn-link"><i class="fa fa-users-cog"></i></a>
+      <% } %>
+      <a href="https://k4deng.net" class="btn btn-secondary hide-on-collapse pos-right">Help</a>
+    </div>
+    <!-- /.sidebar-custom -->
+  </aside>

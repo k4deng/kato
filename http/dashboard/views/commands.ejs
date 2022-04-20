@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include(`../partials/head`) %>
+  <meta content="<%= bot.user.username %> Command List" property="og:title">
+  <meta content="<%= bot.user.username %>'s Command List" property="og:description">
+  <meta content="<%= bot.protocol + bot.config.dashboard.domain %>/commands" property="og:url">
+  <meta content="https://cdn.discordapp.com/avatars/<%= bot.user.id %>/<%= bot.user.avatar %>.png?size=2048" property="og:image">
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+  <% //This is for stuff
+  const help = {};
+  bot.container.commands.forEach((command) => {
+    const cat = command.help.category;
+    if (!help.hasOwnProperty(cat)) help[cat] = [];
+    help[cat].push(command);
+  });
+  %>
+
+  <% //This is for stuff
+  const slashhelp = {};
+  bot.container.slashcmds.forEach((command) => {
+    const cat = "All Commands";
+    if (!slashhelp.hasOwnProperty(cat)) slashhelp[cat] = [];
+    slashhelp[cat].push(command);
+  });
+  %>
+
+  <!-- Preloader -->
+  <%- include(`../partials/preloader`) %>
+
+  <!-- Navbar -->
+  <%- include(`../partials/navbar`) %>
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  <%- include(`../partials/sidebar`) %>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <% if (bot.container.commands.size > 0){ %>
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">Commands</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="/">Home</a></li>
+              <li class="breadcrumb-item active">Commands</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+      <% for (const category in help) { %>
+      <% var commandActiveCount = 0 %>
+      <% var commandHelpActiveCount = 0 %>
+
+        <div class="card card-primary card-outline">
+          <div class="card-header">
+            <h3 class="card-title">
+              <i class="fas fa-edit"></i>
+              <%= category %>
+            </h3>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-5 col-sm-3">
+                <div class="nav flex-column nav-tabs h-100" id="vert-tabs-tab" role="tablist" aria-orientation="vertical">
+                  <% for (const command of help[category]) { %>
+                    <a class="nav-link <% if (commandActiveCount === 0) { %>active<% } %> " id="vert-tabs-<%= command.help.name %>-tab" data-toggle="pill" href="#vert-tabs-<%= command.help.name %>" role="tab" aria-controls="vert-tabs-<%= command.help.name %>" aria-selected="false"><%= command.help.name %></a>
+                    <% commandActiveCount++ %>
+                  <% } %>
+                </div>
+              </div>
+              <div class="col-7 col-sm-9">
+                <div class="tab-content" id="vert-tabs-tabContent">
+                <% for (const command of help[category]) { %>
+                  <div class="tab-pane text-left fade show <% if (commandHelpActiveCount === 0) { %>active<% } %>" id="vert-tabs-<%= command.help.name %>" role="tabpanel" aria-labelledby="vert-tabs-<%= command.help.name %>-tab">
+                    <b><%= command.help.name %></b><br>
+                    <i><%= command.help.description %></i><br><br>
+
+                    Category: <%= command.help.category %><br>
+                    Permission Needed: <%= bot.container.commands.get(command.help.name).conf.permLevel %><br><br>
+                    Usage: <%= command.help.usage %><br>
+                    Command Aliases: <%= bot.container.commands.get(command.help.name).conf.aliases %><br>
+                  </div>
+                  <% commandHelpActiveCount++ %>
+                <% } %>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- /.card -->
+      <% } %>
+      </div>
+      <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+    <% } %>
+
+    <% if (bot.container.slashcmds.size > 0){ %>
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">Slash Commands</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="/">Home</a></li>
+              <li class="breadcrumb-item active">Commands</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+      <% for (const category in slashhelp) { %>
+      <% var commandActiveCount = 0 %>
+      <% var commandHelpActiveCount = 0 %>
+
+        <div class="card card-primary card-outline">
+          <div class="card-header">
+            <h3 class="card-title">
+              <i class="fas fa-edit"></i>
+              <%= category %>
+            </h3>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-5 col-sm-3">
+                <div class="nav flex-column nav-tabs h-100" id="vert-tabs-slash-tab" role="tablist" aria-orientation="vertical">
+                  <% for (const command of slashhelp[category]) { %>
+                    <a class="nav-link <% if (commandActiveCount === 0) { %>active<% } %> " id="vert-tabs-slash-<%= command.commandData.name %>-tab" data-toggle="pill" href="#vert-tabs-slash-<%= command.commandData.name %>" role="tab" aria-controls="vert-tabs-<%= command.commandData.name %>" aria-selected="false"><%= command.commandData.name %></a>
+                    <% commandActiveCount++ %>
+                  <% } %>
+                </div>
+              </div>
+              <div class="col-7 col-sm-9">
+                <div class="tab-content" id="vert-tabs-slash-tabContent">
+                <% for (const command of slashhelp[category]) { %>
+                  <div class="tab-pane text-left fade show <% if (commandHelpActiveCount === 0) { %>active<% } %>" id="vert-tabs-slash-<%= command.commandData.name %>" role="tabpanel" aria-labelledby="vert-tabs-slash-<%= command.commandData.name %>-tab">
+                    <b><%= command.commandData.name %></b><br>
+                    <i><%= command.commandData.description %></i><br><br>
+
+                    Permission Needed: <%= bot.container.slashcmds.get(command.commandData.name).conf.permLevel %><br><br>
+
+                  </div>
+                  <% commandHelpActiveCount++ %>
+                <% } %>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- /.card -->
+      <% } %>
+      </div>
+      <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+    <% } %>
+      
+  </div>
+  <!-- /.content-wrapper -->
+  <footer class="main-footer">
+    <%- include(`../partials/footer`) %>
+  </footer>
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+  <%- include(`../partials/doc_end`) %>
+</body>
+</html>

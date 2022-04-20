@@ -38,7 +38,7 @@ module.exports = async (client, message) => {
 
   // Points system
   if (message.guild && !prefix) {
-    if (settings.levelIgnoreChannel?.includes(message.channel.id)) return;
+    if (settings.levelIgnoreChannels?.includes(message.channel.id)) return;
     
     const roles = message.member.roles.cache.map(r => r.id);
 		if (roles.some(r => settings.levelIgnoreRoles?.includes(r))) return;

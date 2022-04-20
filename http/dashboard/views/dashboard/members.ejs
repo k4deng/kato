@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include(`../../partials/head`) %>
+  <!-- DataTables -->
+  <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+  <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+
+  <meta content="<%= guild.name %> Members" property="og:title">
+  <meta content="View <%= guild.name %>'s members with <%= bot.user.username %>'s Dashboard!" property="og:description">
+  <meta content="<%= bot.protocol + bot.config.dashboard.domain %>/members/<%= guild.id %>" property="og:url">
+  <meta content="https://cdn.discordapp.com/icons/<%= guild.id %>/<%= guild.icon %>.jpg?size=2048" property="og:image">
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+  <!-- Preloader -->
+  <%- include(`../../partials/preloader`) %>
+
+  <!-- Navbar -->
+  <%- include(`../../partials/navbar`) %>
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  <%- include(`../../partials/sidebar`) %>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0"><%= guild.name %>'s Members</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="/">Home</a></li>
+              <li class="breadcrumb-item"><a href="/servers">Servers</a></li>
+              <li class="breadcrumb-item active"> <%= guild.name %>  /  Members</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="col-8 mx-auto">
+        <%- include(`../../partials/serverwidget`) %>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-body">
+
+              <table id="membersTable" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                  <th>Display Name</th>
+                  <th>User Tag</th>
+                  <th>Created</th>
+                  <th>Joined</th>
+                  <th>Roles</th>
+                </tr>
+                </thead>
+                <tbody>
+                  <% for(var i = 0; i < members.length; i++) { %>
+
+                    <% member = members[i]; %>
+                    <% 
+
+                    function hexToRgb(hex) {
+                      var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+                      return result ? {
+                          r: parseInt(result[1], 16),
+                          g: parseInt(result[2], 16),
+                          b: parseInt(result[3], 16)
+                      } : null;
+                    }
+
+                    const color = member.highestRole.hexColor === "#000000" ? '#FFFFFF' : member.highestRole.hexColor;
+                    const roles = member.roles.filter(r=>r.name !== "@everyone").map(r=> {
+                      var rc = r.hexColor === "#ffffff" ? {r:0,g:0,b:0} : hexToRgb(r.hexColor);
+                      return `<span style="color: rgb(${rc.r}, ${rc.g}, ${rc.b});">${r.name}</span>`;
+                    }).join(" ");
+                    %>
+                    <tr>
+                      <th><%= member.displayName %></th>
+                      <th><%= member.tag %></th>
+                      <th><%= moment(member.createdAt).format("MMMM Do YYYY, h:mm a") %></th>
+                      <th><%= moment(member.joinedAt).format("MMMM Do YYYY, h:mm a") %></th>
+                      <th><%- roles %></th>
+                    </tr>
+
+                  <% }; %>
+                </tbody>
+                <tfoot>
+                <tr>
+                  <th>Display Name</th>
+                  <th>User Tag</th>
+                  <th>Created</th>
+                  <th>Joined</th>
+                  <th>Roles</th>
+                </tr>
+                </tfoot>
+              </table>
+
+            </div>
+            <!-- /.card-body -->
+          </div>
+        </div>
+      </div>
+
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+  <footer class="main-footer">
+    <%- include(`../../partials/footer`) %>
+  </footer>
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+<%- include(`../../partials/doc_end`) %>
+
+<!-- DataTables  & Plugins -->
+<script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="../../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="../../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script src="../../plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+<script src="../../plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+<script src="../../plugins/jszip/jszip.min.js"></script>
+<script src="../../plugins/pdfmake/pdfmake.min.js"></script>
+<script src="../../plugins/pdfmake/vfs_fonts.js"></script>
+<script src="../../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+<script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
+<script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+<!-- Page specific script -->
+<script>
+  $(function () {
+    $("#membersTable").DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+    }).buttons().container().appendTo('#membersTable_wrapper .col-md-6:eq(0)');
+  });
+
+
+  /*
+  function hexToRgb(hex) {
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? {
+      r: parseInt(result[1], 16),
+      g: parseInt(result[2], 16),
+      b: parseInt(result[3], 16)
+    } : null;
+  }
+
+  function getMembers(start, callback) {
+    $.getJSON(`/members/<%# guild.id %>/list`, function(response) {
+      callback(response);
+    });
+  }
+
+  function updateTable(members) {
+    $("table tbody").empty();
+    for(var i = 0; i < members.length; i++) {
+      member = members[i];
+      var color = member.highestRole.hexColor === "#000000" ? '#FFFFFF' : member.highestRole.hexColor;
+      var roles = member.roles.filter(r=>r.name !== "@everyone").map(r=> {
+        var rc = r.hexColor === "#000000" ? {r:255,g:255,b:255} : hexToRgb(r.hexColor);
+        return `<span class="roleBox" style="color: rgb(${rc.r}, ${rc.g}, ${rc.b}); background-color: rgba(${rc.r}, ${rc.g}, ${rc.b}, 0.0980392); border: 1px solid rgba(${rc.r}, ${rc.g}, ${rc.b}, 0.498039);">${r.name}</span>`;
+      }).join(" ");
+      var thishtml = snippet
+        .replace(/\{color\}/g, color)
+        .replace("{displayName}", member.displayName)
+        .replace("{status}", member.status)
+        .replace("{tag}", member.tag)
+        .replace("{id}", member.id)
+        .replace("{joined}", moment(member.joinedAt).format("MMMM Do YYYY, h:mm a"))
+        .replace("{roles}", roles);
+      if (member.bot) {
+        thishtml = thishtml.replace("{botimg}", ' <img src="/public/bot.png">');
+      } else { 
+        thishtml = thishtml.replace("{botimg}", '');
+      }
+      $('table > tbody').append(thishtml);
+    };
+  }
+
+  var snippet = `    <tr>
+      <td style="color:{color}"><span class="status {status}"></span> {displayName}{botimg}</td>
+      <td style="color:{color}">{tag}<br/>{id}</td>
+      <td style="color:{color}">{joined}</td>
+      <td>{roles}</td>
+    </tr>`;
+  var roleSnippet = '<span style="color:{color}">{name}</span>';
+  $(document).ready( function () {
+    getMembers(0, function(data) {
+      updateTable(data.members);
+    });
+  });
+*/
+</script>
+
+</body>
+</html>

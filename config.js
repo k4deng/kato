@@ -34,6 +34,24 @@ const config = {
     "xpMax": 10
   },
 
+  dashboard: {
+    version: "3.0.0",
+		enabled: 'true', // This setting controls whether the dashboard is enabled or not.
+    clientID: '920031289464209428', // the bots id
+		oauthSecret: process.env.dashboardOauthSecret, // The client secret from the Discord bot page
+		secure: 'true', // HTTPS: 'true' for true, 'false' for false
+		sessionSecret: process.env.dashboardSessionSecret, // Go crazy on the keyboard here, this is used as a session secret
+		domain: 'kato-djs13.katodiscordbot.repl.co', // Domain name (with port if not running behind proxy running on port 80). Example: 'domain': 'dashboard.bot-website.com' OR 'domain': 'localhost:33445'
+		port: '3000', // The port that it should run on
+		invitePerm: '1615947361495', //the bots invite link oauth permission integer
+		protectStats: 'false', //if stats page is visible
+		borderedStats: 'true', // Controls whether stats in the dashboard should have a border or not
+		legalTemplates: {
+			contactEmail: 'contact@k4deng.net', // This email will be used in the legal page of the dashboard if someone needs to contact you for any reason regarding this page
+			lastEdited: '16 April 2021' // Change this if you update the `TERMS.md` or `PRIVACY.md` files in `dashboard/public/`
+	  }
+  },
+
   // This will spam your console if you enable this but will help with bug fixing
 	"debug": false,
   
@@ -45,20 +63,20 @@ const config = {
   "defaultSettings" : {
     "prefix": "~",
     "modLogChannel": "",
-    "modRole": "Moderator",
-    "adminRole": "Administrator",
+    "modRole": "",
+    "adminRole": "",
     "systemNotice": "true", // This gives a notice when a user tries to run a command that they do not have permission to use.
     "commandReply": "true", // Toggle this if you want the bot to ping the command executor or not.
     
-    "welcomeChannel": "welcome",
-    "welcomeMessage": "Say hello to {{user}}, everyone! We all need a warm welcome sometimes :D",
+    "welcomeChannel": "",
+    "welcomeMessage": "{{user}} just joined the server!",
     "welcomeEnabled": "false",
 
     "levelOption": 1, // 0 = no announcement, 1 = reply, 2 = choosen channel
     "levelChannel": "",
     "levelMessage": "{user} leveled up to level **{level}**!",
     "levelIgnoreRoles": [""],
-    "levelIgnoreChannel": [""],
+    "levelIgnoreChannels": [""],
     "levelMultiplier": 1
   },
 
@@ -87,7 +105,7 @@ const config = {
       */
       check: (message) => {
         try {
-          const modRole = message.guild.roles.cache.find(r => r.name.toLowerCase() === message.settings.modRole.toLowerCase());
+          const modRole = message.guild.roles.cache.find(r => r.id === message.settings.modRole);
           if (modRole && message.member.roles.cache.has(modRole.id)) return true;
         } catch (e) {
           return false;
@@ -99,7 +117,7 @@ const config = {
       name: "Administrator", 
       check: (message) => {
         try {
-          const adminRole = message.guild.roles.cache.find(r => r.name.toLowerCase() === message.settings.adminRole.toLowerCase());
+          const adminRole = message.guild.roles.cache.find(r => r.id === message.settings.adminRole);
           return (adminRole && message.member.roles.cache.has(adminRole.id));
         } catch (e) {
           return false;

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include(`../../partials/head`) %>
+  <meta content="<%= guild.name %> Dashboard" property="og:title">
+  <meta content="Manage <%= guild.name %> with <%= bot.user.username %>'s Dashboard!" property="og:description">
+  <meta content="<%= bot.protocol + bot.config.dashboard.domain %>/welcome/<%= guild.id %>" property="og:url">
+  <meta content="https://cdn.discordapp.com/icons/<%= guild.id %>/<%= guild.icon %>.jpg?size=2048" property="og:image">
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+  <!-- Preloader -->
+  <%- include(`../../partials/preloader`) %>
+
+  <!-- Navbar -->
+  <%- include(`../../partials/navbar`) %>
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  <%- include(`../../partials/sidebar`) %>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0"><%= guild.name %>'s Dashboard</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="/">Home</a></li>
+              <li class="breadcrumb-item"><a href="/servers">Servers</a></li>
+              <li class="breadcrumb-item active"> <%= guild.name %>  /  Welcome</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="col-8 mx-auto">
+        <%- include(`../../partials/serverwidget`) %>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <div class="card card-info">
+            <!-- /.card-header -->
+            <!-- form start -->
+            <form id="form" method="post">
+              <div class="card-body">
+
+                <% const settings = bot.getSettings(guild) %>
+
+                <div class="form-group">
+                  <h5><b>Welcoming</b></h5>
+                  <p>Enable or Disable the welcome features</p>
+                  <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="welcomeEnabled" name="welcomeEnabled" <% if (settings.welcomeEnabled === "true") {%> checked="checked" <% } %> onClick="welcomeEnabledCheck()">
+                    <label class="custom-control-label" for="welcomeEnabled"></label>
+                  </div>
+                </div>
+
+                <div class="form-group" style="display: none" id="welcomeChannel">
+                  <h5><b>Welcome Channel</b></h5>
+                  <p class="card-text">Where to send welcome messages to</p>
+                  <select name="welcomeChannel" class="custom-select">
+                    <option value="" <% if (!settings.welcomeChannel || settings.welcomeChannel === "welcome") { %> selected <% } else { %> disabled <% } %> >Please select a channel</option>
+                    <% const channels = guild.channels.cache.sort((a, b) => a.rawPosition - b.rawPosition) %>
+                    <% for (const channel of channels.values()) { %>
+                      <% if (channel.type == 'GUILD_TEXT') { %>
+                        <% if (settings.welcomeChannel == channel.name) { %>
+                          <option value=<%= channel.name %> selected>#<%= channel.name %></option>
+                        <% } else { %>
+                          <option value=<%= channel.name %>>#<%= channel.name %></option>
+                        <% } %>
+                      <% } %>
+                    <% } %>
+                  </select>
+                </div>
+
+                <div class="form-group" style="display: none" id="welcomeMessage">
+                  <h5><b>Welcome Message</b></h5>
+                  <p class="card-text">Message to welcome users with</p>
+                  <input name="welcomeMessage" class="form-control" value="<%= String(settings.welcomeMessage) %>">
+                </div>
+
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer">
+                <button type="submit" class="btn btn-success">Save Changes</button>
+              </div>
+              <!-- /.card-footer -->
+            </form>
+          </div>
+        </div>
+      </div>
+
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+  <footer class="main-footer">
+    <%- include(`../../partials/footer`) %>
+  </footer>
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+  <%- include(`../../partials/doc_end`) %>
+
+<!-- jquery-validation -->
+<script src="plugins/jquery-validation/jquery.validate.min.js"></script>
+<script src="plugins/jquery-validation/additional-methods.min.js"></script>
+
+<script>
+  $(document).ready(function() {
+    var x = document.getElementById("welcomeEnabled");
+    if (x.checked == true) {
+      document.getElementById("welcomeChannel").style.display = "";
+      document.getElementById("welcomeMessage").style.display = "";
+    } else {
+      document.getElementById("welcomeChannel").style.display = "none";
+      document.getElementById("welcomeMessage").style.display = "none";
+    }
+  })
+
+  function welcomeEnabledCheck() {
+    var x = document.getElementById("welcomeEnabled");
+    if (x.checked == true) {
+      document.getElementById("welcomeChannel").style.display = "";
+      document.getElementById("welcomeMessage").style.display = "";
+    } else {
+      document.getElementById("welcomeChannel").style.display = "none";
+      document.getElementById("welcomeMessage").style.display = "none";
+    }
+  }
+  
+/*$(function () {
+
+  // Form validation
+  $('#form').validate({
+    rules: {
+      levelChannel: {
+        required: true
+      },
+    },
+    messages: {
+      levelChannel: "You must select a channel"
+    },
+    errorElement: 'span',
+    errorPlacement: function (error, element) {
+      error.addClass('invalid-feedback');
+      element.closest('.form-group').append(error);
+    },
+    highlight: function (element, errorClass, validClass) {
+      $(element).addClass('is-invalid');
+    },
+    unhighlight: function (element, errorClass, validClass) {
+      $(element).removeClass('is-invalid');
+    }
+  });
+});*/
+</script>
+    
+</body>
+</html>

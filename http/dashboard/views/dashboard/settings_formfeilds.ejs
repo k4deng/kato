@@ -1,0 +1,65 @@
+<% for (const key in settings) { %>
+  <% if (/true|false|True|False/.test(settings[key])){ %>
+    <!-- This tests for if the settings option has a true/false response and if it does, then it shows the user a switch -->
+    <div class="form-group row">
+      <label for="<%= key %>" class="col-sm-2 col-form-label"><%= key %></label>
+      <div class="col-sm-10 custom-control custom-switch">
+        <input type="checkbox" class="custom-control-input" id="<%= key %>" name="<%= key %>" <% if (settings[key] === "true") {%> checked="checked" <% } %>>
+        <label class="custom-control-label" for="<%= key %>"></label>
+      </div>
+    </div>
+  <% } else if (/message|Message/.test(key)){ %>
+    <!-- This tests for if the settings option is a message and if it does, then it shows the user a textarea -->
+    <div class="form-group row">
+      <label for="<%= key %>" class="col-sm-2 col-form-label"><%= key %></label>
+      <div class="col-sm-10">
+        <textarea class="form-control" rows="3" id="<%= key %>" name="<%= key %>" placeholder="Enter <%= key %>" spellcheck="false"><%= settings[key] %></textarea>
+      </div>
+    </div>
+  <% } else if (/Channel|channel/.test(key)){%>
+    <!-- This tests for if the settings option is a channel and if it does, then it shows the user a dropdown box with the server channels -->
+    <div class="form-group row">
+      <label for="<%= key %>" class="col-sm-2 col-form-label"><%= key %></label>
+      <div class="col-sm-10">
+        <select id="<%= key %>" name="<%= key %>" class="custom-select">
+          <option <% if (!settings[key]) { %> selected <% } else { %> disabled <% } %>>Please select a channel</option>
+          <% const channels = guild.channels.cache.sort((a, b) => a.rawPosition - b.rawPosition) %>
+          <% for (const channel of channels.values()) { %>
+            <% if (channel.type == 'GUILD_TEXT') { %>
+              <% if (settings[key] == channel.id) { %>
+                <option value=<%= channel.id%> selected>#<%= channel.name%></option>
+              <% } else { %>
+                <option value=<%= channel.id%> >#<%= channel.name%></option>
+              <% } %>
+            <% } %>
+          <% } %>
+        </select>
+      </div>
+    </div>
+  <% } else if (/Role|role/.test(key)){ %>
+    <!-- This tests for if the settings option is a role and if it does, then it shows the user a dropdown box with the server roles -->
+    <div class="form-group row">
+      <label for="<%= key %>" class="col-sm-2 col-form-label"><%= key %></label>
+      <div class="col-sm-10">
+        <select id="<%= key %>" name="<%= key %>" class="custom-select">
+          <option <% if (!settings[key]) { %> selected <% } else { %> disabled <% } %> >Please select a role</option>
+          <% for (const role of guild.roles.cache.values()) { %>
+            <% if (role.name == settings[key]) { %>
+              <option value=<%= role.name %> selected><%= role.name%></option>
+            <% } else { %>
+              <option value=<%= role.name %>><%= role.name%></option>
+            <% } %>
+          <% } %>
+        </select>
+      </div>
+    </div>
+  <% } else { %>
+    <!-- This shows just a plain text input for the leftover options -->
+    <div class="form-group row">
+      <label for="<%= key %>" class="col-sm-2 col-form-label"><%= key %></label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="<%= key %>" name="<%= key %>" placeholder="Enter <%= key %>" value="<%= settings[key] %>">
+      </div>
+    </div>
+  <% } %>
+<% } %>

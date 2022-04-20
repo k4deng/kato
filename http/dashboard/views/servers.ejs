@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include(`../partials/head`) %>
+  <meta content="<%= bot.user.username %> Dashboard" property="og:title">
+  <meta content="Select a server to manage here" property="og:description">
+  <meta content="<%= bot.protocol + bot.config.dashboard.domain %>/servers" property="og:url">
+  <meta content="https://cdn.discordapp.com/avatars/<%= bot.user.id %>/<%= bot.user.avatar %>.png?size=2048" property="og:image">
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+  <% //This is for stuff
+  const help = {};
+  bot.container.commands.forEach((command) => {
+    const cat = command.help.category;
+    if (!help.hasOwnProperty(cat)) help[cat] = [];
+    help[cat].push(command);
+  });
+  %>
+
+  <!-- Preloader -->
+  <%- include(`../partials/preloader`) %>
+
+  <!-- Navbar -->
+  <%- include(`../partials/navbar`) %>
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  <%- include(`../partials/sidebar`) %>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">Servers</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="/">Home</a></li>
+              <li class="breadcrumb-item active">Servers</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <!-- Main row -->
+      <div class="row">
+        <% user.guilds.forEach(guild => { %>
+          <% const permsOnGuild = new perms(guild.permissions_new); %>
+          <% if(!permsOnGuild.has("MANAGE_GUILD")) return; %>
+            <div class="col-12 col-sm-6 col-md-3 col-lg-3">
+              <div class="card card-primary card-outline">
+                <div class="card-body box-profile">
+                  <div class="text-center">
+                    <% if (guild.icon) { %>
+                      <img class="profile-user-img img-fluid img-circle" src="https://cdn.discordapp.com/icons/<%= guild.id %>/<%= guild.icon %>.jpg?size=256" alt="Server Icon">
+                    <% } else { %>
+                      <img class="profile-user-img img-fluid img-circle" src="https://i.imgur.com/2otMem9.png" alt="Server Icon">
+                    <% } %>
+                  </div>
+                  <h3 class="profile-username text-center"><%= guild.name %></h3>
+                  <% let href, text, enabled;
+                  if(bot.guilds.cache.get(guild.id)) {
+                    href = `/dashboard/${guild.id}`;
+                    text = "Manage";
+                    icon = "fas fa-chevron-right";
+                    enabled = true;
+                  } else {
+                    href = `/add/${guild.id}`;
+                    text = "Invite Bot";
+                    icon = "fas fa-plus";
+                    enabled = user.id == process.env.OWNER || bot.application.botPublic;
+                  } %>
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer rbg-transparent">
+                  <a class="btn btn-primary btn-block <% if(!enabled) { %> disabled<% } %>" role="button" href="<%= href %>">
+                    <b><%= text %> </b><i class="<%= icon %>"></i>
+                    <i class="right chevron icon"></i>
+                  </a>
+                </div>
+              </div>
+              <!-- /.card -->
+            </div>   
+        <% }); %>
+      </div>
+      <!-- /.row -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+  <footer class="main-footer">
+    <%- include(`../partials/footer`) %>
+  </footer>
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+  <%- include(`../partials/doc_end`) %>
+</body>
+</html>
