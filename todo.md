@@ -25,7 +25,6 @@
   - spaces inbetween text like clap
   - random caps/mock
 - fun commands
-  - coin flip
   - rng
   - roll
   - advice
