@@ -1,4 +1,4 @@
-/http/dashboard/build
-/http/dashboard/dist
-/http/dashboard/pages
-/http/dashboard/plugins
+/http/dashboard/build/
+/http/dashboard/dist/
+/http/dashboard/pages/
+/http/dashboard/plugins/

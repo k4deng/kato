@@ -49,7 +49,7 @@ const config = {
 		legalTemplates: {
 			contactEmail: 'contact@k4deng.net', // This email will be used in the legal page of the dashboard if someone needs to contact you for any reason regarding this page
 			lastEdited: '16 April 2021' // Change this if you update the `TERMS.md` or `PRIVACY.md` files in `dashboard/public/`
-	  }
+    }
   },
 
   // This will spam your console if you enable this but will help with bug fixing

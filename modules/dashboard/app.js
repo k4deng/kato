@@ -242,8 +242,8 @@ module.exports = client => {
   }
 
   // im using this for changing settings cause its easy
-  function changeSetting(guild, key, value){
-    if (getSettings(guild)[key] != value){
+  function changeSetting(guild, key, value) {
+    if (getSettings(guild)[key] != value) {
       if (!settings.has(guild.id)) settings.set(guild.id, {});
       settings.set(guild.id, value, key);
     }
@@ -377,15 +377,13 @@ module.exports = client => {
   app.get(
     '/login',
     (req, res, next) => {
-      if (req.session.backURL) {
-        req.session.backURL = req.session.backURL;
-      } else if (req.headers.referer) {
+      if (req.headers.referer) {
         const parsed = url.parse(req.headers.referer);
         if (parsed.hostname === app.locals.domain) {
           req.session.backURL = parsed.path;
         }
       } else {
-        req.session.backURL = '/';
+        req.session.backURL = req.session.backURL ?? '/';
       }
       next();
     },
