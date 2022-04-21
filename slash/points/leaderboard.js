@@ -1,15 +1,26 @@
 const { points } = require("../../modules/settings.js");
-const { MessageEmbed } = require('discord.js');
-const { themeColor } = require("../../config.js");
+const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
+const config = require("../../config.js");
 
 exports.run = async (client, interaction) => { // eslint-disable-line no-unused-vars 
-  await interaction.deferReply();
   const filtered = points.filter( p => p.guild === interaction.guild.id ).array();
   const res = filtered.sort((a, b) => b.points - a.points);
 
   var embed = new MessageEmbed()
     .setTitle('Leaderboard')
-    .setColor(themeColor);
+    .setColor(config.themeColor);
+
+  var row;
+  if (config.dashboard.enabled === "true") {
+    const protocol = config.dashboard.secure === "true" ? 'https://' : 'http://';  
+    row = new MessageActionRow()
+      .addComponents(
+        new MessageButton()
+          .setLabel('Leaderboard Link')
+          .setURL(`${protocol}${config.dashboard.domain}/leaderboard/${interaction.guild.id}`)
+          .setStyle('LINK'),
+      );
+  }
 
   if (!res[0]) {
     // If there no results
@@ -23,7 +34,8 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
       }
     }
   }
-  await interaction.editReply({ embeds: [embed] });
+  if (config.dashboard.enabled === "true") await interaction.reply({ embeds: [embed], components: [row] });
+    else await interaction.reply({ embeds: [embed] });
 };
 
 exports.commandData = {

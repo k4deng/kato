@@ -1,5 +1,4 @@
 const logger = require("../modules/logger.js");
-const { getSettings } = require("../modules/functions.js");
 module.exports = async client => {
   // Log that the bot is online.
   logger.log(`${client.user.tag}, ready to serve ${client.guilds.cache.map(g => g.memberCount).reduce((a, b) => a + b)} users in ${client.guilds.cache.size} servers.`, "ready");

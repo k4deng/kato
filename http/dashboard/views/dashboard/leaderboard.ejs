@@ -32,7 +32,8 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="/">Home</a></li>
-              <li class="breadcrumb-item"><a href="/servers">Servers</a></li>
+              <li class="breadcrumb-item <% if(managed) { %>"><a href="/servers">Servers</a>
+                <% } else { %>active">Servers<% } %></li>
               <li class="breadcrumb-item active"> <%= guild.name %>  /  Leaderboard</li>
             </ol>
           </div><!-- /.col -->
@@ -48,6 +49,7 @@
       </div>
 
       <div class="row">
+        
         <div class="col-8">
           <%let x = 1;%>
           <% for (let i= 0; i < ranks.length; i++) { %>
@@ -65,6 +67,18 @@
               </div>
             <% } %>
           <% }; %>
+          <% if (!ranks.length) { %>
+            <div class="card card-widget widget-user-2">
+              <div class="widget-user-header">
+                <div class="widget-user-image">
+                  <img class="img-circle elevation-2" src="<% if (guild.icon) { %>https://cdn.discordapp.com/icons/<%= guild.id %>/<%= guild.icon %>.jpg?size=256 <% } else { %> https://i.imgur.com/2otMem9.png <% } %>" alt="Server Icon">
+                </div>
+                <!-- /.widget-user-image -->
+                <h3 class="widget-user-username">No data found</h3>
+                <h5 class="widget-user-desc">Start talking in <%= guild.name %> to gain points.</h5>
+              </div>
+            </div>
+          <% } %>
         </div>
 
         <div class="col-4">

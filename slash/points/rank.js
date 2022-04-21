@@ -24,7 +24,7 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
 			if (res[i].user == target.user.id) rankScore = i;
 		}
 
-    function lvlPoints(lvl){ return (2*Math.pow(lvl, 3)+25) }
+    function lvlPoints(lvl) { return 2*Math.pow(lvl, 3)+25; }
     
 		// create rank card
 		const rankcard = new rank()

@@ -24,8 +24,6 @@
   - random color
   - spaces inbetween text like clap
   - random caps/mock
-- system commands
-  - invite link
 - fun commands
   - coin flip
   - rng

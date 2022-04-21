@@ -451,14 +451,13 @@ module.exports = client => {
 
   app.get('/add/:guildID', checkAuth, (req, res) => {
     req.session.backURL = '/dashboard';
-    var invitePerm = config.dashboard.invitePerm;
     var inviteURL = `https://discordapp.com/oauth2/authorize?client_id=${
       config.dashboard.clientID
       }&scope=bot&guild_id=${
       req.params.guildID
       }&response_type=code&redirect_uri=${encodeURIComponent(
         `${client.callbackURL}`
-      )}&permissions=${invitePerm}`;
+      )}&permissions=${config.invitePerm}`;
     if (client.guilds.cache.has(req.params.guildID)) {
       res.send(
         '<p>The bot is already there... <script>setTimeout(function () { window.location="/servers"; }, 1000);</script><noscript><meta http-equiv="refresh" content="1; url=/servers" /></noscript>'
@@ -469,8 +468,7 @@ module.exports = client => {
   });
 
   app.get('/invite', checkAuth, (req, res) => {
-    var invitePerm = config.dashboard.invitePerm;
-    var inviteURL = `https://discordapp.com/oauth2/authorize?client_id=${config.dashboard.clientID}&scope=bot%20applications.commands&permissions=${invitePerm}`;
+    var inviteURL = `https://discordapp.com/oauth2/authorize?client_id=${config.dashboard.clientID}&scope=bot%20applications.commands&permissions=${config.invitePerm}`;
     res.redirect(inviteURL);
   });
 
