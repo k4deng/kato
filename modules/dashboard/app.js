@@ -699,7 +699,6 @@ module.exports = client => {
     }
 
     const welcomeEnabled = !req.body.welcomeEnabled ? "false" : "true";
-    console.log(req.body);
     changeSetting(guild, "welcomeEnabled", welcomeEnabled);
     if (welcomeEnabled) changeSetting(guild, "welcomeChannel", req.body.welcomeChannel);
     if (welcomeEnabled) changeSetting(guild, "welcomeMessage", req.body.welcomeMessage == "" ? getSettings()["welcomeMessage"] : req.body.welcomeMessage);

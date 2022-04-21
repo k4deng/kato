@@ -70,14 +70,14 @@
                   <h5><b>Welcome Channel</b></h5>
                   <p class="card-text">Where to send welcome messages to</p>
                   <select name="welcomeChannel" class="custom-select">
-                    <option value="" <% if (!settings.welcomeChannel || settings.welcomeChannel === "welcome") { %> selected <% } else { %> disabled <% } %> >Please select a channel</option>
+                    <option value="" <% if (!settings.welcomeChannel || settings.welcomeChannel === "") { %> selected <% } else { %> disabled <% } %> >Please select a channel</option>
                     <% const channels = guild.channels.cache.sort((a, b) => a.rawPosition - b.rawPosition) %>
                     <% for (const channel of channels.values()) { %>
                       <% if (channel.type == 'GUILD_TEXT') { %>
-                        <% if (settings.welcomeChannel == channel.name) { %>
-                          <option value=<%= channel.name %> selected>#<%= channel.name %></option>
+                        <% if (settings.welcomeChannel == channel.id) { %>
+                          <option value=<%= channel.id %> selected>#<%= channel.name %></option>
                         <% } else { %>
-                          <option value=<%= channel.name %>>#<%= channel.name %></option>
+                          <option value=<%= channel.id %>>#<%= channel.name %></option>
                         <% } %>
                       <% } %>
                     <% } %>
@@ -146,17 +146,17 @@
     }
   }
   
-/*$(function () {
+$(function () {
 
   // Form validation
   $('#form').validate({
     rules: {
-      levelChannel: {
+      welcomeChannel: {
         required: true
       },
     },
     messages: {
-      levelChannel: "You must select a channel"
+      welcomeChannel: "You must select a channel"
     },
     errorElement: 'span',
     errorPlacement: function (error, element) {
@@ -170,7 +170,7 @@
       $(element).removeClass('is-invalid');
     }
   });
-});*/
+});
 </script>
     
 </body>
