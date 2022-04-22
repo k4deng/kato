@@ -26,6 +26,7 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
 exports.commandData = {
   name: "yomomma",
   description: "Says a \"yo momma\" joke to a user.",
+  category: "Fun",
   options: [{
     name: 'user',
     type: 'USER',

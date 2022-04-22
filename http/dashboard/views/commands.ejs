@@ -22,7 +22,7 @@
   <% //This is for stuff
   const slashhelp = {};
   bot.container.slashcmds.forEach((command) => {
-    const cat = "All Commands";
+    const cat = command.commandData.category;
     if (!slashhelp.hasOwnProperty(cat)) slashhelp[cat] = [];
     slashhelp[cat].push(command);
   });
@@ -119,12 +119,14 @@
           <div class="col-sm-6">
             <h1 class="m-0">Slash Commands</h1>
           </div><!-- /.col -->
+          <% if (bot.container.commands.size = 0){ %>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="/">Home</a></li>
               <li class="breadcrumb-item active">Commands</li>
             </ol>
           </div><!-- /.col -->
+          <% } %>
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
     </div>
@@ -161,8 +163,8 @@
                     <b><%= command.commandData.name %></b><br>
                     <i><%= command.commandData.description %></i><br><br>
 
-                    Permission Needed: <%= bot.container.slashcmds.get(command.commandData.name).conf.permLevel %><br><br>
-
+                    Permission Needed: <%= command.conf.permLevel %><br>
+                    Server Only: <%= command.conf.guildOnly ? "Yes" : "No" %>
                   </div>
                   <% commandHelpActiveCount++ %>
                 <% } %>

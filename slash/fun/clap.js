@@ -21,6 +21,7 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
 exports.commandData = {
   name: "clap",
   description: "👏 Clap 👏",
+  category: "Fun",
   options: [{
     name: 'message',
     type: 'STRING',

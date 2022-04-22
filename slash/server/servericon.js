@@ -19,6 +19,7 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
 exports.commandData = {
   name: "servericon",
   description: "Get the server's icon.",
+  category: "Server",
   options: [],
   defaultPermission: true,
 };

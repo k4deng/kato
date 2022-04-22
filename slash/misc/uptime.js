@@ -14,6 +14,7 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
 exports.commandData = {
   name: "uptime",
   description: "The bot's uptime",
+  category: "Misc",
   options: [],
   defaultPermission: true,
 };

@@ -25,6 +25,7 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
 exports.commandData = {
   name: "about",
   description: "Shows some info about the bot.",
+  category: "Info",
   options: [],
   defaultPermission: true,
 };

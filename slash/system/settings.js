@@ -92,6 +92,7 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
 exports.commandData = {
   name: "settings",
   description: "View or change settings for your server.",
+  category: "System",
   options: [{
     name: 'view',
     type: 'SUB_COMMAND',

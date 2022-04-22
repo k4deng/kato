@@ -6,6 +6,7 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
 exports.commandData = {
   name: "flip",
   description: "Flips a coin.",
+  category: "Fun",
   options: [],
   defaultPermission: true,
 };

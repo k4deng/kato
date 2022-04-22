@@ -14,6 +14,7 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
 exports.commandData = {
   name: "avatar",
   description: "View a user's avatar.",
+  category: "Server",
   options: [{
     name: 'user',
     type: 'USER',

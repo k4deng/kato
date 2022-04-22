@@ -24,6 +24,7 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
 exports.commandData = {
   name: "invite",
   description: "Generate a invite link for the bot.",
+  category: "System",
   options: [],
   defaultPermission: true,
 };

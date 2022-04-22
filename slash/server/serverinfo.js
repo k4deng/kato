@@ -48,6 +48,7 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
 exports.commandData = {
   name: "serverinfo",
   description: "Get information on the server.",
+  category: "Server",
   options: [],
   defaultPermission: true,
 };

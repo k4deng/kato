@@ -41,6 +41,7 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
 exports.commandData = {
   name: "leaderboard",
   description: "Shows the top level users in the discord server.",
+  category: "Points",
   options: [],
   defaultPermission: true,
 };

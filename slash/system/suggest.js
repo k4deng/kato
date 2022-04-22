@@ -26,7 +26,8 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
 
 exports.commandData = {
   name: "suggest",
-  description: "Adds a suggestion to the the bot's support Discord.",
+  description: "Adds a suggestion to the the bot's support Discord server.",
+  category: "System",
   options: [{
     name: 'title',
     type: 'STRING',

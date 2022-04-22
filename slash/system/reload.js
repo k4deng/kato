@@ -25,6 +25,7 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
 exports.commandData = {
   name: "reload",
   description: "Reloads a command that\"s been modified.",
+  category: "System",
   options: [{
     name: 'subfolder',
     type: 'STRING',

@@ -12,6 +12,7 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
 exports.commandData = {
   name: "mylevel",
   description: "Tells you your permission level for the current message location.",
+  category: "Info",
   options: [],
   defaultPermission: true,
 };

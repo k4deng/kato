@@ -7,6 +7,7 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
 exports.commandData = {
   name: "ping",
   description: "Pongs when pinged.",
+  category: "Misc",
   options: [],
   defaultPermission: true,
 };

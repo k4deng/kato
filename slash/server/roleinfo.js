@@ -32,6 +32,7 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
 exports.commandData = {
   name: "roleinfo",
   description: "Get information on a role.",
+  category: "Server",
   options: [{
     name: 'role',
     type: 'ROLE',

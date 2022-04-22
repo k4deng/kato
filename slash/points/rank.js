@@ -46,6 +46,7 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
 exports.commandData = {
   name: "rank",
   description: "Shows your server rank/level.",
+  category: "Points",
   options: [{
     name: 'user',
     type: 'USER',

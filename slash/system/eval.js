@@ -40,6 +40,7 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
 exports.commandData = {
   name: "eval",
   description: "Evaluates arbitrary javascript.",
+  category: "System",
   options: [{
     name: 'code',
     type: 'STRING',
