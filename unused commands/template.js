@@ -2,6 +2,7 @@
 const { MessageEmbed } = require('discord.js');
 const { settings } = require("../../modules/settings.js");
 const { points } = require("../../modules/settings.js");
+const config = require("../../config.js");
 const logger = require("../../modules/logger.js");
 const messages = require("../../modules/messages.js");
 
@@ -13,6 +14,7 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
 exports.commandData = {
   name: "name",
   description: "desc",
+  category: "Category",
   options: [{
     name: 'name',
     type: 'STRING',

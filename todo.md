@@ -18,7 +18,6 @@
 
 ## not urgent
 - music system
-- leveling improvements
 - idk commands
   - reverse message
   - random color
