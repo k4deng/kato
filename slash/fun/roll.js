@@ -2,9 +2,9 @@ const { MessageEmbed } = require('discord.js');
 const { themeColor } = require("../../config.js");
 
 exports.run = async (client, interaction) => { // eslint-disable-line no-unused-vars
-  let embed = new MessageEmbed()
+  const embed = new MessageEmbed()
     .setColor(themeColor)
-    .setTitle("Result:")
+    .setTitle("Result:");
 
   const number = Math.floor(Math.random() * 6);
   const images =
@@ -13,7 +13,7 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
      "https://cdn.discordapp.com/attachments/969301458363240458/969301714807193650/dieWhite_border3.png",
      "https://cdn.discordapp.com/attachments/969301458363240458/969301714358386718/dieWhite_border4.png",
      "https://cdn.discordapp.com/attachments/969301458363240458/969301714060599386/dieWhite_border5.png",
-     "https://cdn.discordapp.com/attachments/969301458363240458/969301716417802351/dieWhite_border6.png"]
+     "https://cdn.discordapp.com/attachments/969301458363240458/969301716417802351/dieWhite_border6.png"];
   embed.setImage(images[number]);
   
   await interaction.reply({ embeds: [ embed ] });
