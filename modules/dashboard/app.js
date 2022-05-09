@@ -50,7 +50,7 @@ const chalk = require('chalk');
 const morgan = require('morgan');
 // The output
 // Valid variables: https://www.npmjs.com/package/morgan#dateformat
-morgan.token('statusColor', (req, res, args) => {
+morgan.token('statusColor', (req, res) => {
   // get the status code if response written
   var status = (typeof res.headersSent !== 'boolean'
     ? Boolean(res.header)
@@ -107,8 +107,8 @@ module.exports = client => {
   const templateDir = path.resolve(`${dataDir}${path.sep}views`);
 
   app.set('trust proxy', 5); // Proxy support
-  // The public data directory, which is accessible from the *browser*.
-  // It contains all css, client javascript, and images needed for the site.
+  // this does something... i dont really know what... dont remove it or it will break css
+  // if you find a better way please fix it
   app.use('/dist', express.static(path.resolve(`${dataDir}${path.sep}dist`), { maxAge: '10d' }));
   app.use('/build', express.static(path.resolve(`${dataDir}${path.sep}build`), { maxAge: '10d' }));
   app.use('/plugins', express.static(path.resolve(`${dataDir}${path.sep}plugins`), { maxAge: '10d' }));
@@ -425,7 +425,7 @@ module.exports = client => {
         text: client.channels.cache.filter(c => c.type === 'GUILD_TEXT').size,
         voice: client.channels.cache.filter(c => c.type === 'GUILD_VOICE').size,
         servers: client.guilds.cache.size,
-        commands: client.container.commands.size,
+        commands: client.container.commands.size + client.container.slashcmds.size,
         uptime: moment
           .duration(client.uptime)
           .format(' D [d], H [h], m [m], s [s]'),

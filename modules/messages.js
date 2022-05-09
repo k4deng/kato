@@ -45,4 +45,26 @@ function success(message, interaction, ephemeral = false, returnValue) {
   }
 }
 
-module.exports = { error, success };
+function loading(message, interaction, ephemeral = false, returnValue) {
+  try {
+    const emoji = interaction.guild.me.permissions.has(Permissions.FLAGS.USE_EXTERNAL_EMOJIS) ? '<a:loading:813181113148899330>' : ':arrows_counterclockwise:';
+    const embed = new MessageEmbed()
+      .setColor(4565214)
+      .setDescription(`${emoji} ${message}`);
+    if (returnValue) {
+      return embed;
+    } else {
+      if (interaction.replied) 
+        return interaction.followUp({ embeds: [embed], ephemeral: ephemeral });
+      else 
+      if (interaction.deferred)
+        return interaction.editReply({ embeds: [embed], ephemeral: ephemeral });
+      else 
+        return interaction.reply({ embeds: [embed], ephemeral: ephemeral });
+    }
+  } catch (err) {
+    logger.error(err.message);
+  }
+}
+
+module.exports = { error, success, loading };

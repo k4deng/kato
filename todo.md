@@ -6,6 +6,8 @@
 - help
 
 ## must to before release
+- delete commands/to-delete
+- fix key/value descriptions in admin and settings commands
 - basic moderation (ban, kick, etc.)
   - ban
   - kick
