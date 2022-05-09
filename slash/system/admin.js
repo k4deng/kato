@@ -52,12 +52,12 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
       if (!defaults[key]) return await messages.error("This key does not exist in the settings", interaction);
 
       const confButton2 = new MessageActionRow()
-  			.addComponents(
-  				new MessageButton()
-  					.setCustomId('confButton2')
-  					.setLabel('Confirm')
-  					.setStyle('DANGER'),
-  			);
+        .addComponents(
+          new MessageButton()
+            .setCustomId('confButton2')
+            .setLabel('Confirm')
+            .setStyle('DANGER'),
+        );
       await interaction.editReply({ content: `Are you sure you want to permanently delete \`${key}\` from all guilds? This **CANNOT** be undone.`, components: [confButton2] });
 
       const confirm = await awaitButton(interaction, "confButton2", 10000);
@@ -76,7 +76,7 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
         
         var embed = messages.success(`\`${key}\` was successfully deleted.`, interaction, false, true);
         await interaction.editReply({ embeds: [embed], content: " ", components: [] });
-      } else if (conf == false) {
+      } else if (confirm == false) {
         // They did not click the button so we cancel.
         var embed2 = messages.error(`Deletion of \`${key}\` was cancelled.`, interaction, false, true);
         await interaction.editReply({ embeds: [embed2], content: " ", components: [] });
@@ -106,7 +106,7 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
     const [globalCmds, guildCmds] = client.container.slashcmds.partition(c => !c.conf.guildOnly);
   
     // Give the user a notification the commands are deploying.
-    messages.loading("Deploying commands", interaction)
+    messages.loading("Deploying commands", interaction);
   
     // We'll use set but please keep in mind that `set` is overkill for a singular command.
     // Set the guild commands like 
@@ -120,7 +120,7 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
   } else
 
   if (subcommand === "reboot") {
-    await messages.success("Bot is shutting down", interaction)
+    await messages.success("Bot is shutting down", interaction);
     process.exit(0);
   }
 };
