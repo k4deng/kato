@@ -1,12 +1,4 @@
-## commands to make slash
-- admin commands
-  - conf
-  - deploy
-  - reboot/shutdown
-- help
-
 ## must to before release
-- delete commands/to-delete
 - fix key/value descriptions in admin and settings commands
 - basic moderation (ban, kick, etc.)
   - ban
@@ -17,6 +9,7 @@
   - change user nickname
 - command logger to files
 - update about command
+- make help command slash
 
 ## not urgent
 - music system
