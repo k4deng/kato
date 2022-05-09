@@ -9,7 +9,6 @@
   - change user nickname
 - command logger to files
 - update about command
-- make help command slash
 
 ## not urgent
 - music system

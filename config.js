@@ -43,7 +43,7 @@ const config = {
 		oauthSecret: process.env.dashboardOauthSecret, // The client secret from the Discord bot page
 		secure: 'true', // HTTPS: 'true' for true, 'false' for false
 		sessionSecret: process.env.dashboardSessionSecret, // Go crazy on the keyboard here, this is used as a session secret
-		domain: 'dev.katobot.tk', // Domain name (with port if not running behind proxy running on port 80). Example: 'domain': 'dashboard.bot-website.com' OR 'domain': 'localhost:33445'
+		domain: 'v13.katobot.tk', // Domain name (with port if not running behind proxy running on port 80). Example: 'domain': 'dashboard.bot-website.com' OR 'domain': 'localhost:33445'
 		port: '3000', // The port that it should run on
 		protectStats: 'false', //if stats page is visible
 		borderedStats: 'true', // Controls whether stats in the dashboard should have a border or not

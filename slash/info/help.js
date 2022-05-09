@@ -19,59 +19,45 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
   
   // If no specific command is called, show all filtered commands.
   if (!command) {
-
-    // Load guild settings (for prefixes and eventually per-guild tweaks)
-    const settings = interaction.settings;
       
     // Filter all commands by which are available for the user's level, using the <Collection>.filter() method.
-    const myCommands = interaction.guild ? container.commands.filter(cmd => container.levelCache[cmd.conf.permLevel] <= level) :
-      container.commands.filter(cmd => container.levelCache[cmd.conf.permLevel] <= level && cmd.conf.guildOnly !== true);
-
-    // Then we will filter the myCommands collection again to get the enabled commands.
-    const enabledCommands = myCommands.filter(cmd => cmd.conf.enabled);
+    const myCommands = interaction.guild ? container.slashcmds.filter(cmd => container.levelCache[cmd.conf.permLevel] <= level) :
+      container.slashcmds.filter(cmd => container.levelCache[cmd.conf.permLevel] <= level && cmd.conf.guildOnly !== true);
 
     // Here we have to get the command names only, and we use that array to get the longest name.
-    const commandNames = [...enabledCommands.keys()];
+    const commandNames = [...myCommands.keys()];
 
     // This make the help commands "aligned" in the output.
     const longest = commandNames.reduce((long, str) => Math.max(long, str.length), 0);
 
     let currentCategory = "";
     let output = `= Command List =\n[Use /help <commandname> for details]\n`;
-    const sorted = enabledCommands.sort((p, c) => p.help.category > c.help.category ? 1 : 
-      p.help.name > c.help.name && p.help.category === c.help.category ? 1 : -1 );
+    const sorted = myCommands.sort((p, c) => p.commandData.category > c.commandData.category ? 1 : 
+      p.commandData.name > c.commandData.name && p.commandData.category === c.commandData.category ? 1 : -1 );
 
     sorted.forEach( c => {
-      const cat = toProperCase(c.help.category);
+      const cat = toProperCase(c.commandData.category);
       if (currentCategory !== cat) {
         output += `\u200b\n== ${cat} ==\n`;
         currentCategory = cat;
       }
-      output += `${settings.prefix}${c.help.name}${" ".repeat(longest - c.help.name.length)} :: ${c.help.description}\n`;
+      output += `/${c.commandData.name}${" ".repeat(longest - c.commandData.name.length)} :: ${c.commandData.description}\n`;
     });
     interaction.reply(codeBlock("asciidoc", output));
-
-
-
-
-    
   } else {
     // Show individual command's help.
-    if (container.commands.has(command) || container.commands.has(container.aliases.get(command))) {
-      command = container.commands.get(command) ?? container.commands.get(container.aliases.get(command));
-      if (level < container.levelCache[command.conf.permLevel]) return;
-      interaction.reply(codeBlock("asciidoc", `= ${command.help.name} = \n${command.help.description}\nusage:: ${command.help.usage}\naliases:: ${command.conf.aliases.join(", ")}`));
-    } else return messages.error("No command with that name exists.", interaction, true);
+    if (container.slashcmds.has(command)) {
+      command = container.slashcmds.get(command);
+      //if (level < container.levelCache[command.conf.permLevel]) return messages.error("No command with that name exists.", interaction);
+      interaction.reply(codeBlock("asciidoc", `= ${toProperCase(command.commandData.name)} = \n${command.commandData.description}\nPerm Level Needed :: ${command.conf.permLevel}`));
+    } else return messages.error("No command with that name exists.", interaction);
   }
-
-
-
-  
 };
 
 exports.commandData = {
   name: "help",
   description: "Shows all your available commands.",
+  category: "Info",
   options: [{
     name: 'command',
     type: 'STRING',

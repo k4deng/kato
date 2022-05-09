@@ -12,6 +12,7 @@ const { Util } = require("discord.js")
   "Clean" removes @everyone pings, as well as tokens, and makes code blocks
   escaped so they're shown more easily. As a bonus it resolves promises
   and stringifies objects!
+  This is mostly only used by the Eval and Exec commands.
 */
 async function clean(client, text) {
   if (text && text.constructor.name == "Promise")
@@ -30,35 +31,29 @@ async function clean(client, text) {
 
 // However it's, like, super ultra useful for troubleshooting and doing stuff
 // you don't want to put in a command.
-
-exports.run = async (client, interaction) => { // eslint-disable-line no-unused-vars
-  const code = interaction.options.get("code")?.value; 
+exports.run = async (client, message, args, level) => { // eslint-disable-line no-unused-vars
+  const code = args.join(" ");
   const evaled = eval(code);
   const cleaned = await clean(client, evaled);
+  //message.channel.send(codeBlock("js", cleaned));
+
   const text = Util.splitMessage(cleaned, { maxLength: "1900" });
   
   for (const split of text) {
-    if (interaction.replied) await interaction.followUp(codeBlock("js", split))
-        else await interaction.reply(codeBlock("js", split))
+    message.channel.send(codeBlock("js", split))
   }
 };
 
-exports.commandData = {
-  name: "eval",
-  description: "Evaluates arbitrary javascript.",
-  category: "System",
-  options: [{
-    name: 'code',
-    type: 'STRING',
-    description: 'Code to Evaluate.',
-    required: true,   
-  }],
-  defaultPermission: true,
+exports.conf = {
+  enabled: true,
+  guildOnly: false,
+  aliases: [],
+  permLevel: "Bot Owner"
 };
 
-// Set guildOnly to true if you want it to be available on guilds only.
-// Otherwise false is global.
-exports.conf = {
-  permLevel: "Bot Owner",
-  guildOnly: false
+exports.help = {
+  name: "eval",
+  category: "System",
+  description: "Evaluates arbitrary javascript.",
+  usage: "eval [...code]"
 };
