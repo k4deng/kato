@@ -44,13 +44,34 @@
 
     <!-- Main content -->
     <section class="content">
-      <div class="col-8 mx-auto">
+      <div class="col-12 col-sm-8 mx-auto">
         <%- include(`../../partials/serverwidget`) %>
       </div>
 
       <div class="row">
         
-        <div class="col-8">
+        <div class="order-md-2 col-md-4">
+          <div class="card card-default">
+            <!-- /.card-header -->
+            <div class="card-body">
+              <div class="callout callout-info">
+                <h5>How It Works</h5>
+                <p>Every minute that you're messaging, you randomly gain between <%= bot.config.points.xpMin %> and <%= bot.config.points.xpMax %> points.</p>
+                <p>To avoid spamming, earning points is limited to once a minute per user.</p>
+                <p>In the server, you type /rank to see your rank and level.</p>
+              </div>
+            </div>
+            <!-- /.card-body -->
+            <% if(managed) { %>
+            <div class="card-footer">
+              <a class="btn btn-danger button float-right" data-toggle="modal" data-target="#levelsResetModal">Reset Server Levels</a>
+            </div>
+            <% } %>
+            <!-- /.card-footer -->
+          </div>
+        </div>
+
+        <div class="order-md-1 col-md-8">
           <%let x = 1;%>
           <% for (let i= 0; i < ranks.length; i++) { %>
             <% if (bot.users.cache.get(ranks[i].user)) { %>
@@ -58,7 +79,7 @@
                 <div class="widget-user-header">
                   <!--<h5><%= x %></h5>-->
                   <div class="widget-user-image">
-                    <img class="img-circle elevation-2" src="<%= bot.users.cache.get(ranks[i].user) ? bot.users.cache.get(ranks[i].user).displayAvatarURL({ dynamic: false, size: 128 }) : "https://cdn.discordapp.com/embed/avatars/4.png"%> alt="User Avatar">
+                    <img class="img-circle elevation-2" src="<%= bot.users.cache.get(ranks[i].user) ? bot.users.cache.get(ranks[i].user).displayAvatarURL({ dynamic: false, size: 128 }) : "https://cdn.discordapp.com/embed/avatars/1.png"%> alt="User Avatar">
                   </div>
                   <!-- /.widget-user-image -->
                   <h3 class="widget-user-username"><%= bot.users.cache.get(ranks[i].user).username ?? "User left"%></h3>
@@ -80,28 +101,7 @@
             </div>
           <% } %>
         </div>
-
-        <div class="col-4">
-            <div class="card card-default">
-              <!-- /.card-header -->
-              <div class="card-body">
-                <div class="callout callout-info">
-                  <h5>How It Works</h5>
-                  <p>Every minute that you're messaging, you randomly gain between <%= bot.config.points.xpMin %> and <%= bot.config.points.xpMax %> points.</p>
-                  <p>To avoid spamming, earning points is limited to once a minute per user.</p>
-                  <p>In the server, you type /rank to see your rank and level.</p>
-                </div>
-              </div>
-              <!-- /.card-body -->
-              <% if(managed) { %>
-              <div class="card-footer">
-                <a class="btn btn-danger button float-right" data-toggle="modal" data-target="#levelsResetModal">Reset Server Levels</a>
-              </div>
-              <% } %>
-              <!-- /.card-footer -->
-            </div>
-          </div>
-        </div>
+            
       </div>
 
       <!-- Manage Page Modals -->

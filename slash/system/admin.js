@@ -140,13 +140,13 @@ exports.commandData = {
       options: [{
         name: 'key',
         type: 'STRING',
-        description: 'desc',
+        description: 'Key to add.',
         required: true,
       },
       {
         name: 'value',
         type: 'STRING',
-        description: 'desc',
+        description: 'Value to add.',
         required: true,
       }],
     },
@@ -157,13 +157,13 @@ exports.commandData = {
       options: [{
         name: 'key',
         type: 'STRING',
-        description: 'desc',
+        description: 'Key to edit.',
         required: true,
       },
       {
         name: 'value',
         type: 'STRING',
-        description: 'desc',
+        description: 'Value to set.',
         required: true,
       }],
     },
@@ -174,7 +174,7 @@ exports.commandData = {
       options: [{
         name: 'key',
         type: 'STRING',
-        description: 'desc',
+        description: 'Key to delete.',
         required: true,
       }],
     },
@@ -185,7 +185,7 @@ exports.commandData = {
       options: [{
         name: 'key',
         type: 'STRING',
-        description: 'desc',
+        description: 'Specific key to view.',
         required: false,
       }],
     }],

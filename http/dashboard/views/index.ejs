@@ -44,15 +44,15 @@
       <div class="container-fluid">
         <!-- Top Row (buttons/botinfo) -->
         <div class="row">
-          <div class="col-lg-8 col-12 connectedSortable">
+          <div class="col-lg-8 col-12">
             <div class="card d-flex flex-fill">
               <div class="card-header text-muted border-bottom-0"></div>
               <div class="card-body pt-0">
                 <div class="row">
-                  <div class="col-5 text-center">
+                  <div class="col-md-5 col-12 text-center">
                     <img src="https://cdn.discordapp.com/avatars/<%= bot.user.id %>/<%= bot.user.avatar %>.png?size=256" style="height: 192px; width: 192px;"  alt="user-avatar" class="img-circle img-fluid">
                   </div>
-                  <div class="col-7">
+                  <div class="col-md-7 col-12">
                     <h1><b><%= bot.user.username %> Discord Bot</b></h1>
                     <p class="text-lg text-muted"><%= bot.application.description%></p>
                   </div>
@@ -62,7 +62,7 @@
             <!-- /.card-body -->
           </div>
           <!-- ./col -->
-          <div class="col-lg-4 col-12 connectedSortable">
+          <div class="col-lg-4 col-12">
             <div class="card d-flex flex-fill">
               <div class="card-header text-muted border-bottom-0"></div>
               <div class="card-body pt-0">
@@ -88,15 +88,15 @@
 
         <!-- Main Row (Bot things) -->
         <div class="row">
-          <div class="col-12 connectedSortable">
+          <div class="col-12">
             <div class="card d-flex flex-fill">
               <div class="card-header text-muted border-bottom-0"></div>
               <div class="card-body pt-0">
                 <div class="row">
-                  <div class="col-7 text-center">
-
+                  <div class="col-12 col-md-7 text-center">
+                    Image
                   </div>
-                  <div class="col-5">
+                  <div class="col-12 col-md-5">
                     <h1><b>Welcome Messages</b></h1>
                     <p class="text-lg text-muted">Use <%= bot.user.username %> to give users a warm welcome by welcoming them in a channel with a message of your choice.</p>
                   </div>
@@ -110,64 +110,64 @@
               <div class="card-header text-muted border-bottom-0"></div>
               <div class="card-body pt-0">
                 <div class="row">
-                <div class="col-5">
+                <div class="order-2 order-md-1 col-12 col-md-5">
                     <h1><b>Levels & Points</b></h1>
-                    <p class="text-lg text-muted"><%= bot.user.username %> provides an all in one leveling and rank system for all servers. Customize your level up message, channels, and xp rates all with <%= bot.user.username %>'s dashboard.</p>
+                    <p class="text-lg text-muted"><%= bot.user.username %> provides an all in one leveling and rank system for all servers. Customize your level up message, channels, and leveling rates all with <%= bot.user.username %>'s dashboard.</p>
                   </div>
-                  <div class="col-7 text-center">
-
+                  <div class="order-1 order-md-2 col-12 col-md-7 text-center">
+                    Image
                   </div>
                 </div>
               </div>
             </div>
             <!-- /.card-body -->
           </div>
-          <div class="col-12 connectedSortable">
+          <!--<div class="col-12">
             <div class="card d-flex flex-fill">
               <div class="card-header text-muted border-bottom-0"></div>
               <div class="card-body pt-0">
                 <div class="row">
-                  <div class="col-7 text-center">
-
+                  <div class="col-12 col-md-7 text-center">
+                    Image
                   </div>
-                  <div class="col-5">
+                  <div class="col-12 col-md-5">
                     <h1><b>Extensive Event Logging</b></h1>
                     <p class="text-lg text-muted"><%= bot.user.username %> keeps rolling logs of many events that happen in your server for moderators to keep track of.</p>
                   </div>
                 </div>
               </div>
             </div>
-            <!-- /.card-body -->
-          </div>
+            !-- /.card-body --
+          </div>-->
           <!-- ./col -->
         </div>
         <!-- /.row -->
 
         <!-- Bottom Row (supoort/premium/things) -->
         <div class="row">
-          <div class="col-4 connectedSortable">
+          <div class="col-12 col-sm-4">
             <div class="card d-flex flex-fill">
               <div class="card-header text-muted border-bottom-0"></div>
               <div class="card-body pt-0">
                 <h3 class="text-center"><b>Docs</b></h3>
-                <p class="text-lg text-muted text-center">Need help with <%= bot.user.username %>? Maybe you just want to see fun features?<br>You can view <%= bot.user.username %>'s docs <a href="#">here</a>.</p>
+                <p class="text-lg text-muted text-center">Need help with <%= bot.user.username %>? Maybe you just want to see fun features? You can view <%= bot.user.username %>'s docs <a href="#">here</a>.</p>
               </div>
             </div>
             <!-- /.card-body -->
           </div>
           <!-- ./col -->
-          <div class="col-4 connectedSortable">
+          <div class="col-12 col-sm-4">
             <div class="card d-flex flex-fill">
               <div class="card-header text-muted border-bottom-0"></div>
               <div class="card-body pt-0">
                 <h3 class="text-center"><b>Support</b></h3>
-                <p class="text-lg text-muted text-center">Need some help with <%= bot.user.username %>? There are many users available to help at many times of the day on our <a href="#">Discord Server</a>.</p>
+                <p class="text-lg text-muted text-center">Need help with <%= bot.user.username %>? There are many users available to help at many times of the day on our <a href="#">Discord Server</a>.</p>
               </div>
             </div>
             <!-- /.card-body -->
           </div>
           <!-- ./col -->
-          <div class="col-4 connectedSortable">
+          <div class="col-12 col-sm-4">
             <div class="card d-flex flex-fill">
               <div class="card-header text-muted border-bottom-0"></div>
               <div class="card-body pt-0">

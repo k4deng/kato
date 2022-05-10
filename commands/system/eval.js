@@ -4,7 +4,7 @@
 // purging the hard drive. DO NOT LET ANYONE ELSE USE THIS
 
 const { codeBlock } = require("@discordjs/builders");
-const { Util } = require("discord.js")
+const { Util } = require("discord.js");
 
 /*
   MESSAGE CLEAN FUNCTION
@@ -40,7 +40,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
   const text = Util.splitMessage(cleaned, { maxLength: "1900" });
   
   for (const split of text) {
-    message.channel.send(codeBlock("js", split))
+    message.channel.send(codeBlock("js", split));
   }
 };
 

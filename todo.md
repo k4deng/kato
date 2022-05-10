@@ -1,5 +1,4 @@
 ## must to before release
-- fix key/value descriptions in admin and settings commands
 - basic moderation (ban, kick, etc.)
   - ban
   - kick
@@ -9,6 +8,7 @@
   - change user nickname
 - command logger to files
 - update about command
+- fix reset server levels dashboard button 
 
 ## not urgent
 - music system

@@ -14,14 +14,14 @@
             <% if (user.avatar) { %>
               <img src="https://cdn.discordapp.com/avatars/<%= user.id %>/<%= user.avatar %>.png?size=512" width="160" height="160" class="img-circle elevation-2" alt="User Image">
             <% } else { %>
-              <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+              <img src="https://cdn.discordapp.com/embed/avatars/1.png" class="img-circle elevation-2" alt="User Image">
             <% } %>
           </div>
           <div class="info">
             <a href="#" class="d-block"><%= user.username %>#<%= user.discriminator %></a>
           </div>
         </div>
-
+              
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
           <div class="info">
             <a href="/logout" class="d-block"><i class="fa fa-sign-out-alt fa-fw" aria-hidden="true"></i> Logout</a>
