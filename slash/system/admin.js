@@ -199,7 +199,7 @@ exports.commandData = {
   {
     name: 'reboot',
     type: 'SUB_COMMAND',
-    description: 'Shuts down the bot. If running under PM2, bot will restart automatically."',
+    description: 'Shuts down the bot. If running under PM2, bot will restart automatically.',
     options: [],
   }],
   defaultPermission: true,
