@@ -757,6 +757,33 @@ module.exports = client => {
         ranks: resp,
       });
   });
+
+  app.get('/levelreset/:guildID', checkAuth, async (req, res) => {
+    const guild = client.guilds.cache.get(req.params.guildID);
+    if (!guild) return res.status(404);
+    const isManaged =
+      guild && guild.members.cache.get(req.user.id)  
+        ? guild.members.cache.get(req.user.id)  .permissions.has('MANAGE_GUILD')
+        : false;
+    if (req.user.id === process.env.OWNER) {
+      console.log(`Admin bypass for managing server: ${req.params.guildID}`);
+    } else if (!isManaged) {
+      res.redirect('/servers');
+    }
+
+    const guildpoints = points.filter( p => p.guild === guild.id ).array();
+    if (!guildpoints[0]) {
+      // If there no results
+      console.log("No data found; There are no users on the leaderboard.");
+    } else {
+      console.log(points.filter( p => p.guild === guild.id ));
+      for (const user of guildpoints) {
+        points.delete(`${user.guild}-${user.user}`);
+      }
+    }
+    
+    res.redirect(`/leaderboard/${req.params.guildID}`);
+  });
   
   app.get('/leave/:guildID', checkAuth, async (req, res) => {
     const guild = client.guilds.cache.get(req.params.guildID);
@@ -822,9 +849,26 @@ module.exports = client => {
 
   app.get('*', function(req, res) {
     // Catch-all 404
-    res.send(
-      '<p>404 File Not Found. Please wait...<p> <script>setTimeout(function () { window.location = "/"; }, 1000);</script><noscript><meta http-equiv="refresh" content="1; url=/" /></noscript>'
-    );
+    if (req.isAuthenticated()) {
+      res.render(path.resolve(`${templateDir}${path.sep}error.ejs`), {
+        perms: Permissions,
+        bot: client,
+        auth: true,
+        user: req.user,
+        errorNum: "404",
+        errorStyle: "warning",
+        errorDesc: "Oops! Page not found."
+      });
+    } else {
+      res.render(path.resolve(`${templateDir}${path.sep}error.ejs`), {
+        bot: client,
+        auth: false,
+        user: null,
+        errorNum: "404",
+        errorStyle: "warning",
+        errorDesc: "Oops! Page not found."
+      });
+    }
   });
 
   client.site = app

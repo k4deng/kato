@@ -51,23 +51,14 @@
       <div class="row">
         
         <div class="order-md-2 col-md-4">
-          <div class="card card-default">
-            <!-- /.card-header -->
-            <div class="card-body">
-              <div class="callout callout-info">
-                <h5>How It Works</h5>
-                <p>Every minute that you're messaging, you randomly gain between <%= bot.config.points.xpMin %> and <%= bot.config.points.xpMax %> points.</p>
-                <p>To avoid spamming, earning points is limited to once a minute per user.</p>
-                <p>In the server, you type /rank to see your rank and level.</p>
-              </div>
-            </div>
-            <!-- /.card-body -->
+          <div class="callout callout-info">
+            <h5>How It Works</h5>
+            <p>Every minute that you're messaging, you randomly gain between <%= bot.config.points.xpMin %> and <%= bot.config.points.xpMax %> points.</p>
+            <p>To avoid spamming, earning points is limited to once a minute per user.</p>
+            <p>In the server, you type /rank to see your rank and level.</p>
             <% if(managed) { %>
-            <div class="card-footer">
-              <a class="btn btn-danger button float-right" data-toggle="modal" data-target="#levelsResetModal">Reset Server Levels</a>
-            </div>
+              <button class="btn btn-danger button" data-toggle="modal" data-target="#levelsResetModal">Reset Server Levels</button>
             <% } %>
-            <!-- /.card-footer -->
           </div>
         </div>
 
@@ -79,7 +70,7 @@
                 <div class="widget-user-header">
                   <!--<h5><%= x %></h5>-->
                   <div class="widget-user-image">
-                    <img class="img-circle elevation-2" src="<%= bot.users.cache.get(ranks[i].user) ? bot.users.cache.get(ranks[i].user).displayAvatarURL({ dynamic: false, size: 128 }) : "https://cdn.discordapp.com/embed/avatars/1.png"%> alt="User Avatar">
+                    <img class="img-circle elevation-2" src="<%= bot.users.cache.get(ranks[i].user) ? bot.users.cache.get(ranks[i].user).displayAvatarURL({ dynamic: false, size: 128 }) : 'https://cdn.discordapp.com/embed/avatars/1.png' %>" alt="User Avatar">
                   </div>
                   <!-- /.widget-user-image -->
                   <h3 class="widget-user-username"><%= bot.users.cache.get(ranks[i].user).username ?? "User left"%></h3>

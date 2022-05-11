@@ -6,9 +6,13 @@
   - softban
   - votekick hehe
   - change user nickname
+- dashboard
+  - premium comming soon page
+  - status page
+  - docs comming soon page
 - command logger to files
 - update about command
-- fix reset server levels dashboard button 
+- update readme
 
 ## not urgent
 - music system
