@@ -303,6 +303,7 @@ module.exports = function(client, templateDir, checkAuth, changeSetting) {
   
   //------------------------ Dashboard Functions ------------------------------
 
+  // Resets levels for a guild
   router.get('/levelreset/:guildID', checkAuth, async (req, res) => {
     const guild = client.guilds.cache.get(req.params.guildID);
     if (!guild) return res.status(404);
@@ -329,7 +330,8 @@ module.exports = function(client, templateDir, checkAuth, changeSetting) {
     
     res.redirect(`/leaderboard/${req.params.guildID}`);
   });
-  
+
+  // forces bot to leave a guild
   router.get('/leave/:guildID', checkAuth, async (req, res) => {
     const guild = client.guilds.cache.get(req.params.guildID);
     if (!guild) return res.status(404);
@@ -349,6 +351,7 @@ module.exports = function(client, templateDir, checkAuth, changeSetting) {
     res.redirect('/servers');
   });
 
+  // resets settings for a guild
   router.get('/reset/:guildID', checkAuth, async (req, res) => {
     const guild = client.guilds.cache.get(req.params.guildID);
     if (!guild) return res.status(404);

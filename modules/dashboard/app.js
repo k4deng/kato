@@ -92,6 +92,9 @@ module.exports = client => {
     `${process.cwd()}${path.sep}http${path.sep}dashboard`
   );
 
+  // Logger
+  app.use(morgan('morgan-output'));
+
   // This resolves to: yourbotdir/dashboard/pages/
   // which is the folder that stores all the internal page files.
   const templateDir = path.resolve(`${dataDir}${path.sep}views`);
@@ -120,7 +123,6 @@ module.exports = client => {
   app.use('/welcome/dist', express.static(path.resolve(`${dataDir}${path.sep}dist`), { maxAge: '10d' }));
   app.use('/welcome/build', express.static(path.resolve(`${dataDir}${path.sep}build`), { maxAge: '10d' }));
   app.use('/welcome/plugins', express.static(path.resolve(`${dataDir}${path.sep}plugins`), { maxAge: '10d' }));
-  app.use(morgan('morgan-output')); // Logger
 
   app.use('/pages', express.static(path.resolve(`${dataDir}${path.sep}pages`)));
 
@@ -190,7 +192,7 @@ module.exports = client => {
 
   // body-parser reads incoming JSON or FORM data and simplifies their
   // use in code.
-  var bodyParser = require('body-parser');
+  const bodyParser = require('body-parser');
   app.use(bodyParser.json()); // to support JSON-encoded bodies
   app.use(
     bodyParser.urlencoded({
@@ -237,37 +239,14 @@ module.exports = client => {
     if (settings.has(guild.id) && getSettings()[key] == value) settings.delete(guild.id, key);
   }
 
-	/*var privacyMD = '';
-	fs.readFile(`${dataDir}${path.sep}public${path.sep}PRIVACY.md`, function(err, data) {
-		if (err) {
-			console.log(err);
-			privacyMD = 'Error';
-			return;
-		}
-		privacyMD = data.toString().replace(/\{\{botName\}\}/g, client.user.username).replace(/\{\{email\}\}/g, config.dashboard.legalTemplates.contactEmail);
-		if (config.dashboard.secure !== 'true') {
-			privacyMD = privacyMD.replace('Sensitive and private data exchange between the Site and its Users happens over a SSL secured communication channel and is encrypted and protected with digital signatures.', '');
-		}
-	});
-
-	var termsMD = '';
-	fs.readFile(`${dataDir}${path.sep}public${path.sep}TERMS.md`, function(err, data) {
-		if (err) {
-			console.log(err);
-			privacyMD = 'Error';
-			return;
-		}
-		termsMD = data.toString().replace(/\{\{botName\}\}/g, client.user.username).replace(/\{\{email\}\}/g, config.dashboard.legalTemplates.contactEmail);
-	});*/
-
   app.use('/', require(`./routes/site`)(client, dataDir, templateDir, checkAuth, cAuth, checkAdmin));
 
   app.use('/', require(`./routes/dashboard`)(client, templateDir, checkAuth, changeSetting));
 
+  // 404 errors
   app.get('*', function(req, res) {
-    // Catch-all 404
     if (req.isAuthenticated()) {
-      res.render(path.resolve(`${templateDir}${path.sep}error.ejs`), {
+      res.status(404).render(path.resolve(`${templateDir}${path.sep}error.ejs`), {
         perms: Permissions,
         bot: client,
         auth: true,
@@ -277,7 +256,7 @@ module.exports = client => {
         errorDesc: "Oops! Page not found."
       });
     } else {
-      res.render(path.resolve(`${templateDir}${path.sep}error.ejs`), {
+      res.status(404).render(path.resolve(`${templateDir}${path.sep}error.ejs`), {
         bot: client,
         auth: false,
         user: null,

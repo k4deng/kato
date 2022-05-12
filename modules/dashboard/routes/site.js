@@ -67,8 +67,7 @@ module.exports = function(client, dataDir, templateDir, checkAuth, cAuth, checkA
     });
   });
   
-  // Index page. If the user is authenticated, it shows their info
-  // at the top right of the screen.
+  // index page
   router.get('/', (req, res) => {
     if (req.isAuthenticated()) {
       res.render(
@@ -92,6 +91,7 @@ module.exports = function(client, dataDir, templateDir, checkAuth, cAuth, checkA
     }
   });
 
+  // Commands list
   router.get('/commands', (req, res) => {
     if (req.isAuthenticated()) {
       res.render(path.resolve(`${templateDir}${path.sep}commands.ejs`), {
@@ -111,6 +111,7 @@ module.exports = function(client, dataDir, templateDir, checkAuth, cAuth, checkA
     }
   });
 
+  // TODO: MAKE
   router.get('/stats', (req, res) => {
     if (config.dashboard.protectStats === 'true') {
       cAuth(req, res);
@@ -147,6 +148,61 @@ module.exports = function(client, dataDir, templateDir, checkAuth, cAuth, checkA
     });
   });
 
+  // Status Page (Under Construction)
+  router.get('/status', (req, res) => {
+    if (req.isAuthenticated()) {
+      res.render(path.resolve(`${templateDir}${path.sep}construction.ejs`), {
+        perms: Permissions,
+        bot: client,
+        auth: true,
+        user: req.user,
+      });
+    } else {
+      res.render(path.resolve(`${templateDir}${path.sep}construction.ejs`), {
+        bot: client,
+        auth: false,
+        user: null,
+      });
+    }
+  });
+
+  // Docs Page (Under Construction)
+  router.get('/docs', (req, res) => {
+    if (req.isAuthenticated()) {
+      res.render(path.resolve(`${templateDir}${path.sep}construction.ejs`), {
+        perms: Permissions,
+        bot: client,
+        auth: true,
+        user: req.user,
+      });
+    } else {
+      res.render(path.resolve(`${templateDir}${path.sep}construction.ejs`), {
+        bot: client,
+        auth: false,
+        user: null,
+      });
+    }
+  });
+
+  // Premium Information Page (Under Construction)
+  router.get('/premium', (req, res) => {
+    if (req.isAuthenticated()) {
+      res.render(path.resolve(`${templateDir}${path.sep}construction.ejs`), {
+        perms: Permissions,
+        bot: client,
+        auth: true,
+        user: req.user,
+      });
+    } else {
+      res.render(path.resolve(`${templateDir}${path.sep}construction.ejs`), {
+        bot: client,
+        auth: false,
+        user: null,
+      });
+    }
+  });
+
+  // privacy policy and terms of service
   router.get('/legal', function(req, res) {
     md.setOptions({
       renderer: new md.Renderer(),
@@ -185,6 +241,7 @@ module.exports = function(client, dataDir, templateDir, checkAuth, cAuth, checkA
     });
   });
 
+  // admin page for owner only
   router.get('/admin', checkAdmin, (req, res) => {
     //const members = client.guilds.reduce((p, c) => p + c.memberCount, 0);
     const memoryUsage = (process.memoryUsage().heapUsed / 1024 / 1024).toFixed(
@@ -220,6 +277,7 @@ module.exports = function(client, dataDir, templateDir, checkAuth, cAuth, checkA
     });
   });
 
+  // shows all managable servers
   router.get('/servers', checkAuth, (req, res) => {
     res.render(path.resolve(`${templateDir}${path.sep}servers.ejs`), {
       perms: Permissions,
@@ -229,6 +287,7 @@ module.exports = function(client, dataDir, templateDir, checkAuth, cAuth, checkA
     });
   });
 
+  // prompts to add to specific server
   router.get('/add/:guildID', checkAuth, (req, res) => {
     req.session.backURL = '/dashboard';
     var inviteURL = `https://discordapp.com/oauth2/authorize?client_id=${
@@ -247,6 +306,7 @@ module.exports = function(client, dataDir, templateDir, checkAuth, cAuth, checkA
     }
   });
 
+  // generic bot invite link
   router.get('/invite', checkAuth, (req, res) => {
     var inviteURL = `https://discordapp.com/oauth2/authorize?client_id=${config.dashboard.clientID}&scope=bot%20applications.commands&permissions=${config.invitePerm}`;
     res.redirect(inviteURL);
