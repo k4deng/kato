@@ -12,14 +12,12 @@ example, putting it in one file is a little simpler. Just *a little*.
 // things
 const config = require("../../config.js");
 const { getSettings } = require("../functions.js");
-const { settings, points } = require("../settings.js");
+const { settings } = require("../settings.js");
 
 // Native Node Imports
-const url = require('url');
 const path = require('path');
 
 // Used for Permission Resolving...
-const Discord = require('discord.js');
 const { Permissions } = require('discord.js');
 
 // Express Session
@@ -35,13 +33,6 @@ const Strategy = require('passport-discord').Strategy;
 
 // Helmet is a security plugin
 //const helmet = require('helmet');
-
-// Used to parse Markdown from things like ExtendedHelp
-const md = require('marked');
-
-// For stats
-const moment = require('moment');
-require('moment-duration-format');
 
 // For logging
 const logger = require("../logger.js");

@@ -4,8 +4,6 @@ const router = express.Router();
 
 // things
 const config = require("../../../config.js");
-const { getSettings } = require("../../functions.js");
-const { settings, points } = require("../../settings.js");
 
 // Native Node Imports
 const url = require('url');
@@ -19,8 +17,6 @@ const { Permissions } = require('discord.js');
 // Specifically, passport helps with oauth2 in general.
 // passport-discord is a plugin for passport that handles Discord's specific implementation.
 const passport = require('passport');
-const session = require('express-session');
-const Strategy = require('passport-discord').Strategy;
 
 // Used to parse Markdown from things like ExtendedHelp
 const md = require('marked');
