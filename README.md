@@ -25,7 +25,7 @@
 
 ## About
 
-kato is an open source, fully customizable Discord bot that is constantly growing. You can invite it to your Discord server using [this](https://jiro.k4deng.ml/invite) link! Also, you can join the official [kato Support Server](https://discord.com/invite/VERRW3TEUD) for all questions, suggestions, and assistance! It comes packaged with a variety of commands and a multitude of settings that can be tailored to your server's specific needs.
+kato is an open source, fully customizable Discord bot that is constantly growing. You can invite it to your Discord server using [this](https://v13.katobot.tk/invite) link! Also, you can join the official [kato Support Server](https://discord.com/invite/VERRW3TEUD) for all questions, suggestions, and assistance! It comes packaged with a variety of commands and a multitude of settings that can be tailored to your server's specific needs.
 
 If you liked this repository, feel free to leave a star ⭐ to help promote kato!
 
