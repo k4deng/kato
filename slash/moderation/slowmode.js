@@ -24,7 +24,7 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
 exports.commandData = {
   name: "slowmode",
   description: "Activate slowmode on a channel.",
-  category: "Category",
+  category: "Moderation",
   options: [{
     name: 'time',
     type: 'STRING',
