@@ -4,7 +4,6 @@ Logger class for easy and aesthetically pleasing console logging
 const config = require("../config.js");
 const chalk = require("chalk");
 const moment = require("moment");
-var log;
 if (config.fileLogging == true) 
   var log = require('simple-node-logger').createRollingFileLogger({
     logDirectory: './data/logs',

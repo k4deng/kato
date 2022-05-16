@@ -10,7 +10,7 @@ function getReadableTime(ms) {
 	if (t.minutes) reply.push(`${t.minutes} min`);
 	if (t.seconds) reply.push(`${t.seconds} sec`);
 	return reply.length > 0 ? reply.join(', ') : '0sec';
-};
+}
 
 function getTimeObject(ms) {
 	if (!ms || typeof ms !== 'number' || !isFinite(ms)) throw new TypeError('Final value is greater than Number can hold or you provided invalid argument.');
@@ -72,7 +72,7 @@ function getTimeObject(ms) {
 		result.months = result.months - (Math.floor(result.months / 12) * 12);
 	}
 	return result;
-};
+}
 
 // convert time format (1m) to ms - for timed commands
 function getTotalTime(timeFormat) {
@@ -91,7 +91,7 @@ function getTotalTime(timeFormat) {
 
 	// return time to requested command
 	return { success: time };
-};
+}
 
 function read24hrFormat(text) {
 	// set values to 0
@@ -114,6 +114,6 @@ function read24hrFormat(text) {
 	} else {
 		throw new TypeError('Final value is greater than Number can hold.');
 	}
-};
+}
 
 module.exports = { getReadableTime, getTimeObject, getTotalTime, read24hrFormat };

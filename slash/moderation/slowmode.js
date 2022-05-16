@@ -3,7 +3,7 @@ const { getTotalTime, getReadableTime } = require("../../modules/timeFormatter.j
 
 exports.run = async (client, interaction) => { // eslint-disable-line no-unused-vars
   const input = interaction.options.get("time").value; 
-  channel = interaction.guild.channels.cache.get(interaction.channelId);
+  const channel = interaction.guild.channels.cache.get(interaction.channelId);
 
   // get time
   let time;
@@ -18,7 +18,7 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
   
   // Activate slowmode
   await channel.setRateLimitPerUser(time / 1000);
-  messages.success(`Slowmode set to **${time == 0 ? "off" : getReadableTime(time)}**.`, interaction)
+  messages.success(`Slowmode set to **${time == 0 ? "off" : getReadableTime(time)}**.`, interaction);
 };
 
 exports.commandData = {

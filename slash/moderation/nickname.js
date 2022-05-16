@@ -2,7 +2,7 @@ const { Permissions } = require('discord.js');
 const messages = require("../../modules/messages.js");
 
 exports.run = async (client, interaction) => { // eslint-disable-line no-unused-vars
-  if (!interaction.guild.me.permissions.has(Permissions.FLAGS.MANAGE_NICKNAMES)) return messages.error("I am missing the \"Manage Nicknames\" permission to do that!", interaction)
+  if (!interaction.guild.me.permissions.has(Permissions.FLAGS.MANAGE_NICKNAMES)) return messages.error("I am missing the \"Manage Nicknames\" permission to do that!", interaction);
 
   const member = interaction.guild.members.cache.get(interaction.options.get("user")?.value ?? interaction.user.id);
 	const nickname = interaction.options.get("nickname").value;
@@ -14,7 +14,7 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
   if (nickname.length >= 32) return messages.error("Nickname must be shorter than 32 characters.", interaction);
 
   await member.setNickname(nickname);
-  messages.success(`**Successfully changed nickname of <@${member.user.id}>.**`, interaction)
+  messages.success(`**Successfully changed nickname of <@${member.user.id}>.**`, interaction);
 };
 
 exports.commandData = {
