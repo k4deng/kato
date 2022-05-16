@@ -64,7 +64,8 @@
 
         <div class="order-md-1 col-md-8">
           <%let x = 1;%>
-          <% for (let i= 0; i < ranks.length; i++) { %>
+          <% const totUsers = ranks.length > 100 ? 100 : ranks.length; %>
+          <% for (let i= 0; i < totUsers; i++) { %>
             <% if (bot.users.cache.get(ranks[i].user)) { %>
               <div class="card card-widget widget-user-2">
                 <div class="widget-user-header">
