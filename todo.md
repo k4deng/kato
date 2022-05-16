@@ -1,7 +1,5 @@
 ## must to before release
 - mod commands (see below)
-- command logger to files
-- update about command
 - update readme
 
 ## moderation commands

@@ -53,6 +53,9 @@ const config = {
     }
   },
 
+  // log console to a folder and keep track of errors and whatnot
+  "fileLogging": false,
+  
   // This will spam your console if you enable this but will help with bug fixing
 	"debug": false,
   
