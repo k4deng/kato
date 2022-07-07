@@ -1,7 +1,3 @@
-## must to before release
-- mod commands (see below)
-- update readme
-
 ## moderation commands
 | Command      | Link                                                                                                           |
 |--------------|----------------------------------------------------------------------------------------------------------------|
@@ -25,7 +21,6 @@
   - random caps/mock
 - fun commands
   - rng
-  - roll
   - advice
   - fact
   - meme
