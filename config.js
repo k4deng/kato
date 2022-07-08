@@ -39,10 +39,11 @@ const config = {
   dashboard: {
     version: '1.0.0',
 		enabled: 'true', // This setting controls whether the dashboard is enabled or not.
-    clientID: '806261648015753276', // the bots id
+    supportDiscord: 'https://discord.gg/VERRW3TEUD', //discord support server url for the bot
 		oauthSecret: process.env.dashboardOauthSecret, // The client secret from the Discord bot page
 		secure: 'true', // HTTPS: 'true' for true, 'false' for false
 		sessionSecret: process.env.dashboardSessionSecret, // Go crazy on the keyboard here, this is used as a session secret
+    clientID: '806261648015753276', // the bots id
 		domain: 'katobot.tk', // Domain name (with port if not running behind proxy running on port 80). Example: 'domain': 'dashboard.bot-website.com' OR 'domain': 'localhost:33445'
 		port: '3000', // The port that it should run on
 		protectStats: 'false', //if stats page is visible
