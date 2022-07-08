@@ -31,7 +31,7 @@ const config = {
   
   // Points
   "points": {
-    "cooldownSeconds": 20,
+    "cooldownSeconds": 60,
     "xpMin": 1,
     "xpMax": 10
   },
@@ -39,12 +39,12 @@ const config = {
   dashboard: {
     version: '1.0.0',
 		enabled: 'true', // This setting controls whether the dashboard is enabled or not.
-    clientID: '920031289464209428', // the bots id
     supportDiscord: 'https://discord.gg/VERRW3TEUD', //discord support server url for the bot
 		oauthSecret: process.env.dashboardOauthSecret, // The client secret from the Discord bot page
 		secure: 'true', // HTTPS: 'true' for true, 'false' for false
 		sessionSecret: process.env.dashboardSessionSecret, // Go crazy on the keyboard here, this is used as a session secret
-		domain: 'dev.katobot.tk', // Domain name (with port if not running behind proxy running on port 80). Example: 'domain': 'dashboard.bot-website.com' OR 'domain': 'localhost:33445'
+    clientID: '806261648015753276', // the bots id
+		domain: 'katobot.tk', // Domain name (with port if not running behind proxy running on port 80). Example: 'domain': 'dashboard.bot-website.com' OR 'domain': 'localhost:33445'
 		port: '3000', // The port that it should run on
 		protectStats: 'false', //if stats page is visible
 		borderedStats: 'true', // Controls whether stats in the dashboard should have a border or not
@@ -55,7 +55,7 @@ const config = {
   },
 
   // log console to a folder and keep track of errors and whatnot
-  "fileLogging": false,
+  "fileLogging": true,
   
   // This will spam your console if you enable this but will help with bug fixing
 	"debug": false,
