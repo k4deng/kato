@@ -39,7 +39,8 @@ const config = {
   dashboard: {
     version: '1.0.0',
 		enabled: 'true', // This setting controls whether the dashboard is enabled or not.
-    clientID: '806261648015753276', // the bots id
+		clientID: '806261648015753276', // the bots id
+		supportDiscord: 'https://discord.gg/VERRW3TEUD', //discord support server url for the bot
 		oauthSecret: process.env.dashboardOauthSecret, // The client secret from the Discord bot page
 		secure: 'true', // HTTPS: 'true' for true, 'false' for false
 		sessionSecret: process.env.dashboardSessionSecret, // Go crazy on the keyboard here, this is used as a session secret
@@ -57,7 +58,7 @@ const config = {
   "fileLogging": true,
   
   // This will spam your console if you enable this but will help with bug fixing
-	"debug": false,
+  "debug": false,
   
   /*
   * Default per-server settings. These settings are entered in a database on first load, 
