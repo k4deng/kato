@@ -307,14 +307,9 @@ module.exports = function(client, dataDir, templateDir, checkAuth, cAuth, checkA
   });
 
   // generic bot invite link
-  router.get('/invite', (req, res) => {
+  router.get('/invite', checkAuth, (req, res) => {
     var inviteURL = `https://discordapp.com/oauth2/authorize?client_id=${config.dashboard.clientID}&scope=bot%20applications.commands&permissions=${config.invitePerm}`;
     res.redirect(inviteURL);
-  });
-
-  // redirect to bot support discord
-  router.get('/support', (req, res) => {
-    res.redirect(config.dashboard.supportDiscord);
   });
 
 	return router;
