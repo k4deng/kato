@@ -42,6 +42,7 @@ const init = async () => {
 
   const commandFolders = readdirSync("./commands");
   for (const dir of commandFolders) {
+    if (dir == ".gitignore") break; //not a dir so skip it
     const commands = readdirSync(`./commands/${dir}/`).filter(file => file.endsWith(".js"));
     for (const file of commands) {
       const props = require(`./commands/${dir}/${file}`);
