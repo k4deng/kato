@@ -17,7 +17,6 @@
 - idk commands
   - reverse message
   - spaces inbetween text like clap
-  - random caps/mock
 - fun commands
   - rng
   - advice
