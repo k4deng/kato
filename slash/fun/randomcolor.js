@@ -14,7 +14,7 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
 
   // init canvas
   let canvas;
-  if (advancedMode) canvas = Canvas.createCanvas(152, 152)
+  if (advancedMode) canvas = Canvas.createCanvas(152, 152);
     else canvas = Canvas.createCanvas(152, 180);
   const context = canvas.getContext('2d');
   context.fillStyle = "#ffffff";
@@ -34,15 +34,15 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
 
   // make embed
   const embed = new MessageEmbed()
-    .setColor(hex)
-  if (advancedMode){
-    embed.setThumbnail(`attachment://${hex.substring(1)}.png`)
+    .setColor(hex);
+  if (advancedMode) {
+    embed.setThumbnail(`attachment://${hex.substring(1)}.png`);
     embed.addFields(
       { name: "HEX", value: hex },
       { name: "RGB", value: `${rgbArray[0]}, ${rgbArray[1]}, ${rgbArray[2]}` },
       { name: "HSV", value: `${hsvArray[0]}°, ${hsvArray[1]}%, ${hsvArray[2]}%` },
       { name: "HSL", value: `${hslArray[0]}°, ${hslArray[1]}%, ${hslArray[2]}%` },
-    )
+    );
   }
   else embed.setImage(`attachment://${hex.substring(1)}.png`);
   
