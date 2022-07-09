@@ -16,7 +16,6 @@
 - music system
 - idk commands
   - reverse message
-  - random color
   - spaces inbetween text like clap
   - random caps/mock
 - fun commands
