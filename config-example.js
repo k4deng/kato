@@ -12,7 +12,7 @@ const config = {
   // Partials your bot may need should go here, CHANNEL is required for DM's
   partials: ["CHANNEL"],
 
-  "invitePerm": '1615947361495', // The bots invite link oauth permission integer
+  "invitePerm": "1615947361495", // The bots invite link oauth permission integer
   
   // The hex code "color" of your bot. used for embeds and leveling and other things
   "themeColor": "#1E30D6",
@@ -37,20 +37,20 @@ const config = {
   },
 
   dashboard: {
-    version: '1.0.0',
-		enabled: 'true', // This setting controls whether the dashboard is enabled or not.
-		clientID: '123456789123456789', // the bots id
-		supportDiscord: 'https://discord.gg/invitecode', //discord support server url for the bot
-		oauthSecret: 'copy-me-from-discord', // The client secret from the Discord bot page
-		secure: 'true', // HTTPS: 'true' for true, 'false' for false
-		sessionSecret: 'spam-me', // Go crazy on the keyboard here, this is used as a session secret
-		domain: 'example.com', // Domain name (with port if not running behind proxy running on port 80). Example: 'domain': 'dashboard.bot-website.com' OR 'domain': 'localhost:33445'
-		port: '3000', // The port that it should run on
-		protectStats: 'false', //if stats page is visible
-		borderedStats: 'true', // Controls whether stats in the dashboard should have a border or not
-		legalTemplates: {
-			contactEmail: 'johndoe@example.com', // This email will be used in the legal page of the dashboard if someone needs to contact you for any reason regarding this page
-			lastEdited: '16 April 2021' // Change this if you update the `TERMS.md` or `PRIVACY.md` files in `dashboard/public/`
+    version: "1.0.0",
+    enabled: "true", // This setting controls whether the dashboard is enabled or not.
+    clientID: "123456789123456789", // the bots id
+    supportDiscord: "https://discord.gg/invitecode", //discord support server url for the bot
+    oauthSecret: "copy-me-from-discord", // The client secret from the Discord bot page
+    secure: "true", // HTTPS: 'true' for true, 'false' for false
+    sessionSecret: "spam-me", // Go crazy on the keyboard here, this is used as a session secret
+    domain: "example.com", // Domain name (with port if not running behind proxy running on port 80). Example: 'domain': 'dashboard.bot-website.com' OR 'domain': 'localhost:33445'
+    port: "3000", // The port that it should run on
+    protectStats: "false", //if stats page is visible
+    borderedStats: "true", // Controls whether stats in the dashboard should have a border or not
+    legalTemplates: {
+      contactEmail: "johndoe@example.com", // This email will be used in the legal page of the dashboard if someone needs to contact you for any reason regarding this page
+      lastEdited: "16 April 2021" // Change this if you update the `TERMS.md` or `PRIVACY.md` files in `dashboard/public/`
     }
   },
 

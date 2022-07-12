@@ -1,22 +1,22 @@
-const { MessageEmbed, MessageAttachment } = require('discord.js');
-const randomColor = require('randomcolor');
-const Canvas = require('canvas');
+const { MessageEmbed, MessageAttachment } = require("discord.js");
+const randomColor = require("randomcolor");
+const Canvas = require("canvas");
 
 exports.run = async (client, interaction) => { // eslint-disable-line no-unused-vars
   const advancedMode = interaction.options.get("advanced")?.value; 
   
   const seed = `${Math.random()}`;
   
-  const hex = randomColor({ seed: seed, format: 'hex' });
-  const rgbArray = randomColor({ seed: seed, format: 'rgbArray' });
-  const hsvArray = randomColor({ seed: seed, format: 'hsvArray' });
-  const hslArray = randomColor({ seed: seed, format: 'hslArray' });
+  const hex = randomColor({ seed: seed, format: "hex" });
+  const rgbArray = randomColor({ seed: seed, format: "rgbArray" });
+  const hsvArray = randomColor({ seed: seed, format: "hsvArray" });
+  const hslArray = randomColor({ seed: seed, format: "hslArray" });
 
   // init canvas
   let canvas;
   if (advancedMode) canvas = Canvas.createCanvas(152, 152);
-    else canvas = Canvas.createCanvas(152, 180);
-  const context = canvas.getContext('2d');
+  else canvas = Canvas.createCanvas(152, 180);
+  const context = canvas.getContext("2d");
   context.fillStyle = "#ffffff";
   context.fillRect(0, 0, canvas.width, canvas.height);
   // color
@@ -24,8 +24,8 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
   context.fillRect(12, 12, 128, 128);
   // text
   if (!advancedMode) {
-    context.font = 'bold 22px Regular';
-    context.fillStyle = '#3a3a3a';
+    context.font = "bold 22px Regular";
+    context.fillStyle = "#3a3a3a";
     context.fillText(hex.toUpperCase(), 10, canvas.height - 12);
   }
   
@@ -55,9 +55,9 @@ exports.commandData = {
   description: "Generates a random color.",
   category: "Fun",
   options: [{
-    name: 'advanced',
-    type: 'STRING',
-    description: 'Show more details about random color.',
+    name: "advanced",
+    type: "STRING",
+    description: "Show more details about random color.",
     required: false,   
     choices: [{
       name: "True",

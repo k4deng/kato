@@ -39,7 +39,7 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
   
   for (const split of text) {
     if (interaction.replied) await interaction.followUp(codeBlock("js", split));
-      else await interaction.reply(codeBlock("js", split));
+    else await interaction.reply(codeBlock("js", split));
   }
 };
 
@@ -48,9 +48,9 @@ exports.commandData = {
   description: "Evaluates arbitrary javascript.",
   category: "System",
   options: [{
-    name: 'code',
-    type: 'STRING',
-    description: 'Code to Evaluate.',
+    name: "code",
+    type: "STRING",
+    description: "Code to Evaluate.",
     required: true,   
   }],
   defaultPermission: true,

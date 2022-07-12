@@ -5,11 +5,11 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
   var regexp = /[a-zA-Z]+\s+[a-zA-Z]+/g;
   var clap;
   if (regexp.test(message)) {
-    clap = message.split(' ').join(' :clap: ');
+    clap = message.split(" ").join(" :clap: ");
     if (clap.length > 1990) messages.error("That clap is too long!", interaction, true);
     clap = `👏 ${clap} 👏`;
   } else {
-    clap = message.split(' ').slice(0).join('').split('').join(' :clap: ');
+    clap = message.split(" ").slice(0).join("").split("").join(" :clap: ");
     if (clap.length < 2) return messages.error("I need more than 2 characters!", interaction, true);
     if (clap.length > 1990) return messages.error("That clap is too long!", interaction, true);
   }
@@ -23,9 +23,9 @@ exports.commandData = {
   description: "👏 Clap 👏",
   category: "Fun",
   options: [{
-    name: 'message',
-    type: 'STRING',
-    description: 'Message to clap-ify.',
+    name: "message",
+    type: "STRING",
+    description: "Message to clap-ify.",
     required: true,   
   }],
   defaultPermission: true,

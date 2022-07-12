@@ -15,34 +15,34 @@ const { getSettings } = require("../functions.js");
 const { settings } = require("../settings.js");
 
 // Native Node Imports
-const path = require('path');
+const path = require("path");
 
 // Used for Permission Resolving...
-const { Permissions } = require('discord.js');
+const { Permissions } = require("discord.js");
 
 // Express Session
-const express = require('express');
+const express = require("express");
 const app = express();
 
 // Express Plugins
 // Specifically, passport helps with oauth2 in general.
 // passport-discord is a plugin for passport that handles Discord's specific implementation.
-const passport = require('passport');
-const session = require('express-session');
-const Strategy = require('passport-discord').Strategy;
+const passport = require("passport");
+const session = require("express-session");
+const Strategy = require("passport-discord").Strategy;
 
 // Helmet is a security plugin
 //const helmet = require('helmet');
 
 // For logging
 const logger = require("../logger.js");
-const chalk = require('chalk');
-const morgan = require('morgan');
+const chalk = require("chalk");
+const morgan = require("morgan");
 // The output
 // Valid variables: https://www.npmjs.com/package/morgan#dateformat
-morgan.token('statusColor', (req, res) => {
+morgan.token("statusColor", (req, res) => {
   // get the status code if response written
-  var status = (typeof res.headersSent !== 'boolean'
+  var status = (typeof res.headersSent !== "boolean"
     ? Boolean(res.header)
     : res.headersSent)
     ? res.statusCode
@@ -58,17 +58,17 @@ morgan.token('statusColor', (req, res) => {
           : status >= 200
             ? 32 // green
             : 0; // no color
-  return '\x1b[' + color + 'm' + status + '\x1b[0m';
+  return "\x1b[" + color + "m" + status + "\x1b[0m";
 });
 morgan.token(
-  'morgan-output',
-  `${chalk.bgBlue(':method')} :url ${chalk.blue(
-    '=>'
-  )} :response-time ms ${chalk.blue('=>')}  :statusColor`
+  "morgan-output",
+  `${chalk.bgBlue(":method")} :url ${chalk.blue(
+    "=>"
+  )} :response-time ms ${chalk.blue("=>")}  :statusColor`
 );
 
 // For CORS which fixes some problems with the api
-const cors = require('cors');
+const cors = require("cors");
 
 module.exports = client => {
   client.config = config;
@@ -78,14 +78,14 @@ module.exports = client => {
 
   //this is for the apis
   const apiDir = path.resolve(`${process.cwd()}${path.sep}http${path.sep}api`);
-  app.use('/api/statistics', require(`${apiDir}${path.sep}statistics.js`)(client));
-  app.use('/api/commands', require(`${apiDir}${path.sep}commands.js`)(client));
-  app.use('/api/guilds', require(`${apiDir}${path.sep}guilds.js`)(client));
+  app.use("/api/statistics", require(`${apiDir}${path.sep}statistics.js`)(client));
+  app.use("/api/commands", require(`${apiDir}${path.sep}commands.js`)(client));
+  app.use("/api/guilds", require(`${apiDir}${path.sep}guilds.js`)(client));
   client.apiURL = `https://${config.dashboard.domain}/api`;
   logger.log(`API URL: ${client.apiURL}`);
 
-  if (config.dashboard.enabled !== 'true')
-    return logger.log('Dashboard disabled');
+  if (config.dashboard.enabled !== "true")
+    return logger.log("Dashboard disabled");
   // It's easier to deal with complex paths.
   // This resolves to: yourbotdir/dashboard/
   const dataDir = path.resolve(
@@ -93,38 +93,38 @@ module.exports = client => {
   );
 
   // Logger
-  app.use(morgan('morgan-output'));
+  app.use(morgan("morgan-output"));
 
   // This resolves to: yourbotdir/dashboard/pages/
   // which is the folder that stores all the internal page files.
   const templateDir = path.resolve(`${dataDir}${path.sep}views`);
 
-  app.set('trust proxy', 5); // Proxy support
+  app.set("trust proxy", 5); // Proxy support
   // this does something... i dont really know what... dont remove it or it will break css
   // if you find a better way please fix it
-  app.use('/dist', express.static(path.resolve(`${dataDir}${path.sep}dist`), { maxAge: '10d' }));
-  app.use('/build', express.static(path.resolve(`${dataDir}${path.sep}build`), { maxAge: '10d' }));
-  app.use('/plugins', express.static(path.resolve(`${dataDir}${path.sep}plugins`), { maxAge: '10d' }));
-  app.use('/dashboard/dist', express.static(path.resolve(`${dataDir}${path.sep}dist`), { maxAge: '10d' }));
-  app.use('/dashboard/build', express.static(path.resolve(`${dataDir}${path.sep}build`), { maxAge: '10d' }));
-  app.use('/dashboard/plugins', express.static(path.resolve(`${dataDir}${path.sep}plugins`), { maxAge: '10d' }));
-  app.use('/members/dist', express.static(path.resolve(`${dataDir}${path.sep}dist`), { maxAge: '10d' }));
-  app.use('/members/build', express.static(path.resolve(`${dataDir}${path.sep}build`), { maxAge: '10d' }));
-  app.use('/members/plugins', express.static(path.resolve(`${dataDir}${path.sep}plugins`), { maxAge: '10d' }));
-  app.use('/moderation/dist', express.static(path.resolve(`${dataDir}${path.sep}dist`), { maxAge: '10d' }));
-  app.use('/moderation/build', express.static(path.resolve(`${dataDir}${path.sep}build`), { maxAge: '10d' }));
-  app.use('/moderation/plugins', express.static(path.resolve(`${dataDir}${path.sep}plugins`), { maxAge: '10d' }));
-  app.use('/leveling/dist', express.static(path.resolve(`${dataDir}${path.sep}dist`), { maxAge: '10d' }));
-  app.use('/leveling/build', express.static(path.resolve(`${dataDir}${path.sep}build`), { maxAge: '10d' }));
-  app.use('/leveling/plugins', express.static(path.resolve(`${dataDir}${path.sep}plugins`), { maxAge: '10d' }));
-  app.use('/leaderboard/dist', express.static(path.resolve(`${dataDir}${path.sep}dist`), { maxAge: '10d' }));
-  app.use('/leaderboard/build', express.static(path.resolve(`${dataDir}${path.sep}build`), { maxAge: '10d' }));
-  app.use('/leaderboard/plugins', express.static(path.resolve(`${dataDir}${path.sep}plugins`), { maxAge: '10d' }));
-  app.use('/welcome/dist', express.static(path.resolve(`${dataDir}${path.sep}dist`), { maxAge: '10d' }));
-  app.use('/welcome/build', express.static(path.resolve(`${dataDir}${path.sep}build`), { maxAge: '10d' }));
-  app.use('/welcome/plugins', express.static(path.resolve(`${dataDir}${path.sep}plugins`), { maxAge: '10d' }));
+  app.use("/dist", express.static(path.resolve(`${dataDir}${path.sep}dist`), { maxAge: "10d" }));
+  app.use("/build", express.static(path.resolve(`${dataDir}${path.sep}build`), { maxAge: "10d" }));
+  app.use("/plugins", express.static(path.resolve(`${dataDir}${path.sep}plugins`), { maxAge: "10d" }));
+  app.use("/dashboard/dist", express.static(path.resolve(`${dataDir}${path.sep}dist`), { maxAge: "10d" }));
+  app.use("/dashboard/build", express.static(path.resolve(`${dataDir}${path.sep}build`), { maxAge: "10d" }));
+  app.use("/dashboard/plugins", express.static(path.resolve(`${dataDir}${path.sep}plugins`), { maxAge: "10d" }));
+  app.use("/members/dist", express.static(path.resolve(`${dataDir}${path.sep}dist`), { maxAge: "10d" }));
+  app.use("/members/build", express.static(path.resolve(`${dataDir}${path.sep}build`), { maxAge: "10d" }));
+  app.use("/members/plugins", express.static(path.resolve(`${dataDir}${path.sep}plugins`), { maxAge: "10d" }));
+  app.use("/moderation/dist", express.static(path.resolve(`${dataDir}${path.sep}dist`), { maxAge: "10d" }));
+  app.use("/moderation/build", express.static(path.resolve(`${dataDir}${path.sep}build`), { maxAge: "10d" }));
+  app.use("/moderation/plugins", express.static(path.resolve(`${dataDir}${path.sep}plugins`), { maxAge: "10d" }));
+  app.use("/leveling/dist", express.static(path.resolve(`${dataDir}${path.sep}dist`), { maxAge: "10d" }));
+  app.use("/leveling/build", express.static(path.resolve(`${dataDir}${path.sep}build`), { maxAge: "10d" }));
+  app.use("/leveling/plugins", express.static(path.resolve(`${dataDir}${path.sep}plugins`), { maxAge: "10d" }));
+  app.use("/leaderboard/dist", express.static(path.resolve(`${dataDir}${path.sep}dist`), { maxAge: "10d" }));
+  app.use("/leaderboard/build", express.static(path.resolve(`${dataDir}${path.sep}build`), { maxAge: "10d" }));
+  app.use("/leaderboard/plugins", express.static(path.resolve(`${dataDir}${path.sep}plugins`), { maxAge: "10d" }));
+  app.use("/welcome/dist", express.static(path.resolve(`${dataDir}${path.sep}dist`), { maxAge: "10d" }));
+  app.use("/welcome/build", express.static(path.resolve(`${dataDir}${path.sep}build`), { maxAge: "10d" }));
+  app.use("/welcome/plugins", express.static(path.resolve(`${dataDir}${path.sep}plugins`), { maxAge: "10d" }));
 
-  app.use('/pages', express.static(path.resolve(`${dataDir}${path.sep}pages`)));
+  app.use("/pages", express.static(path.resolve(`${dataDir}${path.sep}pages`)));
 
   // These are... internal things related to passport. Honestly I have no clue either.
   // Just leave 'em there.
@@ -135,7 +135,7 @@ module.exports = client => {
     done(null, obj);
   });
 
-	/*
+  /*
 	This defines the **Passport** oauth2 data. A few things are necessary here.
 	clientID = Your bot's client ID, at the top of your app page. Please note,
 		older bots have BOTH a client ID and a Bot ID. Use the Client one.
@@ -151,8 +151,8 @@ module.exports = client => {
 	*/
 
   var protocol;
-  if (config.dashboard.secure === 'true')  client.protocol = 'https://';
-    else client.protocol = 'http://';
+  if (config.dashboard.secure === "true")  client.protocol = "https://";
+  else client.protocol = "http://";
 
   protocol = client.protocol;
 
@@ -164,7 +164,7 @@ module.exports = client => {
         clientID: config.dashboard.clientID,
         clientSecret: config.dashboard.oauthSecret,
         callbackURL: client.callbackURL,
-        scope: ['identify', 'guilds']
+        scope: ["identify", "guilds"]
       },
       (accessToken, refreshToken, profile, done) => {
         process.nextTick(() => done(null, profile));
@@ -187,12 +187,12 @@ module.exports = client => {
   app.use(passport.session());
 
   // The EJS templating engine gives us more power
-  app.engine('html', require('ejs').renderFile);
-  app.set('view engine', 'html');
+  app.engine("html", require("ejs").renderFile);
+  app.set("view engine", "html");
 
   // body-parser reads incoming JSON or FORM data and simplifies their
   // use in code.
-  const bodyParser = require('body-parser');
+  const bodyParser = require("body-parser");
   app.use(bodyParser.json()); // to support JSON-encoded bodies
   app.use(
     bodyParser.urlencoded({
@@ -202,11 +202,11 @@ module.exports = client => {
   );
 
   app.use(function(req, res, next) {
-    req.active = req.path.split('/')[1]; // [0] will be empty since routes start with '/'
+    req.active = req.path.split("/")[1]; // [0] will be empty since routes start with '/'
     next();
   });
 
-	/*
+  /*
 	Authentication Checks. checkAuth verifies regular authentication,
 	whereas checkAdmin verifies the bot owner. Those are used in url
 	endpoints to give specific permissions.
@@ -214,20 +214,20 @@ module.exports = client => {
   function checkAuth(req, res, next) {
     if (req.isAuthenticated()) return next();
     req.session.backURL = req.url;
-    res.redirect('/login');
+    res.redirect("/login");
   }
 
   function cAuth(req, res) {
     if (req.isAuthenticated()) return;
     req.session.backURL = req.url;
-    res.redirect('/login');
+    res.redirect("/login");
   }
 
   function checkAdmin(req, res, next) {
     if (req.isAuthenticated() && req.user.id === process.env.OWNER)
       return next();
     req.session.backURL = req.originalURL;
-    res.redirect('/');
+    res.redirect("/");
   }
 
   // im using this for changing settings cause its easy
@@ -239,12 +239,12 @@ module.exports = client => {
     if (settings.has(guild.id) && getSettings()[key] == value) settings.delete(guild.id, key);
   }
 
-  app.use('/', require(`./routes/site`)(client, dataDir, templateDir, checkAuth, cAuth, checkAdmin));
+  app.use("/", require("./routes/site")(client, dataDir, templateDir, checkAuth, cAuth, checkAdmin));
 
-  app.use('/', require(`./routes/dashboard`)(client, templateDir, checkAuth, changeSetting));
+  app.use("/", require("./routes/dashboard")(client, templateDir, checkAuth, changeSetting));
 
   // 404 errors
-  app.get('*', function(req, res) {
+  app.get("*", function(req, res) {
     if (req.isAuthenticated()) {
       res.status(404).render(path.resolve(`${templateDir}${path.sep}error.ejs`), {
         perms: Permissions,
@@ -273,8 +273,8 @@ module.exports = client => {
         `Dashboard and API running on port ${config.dashboard.port}`
       );
     })
-    .on('error', err => {
-      logger.log('ERROR', `Error with starting dashboard: ${err.code}`);
+    .on("error", err => {
+      logger.log("ERROR", `Error with starting dashboard: ${err.code}`);
       return process.exit(0);
     });
 };

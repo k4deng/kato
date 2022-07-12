@@ -8,12 +8,12 @@ module.exports = async client => {
   client.application = await client.application.fetch();
   
   // Make the bot "play the game" which is the help command with default prefix.
-  client.user.setActivity(`/help`, { type: "WATCHING" });
+  client.user.setActivity("/help", { type: "WATCHING" });
 
   //init dashboard
   try {
-    require('../modules/dashboard/app')(client);
-	} catch (err) {
-		logger.error(err);
+    require("../modules/dashboard/app")(client);
+  } catch (err) {
+    logger.error(err);
   }
 };

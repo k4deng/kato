@@ -1,15 +1,15 @@
-const fetch = require('node-fetch');
-const { MessageEmbed } = require('discord.js');
+const fetch = require("node-fetch");
+const { MessageEmbed } = require("discord.js");
 const logger = require("../../modules/logger.js");
 const messages = require("../../modules/messages.js");
 exports.run = async (client, interaction) => { // eslint-disable-line no-unused-vars
 
   var member = interaction.options.get("user")?.member;
   try {
-    const res = await fetch('https://api.yomomma.info');
+    const res = await fetch("https://api.yomomma.info");
     let joke = (await res.json()).joke;
     if (member) joke = `${member}, ${joke.charAt(0).toLowerCase() + joke.slice(1)}`;
-    if (!joke.endsWith('!') && !joke.endsWith('.') && !joke.endsWith('"')) joke += '!';
+    if (!joke.endsWith("!") && !joke.endsWith(".") && !joke.endsWith("\"")) joke += "!";
     
     const embed = new MessageEmbed()
       .setDescription(joke)
@@ -28,9 +28,9 @@ exports.commandData = {
   description: "Says a \"yo momma\" joke to a user.",
   category: "Fun",
   options: [{
-    name: 'user',
-    type: 'USER',
-    description: 'Joke reciepient.',
+    name: "user",
+    type: "USER",
+    description: "Joke reciepient.",
     required: false,   
   }],
   defaultPermission: true,

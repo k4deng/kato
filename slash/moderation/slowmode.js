@@ -7,7 +7,7 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
 
   // get time
   let time;
-  if (input == 'off') {
+  if (input == "off") {
     time = 0;
   } else if (input) {
     const { error, success } = getTotalTime(interaction.options.get("time").value);
@@ -26,9 +26,9 @@ exports.commandData = {
   description: "Activate slowmode on a channel.",
   category: "Moderation",
   options: [{
-    name: 'time',
-    type: 'STRING',
-    description: 'How long for slowmode (off" to disable)',
+    name: "time",
+    type: "STRING",
+    description: "How long for slowmode (off\" to disable)",
     required: true,   
   }],
   defaultPermission: true,
