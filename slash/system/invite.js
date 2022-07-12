@@ -1,22 +1,22 @@
-const { MessageEmbed, MessageButton, MessageActionRow } = require('discord.js');
+const { MessageEmbed, MessageButton, MessageActionRow } = require("discord.js");
 const config = require("../../config.js");
 
 exports.run = async (client, interaction) => { // eslint-disable-line no-unused-vars
   const link = client.generateInvite({
-		permissions: BigInt(config.invitePerm),
-		scopes: ['bot', 'applications.commands'] });
+    permissions: BigInt(config.invitePerm),
+    scopes: ["bot", "applications.commands"] });
 
   const row = new MessageActionRow()
     .addComponents(
       new MessageButton()
-        .setLabel('Invite Link')
+        .setLabel("Invite Link")
         .setURL(link)
-        .setStyle('LINK'),
+        .setStyle("LINK"),
     );
   
   const embed = new MessageEmbed()
     .setColor(config.themeColor)
-    .setDescription('Click the button below to get a invite link for the bot.');
+    .setDescription("Click the button below to get a invite link for the bot.");
   
   await interaction.reply({ embeds: [embed], components: [row] });
 };

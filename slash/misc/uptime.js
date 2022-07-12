@@ -1,4 +1,4 @@
-const { MessageEmbed } = require('discord.js');
+const { MessageEmbed } = require("discord.js");
 const { themeColor } = require("../../config.js");
 const { DurationFormatter } = require("@sapphire/time-utilities");
 const durationFormatter = new DurationFormatter();

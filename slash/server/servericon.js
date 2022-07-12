@@ -1,4 +1,4 @@
-const { MessageEmbed } = require('discord.js');
+const { MessageEmbed } = require("discord.js");
 const { error } = require("../../modules/messages.js");
 const { themeColor } = require("../../config.js");
 
@@ -7,12 +7,12 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
   if (interaction.guild.icon) {
     const embed = new MessageEmbed()
       .setTitle(`${interaction.guild.name}'s icon`)
-      .setDescription(`**Links:**\n[png](${interaction.guild.iconURL({ format: 'png', size: 1024 })}) | [jpg](${interaction.guild.iconURL({ format: 'jpg', size: 1024 })}) | [gif](${interaction.guild.iconURL({ format: 'gif', size: 1024, dynamic: true })}) | [webp](${interaction.guild.iconURL({ format: 'webp', size: 1024 })})`)
+      .setDescription(`**Links:**\n[png](${interaction.guild.iconURL({ format: "png", size: 1024 })}) | [jpg](${interaction.guild.iconURL({ format: "jpg", size: 1024 })}) | [gif](${interaction.guild.iconURL({ format: "gif", size: 1024, dynamic: true })}) | [webp](${interaction.guild.iconURL({ format: "webp", size: 1024 })})`)
       .setImage(`${interaction.guild.iconURL({ dynamic: true, size: 1024 })}`)
       .setColor(themeColor);
     interaction.reply({ embeds: [embed] });
   } else {
-    interaction.reply({ embeds: [error('This server does not have a server icon.', interaction, false, true)] });
+    interaction.reply({ embeds: [error("This server does not have a server icon.", interaction, false, true)] });
   }
 };
 

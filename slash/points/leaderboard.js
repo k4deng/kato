@@ -1,5 +1,5 @@
 const { points } = require("../../modules/settings.js");
-const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
+const { MessageEmbed, MessageActionRow, MessageButton } = require("discord.js");
 const config = require("../../config.js");
 
 exports.run = async (client, interaction) => { // eslint-disable-line no-unused-vars 
@@ -7,18 +7,18 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
   const res = filtered.sort((a, b) => b.points - a.points);
 
   var embed = new MessageEmbed()
-    .setTitle('Leaderboard')
+    .setTitle("Leaderboard")
     .setColor(config.themeColor);
 
   var row;
   if (config.dashboard.enabled === "true") {
-    const protocol = config.dashboard.secure === "true" ? 'https://' : 'http://';  
+    const protocol = config.dashboard.secure === "true" ? "https://" : "http://";  
     row = new MessageActionRow()
       .addComponents(
         new MessageButton()
-          .setLabel('Leaderboard Link')
+          .setLabel("Leaderboard Link")
           .setURL(`${protocol}${config.dashboard.domain}/leaderboard/${interaction.guild.id}`)
-          .setStyle('LINK'),
+          .setStyle("LINK"),
       );
   }
 
@@ -28,14 +28,14 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
   } else {
     for (let j = 0; j < 10; j++) {
       if (res[j]) {
-        const name = interaction.guild.members.cache.get(res[j].user) || 'User left';
-        if (name == 'User left') embed.addField(`${(j + 1)}. ${name}`, `**Points:** ${res[j].points} | **Level:** ${res[j].level}`);
-          else embed.addField(`${(j + 1)}. ${name.user.username}`, `**Points:** ${res[j].points} | **Level:** ${res[j].level}`);
+        const name = interaction.guild.members.cache.get(res[j].user) || "User left";
+        if (name == "User left") embed.addField(`${(j + 1)}. ${name}`, `**Points:** ${res[j].points} | **Level:** ${res[j].level}`);
+        else embed.addField(`${(j + 1)}. ${name.user.username}`, `**Points:** ${res[j].points} | **Level:** ${res[j].level}`);
       }
     }
   }
   if (config.dashboard.enabled === "true") await interaction.reply({ embeds: [embed], components: [row] });
-    else await interaction.reply({ embeds: [embed] });
+  else await interaction.reply({ embeds: [embed] });
 };
 
 exports.commandData = {

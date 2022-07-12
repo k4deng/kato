@@ -4,7 +4,7 @@
 // Note that there's no "checks" in this basic version - no config "types" like
 // Role, String, Int, etc... It's basic, to be extended with you
 const { codeBlock } = require("@discordjs/builders");
-const { MessageActionRow, MessageButton } = require('discord.js');
+const { MessageActionRow, MessageButton } = require("discord.js");
 const { settings } = require("../../modules/settings.js");
 const { awaitButton } = require("../../modules/functions.js");
 const messages = require("../../modules/messages.js");
@@ -49,12 +49,12 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
     if (!overrides[key]) return await messages.error("This key does not have an override and is already using defaults.", interaction);
 
     const confButton = new MessageActionRow()
-			.addComponents(
-				new MessageButton()
-					.setCustomId('confButton')
-					.setLabel('Confirm')
-					.setStyle('DANGER'),
-			);
+      .addComponents(
+        new MessageButton()
+          .setCustomId("confButton")
+          .setLabel("Confirm")
+          .setStyle("DANGER"),
+      );
     await interaction.editReply({ content: `Please confirm to reset \`${key}\` to defualt.`, components: [confButton] });
 
     // Good demonstration of the custom awaitButton method in `./modules/functions.js` !
@@ -94,41 +94,41 @@ exports.commandData = {
   description: "View or change settings for your server.",
   category: "System",
   options: [{
-    name: 'view',
-    type: 'SUB_COMMAND',
-    description: 'View the servers settings.',
+    name: "view",
+    type: "SUB_COMMAND",
+    description: "View the servers settings.",
     options: [{
-      name: 'key',
-      type: 'STRING',
-      description: 'Specific key to view.',
+      name: "key",
+      type: "STRING",
+      description: "Specific key to view.",
       required: false,
     }],
   },
   {
-    name: 'edit',
-    type: 'SUB_COMMAND',
-    description: 'Edit a server setting.',
+    name: "edit",
+    type: "SUB_COMMAND",
+    description: "Edit a server setting.",
     options: [{
-      name: 'key',
-      type: 'STRING',
-      description: 'Key to edit.',
+      name: "key",
+      type: "STRING",
+      description: "Key to edit.",
       required: true,
     },
     {
-      name: 'value',
-      type: 'STRING',
-      description: 'Value to set.',
+      name: "value",
+      type: "STRING",
+      description: "Value to set.",
       required: true,
     }],
   },
   {
-    name: 'reset',
-    type: 'SUB_COMMAND',
-    description: 'Reset a server setting to the defualt.',
+    name: "reset",
+    type: "SUB_COMMAND",
+    description: "Reset a server setting to the defualt.",
     options: [{
-      name: 'key',
-      type: 'STRING',
-      description: 'Key to reset.',
+      name: "key",
+      type: "STRING",
+      description: "Key to reset.",
       required: true,
     }],
   }],

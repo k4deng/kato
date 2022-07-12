@@ -5,10 +5,10 @@ const config = require("../config.js");
 const chalk = require("chalk");
 const moment = require("moment");
 if (config.fileLogging == true) 
-  var log = require('simple-node-logger').createRollingFileLogger({
-    logDirectory: './data/logs',
-    fileNamePattern: 'roll-<DATE>.log',
-    dateFormat: 'YYYY.MM.DD',
+  var log = require("simple-node-logger").createRollingFileLogger({
+    logDirectory: "./data/logs",
+    fileNamePattern: "roll-<DATE>.log",
+    dateFormat: "YYYY.MM.DD",
   });
 
 exports.log = (content, type = "log") => {

@@ -31,7 +31,7 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
     const longest = commandNames.reduce((long, str) => Math.max(long, str.length), 0);
 
     let currentCategory = "";
-    let output = `= Command List =\n[Use /help <commandname> for details]\n`;
+    let output = "= Command List =\n[Use /help <commandname> for details]\n";
     const sorted = myCommands.sort((p, c) => p.commandData.category > c.commandData.category ? 1 : 
       p.commandData.name > c.commandData.name && p.commandData.category === c.commandData.category ? 1 : -1 );
 
@@ -59,9 +59,9 @@ exports.commandData = {
   description: "Shows all your available commands.",
   category: "Info",
   options: [{
-    name: 'command',
-    type: 'STRING',
-    description: 'Specific command to get help on.',
+    name: "command",
+    type: "STRING",
+    description: "Specific command to get help on.",
     required: false,   
   }],
   defaultPermission: true,

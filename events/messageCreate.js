@@ -41,7 +41,7 @@ module.exports = async (client, message) => {
     if (settings.levelIgnoreChannels?.includes(message.channel.id)) return;
     
     const roles = message.member.roles.cache.map(r => r.id);
-		if (roles.some(r => settings.levelIgnoreRoles?.includes(r))) return;
+    if (roles.some(r => settings.levelIgnoreRoles?.includes(r))) return;
     
     const key = `${message.guild.id}-${message.author.id}`;
     // Make sure there are defualts for all new users
@@ -63,10 +63,10 @@ module.exports = async (client, message) => {
     if (points.get(key, "points") >= xpNeed) {
       var newLevel = dblevel + 1;
       if (settings.levelOption == 1) {
-        message.reply(settings.levelMessage.replace('{user}', message.author).replace('{level}', newLevel));
+        message.reply(settings.levelMessage.replace("{user}", message.author).replace("{level}", newLevel));
       } else if (settings.levelOption == 2) {
         const lvlChannel = message.guild.channels.cache.get(settings.levelChannel);
-        if (lvlChannel) lvlChannel.send(settings.levelMessage.replace('{user}', message.author).replace('{level}', newLevel));
+        if (lvlChannel) lvlChannel.send(settings.levelMessage.replace("{user}", message.author).replace("{level}", newLevel));
       }
       points.inc(key, "level");      
     }
