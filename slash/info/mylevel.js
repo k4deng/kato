@@ -5,7 +5,7 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
   
   var level = permlevel(interaction);
   const friendly = config.permLevels.find(l => l.level === level).name;
-  await interaction.reply(`Your permission level is: ${level} - ${friendly}`);
+  await interaction.reply({ content: `Your permission level is: ${level} - ${friendly}` });
   
 };
 

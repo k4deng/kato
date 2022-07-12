@@ -83,8 +83,8 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
       Object.entries(serverSettings).forEach(([key, value]) => {
         array.push(`${key}${" ".repeat(20 - key.length)}::  ${value}`); 
       });
-      await interaction.editReply(codeBlock("asciidoc", `= Current Server Settings =
-  ${array.join("\n")}`));    
+      await interaction.editReply({ content: codeBlock("asciidoc", `= Current Server Settings =
+  ${array.join("\n")}`) });    
     }
   }
 };

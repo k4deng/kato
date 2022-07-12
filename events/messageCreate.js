@@ -105,15 +105,15 @@ module.exports = async (client, message) => {
   // Some commands may not be useable in DMs. This check prevents those commands from running
   // and return a friendly error message.
   if (cmd && !message.guild && cmd.conf.guildOnly)
-    return message.channel.send("This command is unavailable via private message. Please run this command in a guild.");
+    return message.channel.send({ content: "This command is unavailable via private message. Please run this command in a guild." });
 
   if (!cmd.conf.enabled) return;
 
   if (level < container.levelCache[cmd.conf.permLevel]) {
     if (settings.systemNotice === "true") {
-      return message.channel.send(`You do not have permission to use this command.
+      return message.channel.send({ content: `You do not have permission to use this command.
 Your permission level is ${level} (${config.permLevels.find(l => l.level === level).name})
-This command requires level ${container.levelCache[cmd.conf.permLevel]} (${cmd.conf.permLevel})`);
+This command requires level ${container.levelCache[cmd.conf.permLevel]} (${cmd.conf.permLevel})`});
     } else {
       return;
     }

@@ -13,7 +13,7 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
 • Channels   :: ${client.channels.cache.size.toLocaleString()}
 • Discord.js :: v${version}
 • Node       :: ${process.version}`);
-  await interaction.reply(stats);
+  await interaction.reply({ content: stats });
 };
 
 exports.commandData = {

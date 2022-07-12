@@ -38,8 +38,8 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
   const text = Util.splitMessage(cleaned, { maxLength: "1900" });
   
   for (const split of text) {
-    if (interaction.replied) await interaction.followUp(codeBlock("js", split));
-    else await interaction.reply(codeBlock("js", split));
+    if (interaction.replied) await interaction.followUp({ content: codeBlock("js", split) });
+    else await interaction.reply({ content: codeBlock("js", split) });
   }
 };
 
