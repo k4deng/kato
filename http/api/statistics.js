@@ -12,6 +12,7 @@ module.exports = function(client) {
       userCount: client.users.cache.size,
       uptime: moment.duration(client.uptime).format(" D [days], H [hrs], m [mins], s [seconds]"),
       commandCount: client.container.commands.size,
+      slashCommandCount: client.container.slashcmds.size,
       memoryUsed: (process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2),
       textChannels: client.channels.cache.filter(channel => channel.type === "GUILD_TEXT").size,
       voiceChannels: client.channels.cache.filter(channel => channel.type === "GUILD_VOICE").size,
