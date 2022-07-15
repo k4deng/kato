@@ -31,19 +31,21 @@ If you liked this repository, feel free to leave a star ⭐ to help promote kato
 
 ## Features
 
-**19** commands and counting across **6** different categories!
+**28** commands and counting across **7** different categories!
 
-*   🎉  **Fun**: `yomomma`, `clap`! 
-*   💬  **Info**: `mylevel`, `about`!
+*   🎉  **Fun**: `clap`, `flip`, `mock`, `roll` and **2** more! 
+*   💬  **Info**: `mylevel`, `about`, `help`!
+*   🚓  **Moderation**: `nickname`, `slowmode`!
 *   💠  **Points**: `rank`, `leaderboard`!
 *   😎  **Server**: `avatar`, `emojilist`, `servericon`, `serverinfo` and **2** more! 
-*   👑  **System**: `reload`, `settings`, `suggest`, `eval`! 
+*   👑  **System**: `reload`, `settings`, `suggest`, `invite` and **2** more!
 *   ❔   **Misc**: `ping`, `stats`, `uptime`!
 
 kato also comes packed with a variety of features, such as:
 
-  * **Leveling & Points**, **Welcome Messages**.
-  * And much more! There are over **9+** settings to tweak!
+  * **Leveling & Points**
+  * **Welcome Messages**
+  * And much more! There are over **15+** settings to tweak!
 
 ## Credits
 * **[k4deng#2003](https://k4deng.net)** - *Main developer and Everything*

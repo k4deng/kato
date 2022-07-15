@@ -14,7 +14,7 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
     if (clap.length > 1990) return messages.error("That clap is too long!", interaction, true);
   }
 
-  await interaction.reply(clap);
+  await interaction.reply({ content: clap });
   
 };
 

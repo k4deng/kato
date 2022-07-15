@@ -94,8 +94,8 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
         Object.entries(settings.get("default")).forEach(([key, value]) => {
           array.push(`${key}${" ".repeat(20 - key.length)}::  ${value}`); 
         });
-        await interaction.editReply(codeBlock("asciidoc", `= Bot Default Settings =
-    ${array.join("\n")}`));
+        await interaction.editReply({ content: codeBlock("asciidoc", `= Bot Default Settings =
+    ${array.join("\n")}`) });
       }
     } 
   } else

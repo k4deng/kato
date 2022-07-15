@@ -93,6 +93,17 @@ async function awaitButton(interaction, id, limit = 60000) {
   }
 }
 
+async function awaitModal(interaction, id, limit = 60000) {
+  const filter = i => (i.customId === id && i.user.id === interaction.user.id);
+  try {
+    const collected = await interaction.awaitModalSubmit({ filter, time: limit });
+    return collected;
+  } catch (e) {
+    console.log(e);
+    return false;
+  }
+}
+
 /* MISCELLANEOUS NON-CRITICAL FUNCTIONS */
   
 // toProperCase(String) returns a proper-cased string such as: 
@@ -116,4 +127,4 @@ process.on("unhandledRejection", err => {
   console.error(err);
 });
 
-module.exports = { getSettings, getPoints, permlevel, awaitReply, awaitButton, toProperCase };
+module.exports = { getSettings, getPoints, permlevel, awaitReply, awaitButton, awaitModal, toProperCase };

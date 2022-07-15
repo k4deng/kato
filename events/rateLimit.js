@@ -8,9 +8,11 @@ module.exports = async (client, { route, timeout, limit }) => {
   const embed = new MessageEmbed()
     .setTitle("RateLimit hit")
     .setColor("RED")
-    .addField("Path", route)
-    .addField("Limit", `${limit}`, true)
-    .addField("Cooldown", `${timeout}ms`, true)
+    .addFields([
+      { name: "Path", value: route },
+      { name: "Limit", value: limit, inline: true },
+      { name: "Cooldown", value: `${timeout}ms`, inline: true },
+    ])
     .setTimestamp();
 
   const modChannel = await client.channels.fetch(config.rateLimitChannelID).catch(() => logger.error("Error fetching rate limit logging channel"));

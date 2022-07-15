@@ -11,5 +11,5 @@ module.exports = (client, member) => {
   const welcomeMessage = settings.welcomeMessage.replace("{{user}}", member.user.tag);
 
   // Send the welcome message to the welcome channel
-  member.guild.channels.cache.get(settings.welcomeChannel).send(welcomeMessage).catch(console.error);
+  member.guild.channels.cache.get(settings.welcomeChannel).send({ content: welcomeMessage }).catch(console.error);
 };

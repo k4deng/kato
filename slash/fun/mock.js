@@ -1,9 +1,7 @@
 exports.run = async (client, interaction) => { // eslint-disable-line no-unused-vars
   const text = interaction.options.get("text").value; 
-  
   const mock = text.toLowerCase().split("").map(c => Math.random() < 0.5 ? c : c.toUpperCase()).join("");
-
-  await interaction.reply(mock);
+  await interaction.reply({ content: mock });
 };
 
 exports.commandData = {

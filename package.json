@@ -1,7 +1,7 @@
 {
-  "name": "guidebot",
-  "version": "2.1.0",
-  "description": "A boilerplate example bot with command handler and reloadable commands. Updated and Maintained by the Idiot's Guide Community",
+  "name": "kato",
+  "version": "1.2.1",
+  "description": "kato is the all-in-one Discord bot for all your needs. kato utilizes many discord features to enhance your server with advanced stuff like moderation, leveling, event logging, and much, much, more!",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
@@ -11,17 +11,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AnIdiotsGuide/guidebot.git"
+    "url": "git+https://github.com/k4deng/kato.git"
   },
-  "author": "Evelyne Lachance <eslachance@gmail.com> (http://evie.codes)",
-  "contributors": [
-    "York (http://anidiots.guide)"
-  ],
+  "author": "k4deng <contact@k4deng.net> (https://k4deng.net)",
+  "contributors": [],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/AnIdiotsGuide/guidebot/issues"
+    "url": "https://katobot.tk/support"
   },
-  "homepage": "https://github.com/AnIdiotsGuide/guidebot#readme",
+  "homepage": "https://katobot.tk",
   "dependencies": {
     "@discordjs/builders": "^0.2.0",
     "@rollup/plugin-babel": "^5.3.1",

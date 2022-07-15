@@ -43,13 +43,13 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
       }
       output += `/${c.commandData.name}${" ".repeat(longest - c.commandData.name.length)} :: ${c.commandData.description}\n`;
     });
-    interaction.reply(codeBlock("asciidoc", output));
+    interaction.reply({ content: codeBlock("asciidoc", output) });
   } else {
     // Show individual command's help.
     if (container.slashcmds.has(command)) {
       command = container.slashcmds.get(command);
       //if (level < container.levelCache[command.conf.permLevel]) return messages.error("No command with that name exists.", interaction);
-      interaction.reply(codeBlock("asciidoc", `= ${toProperCase(command.commandData.name)} = \n${command.commandData.description}\nPerm Level Needed :: ${command.conf.permLevel}`));
+      interaction.reply({ content: codeBlock("asciidoc", `= ${toProperCase(command.commandData.name)} = \n${command.commandData.description}\nPerm Level Needed :: ${command.conf.permLevel}`) });
     } else return messages.error("No command with that name exists.", interaction);
   }
 };

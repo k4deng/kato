@@ -24,13 +24,13 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
 
   if (!res[0]) {
     // If there no results
-    embed.addField("No data found", "There are no users on the leaderboard.");
+    embed.addFields([{ name: "No data found", value: "There are no users on the leaderboard." }]);
   } else {
     for (let j = 0; j < 10; j++) {
       if (res[j]) {
         const name = interaction.guild.members.cache.get(res[j].user) || "User left";
-        if (name == "User left") embed.addField(`${(j + 1)}. ${name}`, `**Points:** ${res[j].points} | **Level:** ${res[j].level}`);
-        else embed.addField(`${(j + 1)}. ${name.user.username}`, `**Points:** ${res[j].points} | **Level:** ${res[j].level}`);
+        if (name == "User left") embed.addFields([{ name: `${(j + 1)}. ${name}`, value: `**Points:** ${res[j].points} | **Level:** ${res[j].level}` }]);
+        else embed.addFields([{ name: `${(j + 1)}. ${name.user.username}`, value: `**Points:** ${res[j].points} | **Level:** ${res[j].level}` }]);
       }
     }
   }
