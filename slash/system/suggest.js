@@ -10,7 +10,7 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
   var suggestionsChannel = client.channels.cache.get(config.suggestionsChannel);
   
   var embed = new MessageEmbed()
-    .setAuthor(interaction.user.username, interaction.user.displayAvatarURL({ dynamic: true }))
+    .setAuthor({ name: interaction.user.username , iconURL: interaction.user.displayAvatarURL({ dynamic: true }) })
     .setColor("RANDOM")
     .setTimestamp();
   if (desc) embed.setDescription(`**${title}**\n_${desc}_`);

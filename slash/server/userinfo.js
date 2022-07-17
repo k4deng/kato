@@ -9,7 +9,7 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
   const status = (member.presence && member.presence?.activities.length >= 1) ? `${toProperCase(member.presence.activities[0].type)} - ${(member.presence.activities[0].type == "CUSTOM") ? member.presence.activities[0].state : member.presence.activities[0].name}` : "None";
   
   const embed = new MessageEmbed()
-    .setAuthor(`${member.user.tag}'s info`, member.user.displayAvatarURL())
+    .setAuthor({ name: `${member.user.tag}'s info` , iconURL: member.user.displayAvatarURL() })
     .setColor(themeColor)
     .setThumbnail(member.user.displayAvatarURL({ format: "png", size: 512 }))
     .addFields(
@@ -24,7 +24,7 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
       { name: "Roles", value: member.roles.cache.size > 1 ? member.roles.cache.sort((a, b) => b.rawPosition - a.rawPosition).reduce((a, b) => `${a}, ${b}`) : "@everyone" },
     )
     .setTimestamp()
-    .setFooter(`Requested by: ${interaction.user.tag}`);
+    .setFooter({ text: `Requested by: ${interaction.user.tag}` });
   
   await interaction.reply({ embeds: [embed] });
 };

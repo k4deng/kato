@@ -6,7 +6,7 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
   
   const embed = new MessageEmbed()
     .setColor("#0099ff")
-    .setAuthor(client.user.username, `https://cdn.discordapp.com/avatars/${client.user.id}/${client.user.avatar}.png?size=128`)
+    .setAuthor({ name: client.user.username , iconURL: `https://cdn.discordapp.com/avatars/${client.user.id}/${client.user.avatar}.png?size=128` })
     .addFields(
       {
         name: `**What can ${client.user.username} do?**`,
@@ -56,7 +56,7 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
         inline: true
       },
     )
-    .setFooter("Bot created by k4deng", "https://cdn.discordapp.com/avatars/805546498028208190/37194e9d4a7b137294ff134c0cb6fec2.png");
+    .setFooter({ text: "Bot created by k4deng" , iconURL: "https://cdn.discordapp.com/avatars/805546498028208190/37194e9d4a7b137294ff134c0cb6fec2.png" });
   
   await interaction.reply({ embeds: [embed] });
 };

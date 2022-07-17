@@ -14,7 +14,7 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
   // Send server information
   const member = interaction.guild.members.cache;
   const embed = new MessageEmbed()
-    .setAuthor(`${guild.name}'s server info`, guild.iconURL())
+    .setAuthor({ name: `${guild.name}'s server info` , iconURL: guild.iconURL() })
     .setColor(themeColor)
     .setThumbnail(guild.iconURL())
     .addFields([
@@ -57,7 +57,7 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
       },
     ])
     .setTimestamp()
-    .setFooter(`Requested by: ${user.tag}`);
+    .setFooter({ text: `Requested by: ${user.tag}` });
   
   await interaction.reply({ embeds: [embed] });
 };
