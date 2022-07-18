@@ -1,3 +1,4 @@
+const { ApplicationCommandOptionType } = require("discord.js");
 const { getPoints } = require("../../modules/functions.js");
 const { points } = require("../../modules/settings.js");
 const { error } = require("../../modules/messages.js");
@@ -25,10 +26,10 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
     }
 
     function lvlPoints(lvl) { return 2*Math.pow(lvl, 3)+25; }
-    
+
     // create rank card
     const rankcard = new rank()
-      .setAvatar(target.user.displayAvatarURL({ format: "png", dynamic: true, size: 1024 }))
+      .setAvatar(target.user.displayAvatarURL({ extension: "png", size: 1024 }))
       .setCurrentXP(user.level == 0 ? user.points : user.points-lvlPoints(user.level))
       .setLevel(user.level)
       .setRank(rankScore + 1)
@@ -49,7 +50,7 @@ exports.commandData = {
   category: "Points",
   options: [{
     name: "user",
-    type: "USER",
+    type: ApplicationCommandOptionType.User,
     description: "User to view rank of.",
     required: false,   
   }],

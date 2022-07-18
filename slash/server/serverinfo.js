@@ -1,4 +1,4 @@
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 const { themeColor } = require("../../config.js");
 const moment = require("moment");
 
@@ -13,7 +13,7 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
   
   // Send server information
   const member = interaction.guild.members.cache;
-  const embed = new MessageEmbed()
+  const embed = new EmbedBuilder()
     .setAuthor({ name: `${guild.name}'s server info` , iconURL: guild.iconURL() })
     .setColor(themeColor)
     .setThumbnail(guild.iconURL())

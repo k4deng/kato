@@ -1,11 +1,11 @@
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 const logger = require("../modules/logger.js");
 const config = require("../config.js");
 
 module.exports = async (client, { route, timeout, limit }) => {
   logger.error(`Rate limit: ${route} (Cooldown: ${timeout}ms)`);
 
-  const embed = new MessageEmbed()
+  const embed = new EmbedBuilder()
     .setTitle("RateLimit hit")
     .setColor("RED")
     .addFields([

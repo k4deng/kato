@@ -18,7 +18,7 @@ const { settings } = require("../settings.js");
 const path = require("path");
 
 // Used for Permission Resolving...
-const { Permissions } = require("discord.js");
+const { PermissionsBitField } = require("discord.js");
 
 // Express Session
 const express = require("express");
@@ -247,7 +247,7 @@ module.exports = client => {
   app.get("*", function(req, res) {
     if (req.isAuthenticated()) {
       res.status(404).render(path.resolve(`${templateDir}${path.sep}error.ejs`), {
-        perms: Permissions,
+        perms: PermissionsBitField,
         bot: client,
         auth: true,
         user: req.user,

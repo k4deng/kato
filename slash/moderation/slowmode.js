@@ -1,3 +1,4 @@
+const { ApplicationCommandOptionType } = require("discord.js");
 const messages = require("../../modules/messages.js");
 const { getTotalTime, getReadableTime } = require("../../modules/timeFormatter.js");
 
@@ -27,8 +28,8 @@ exports.commandData = {
   category: "Moderation",
   options: [{
     name: "time",
-    type: "STRING",
-    description: "How long for slowmode (off\" to disable)",
+    type: ApplicationCommandOptionType.String,
+    description: "How long for slowmode (\"off\" to disable)",
     required: true,   
   }],
   defaultPermission: true,

@@ -5,7 +5,7 @@ command is also filtered by level, so if a user does not have access to
 a command, it is not shown to them. If a command name is given with the
 help command, its extended help is shown.
 */
-const { codeBlock } = require("@discordjs/builders");
+const { ApplicationCommandOptionType, codeBlock } = require("discord.js");
 const { toProperCase, permlevel } = require("../../modules/functions.js");
 const messages = require("../../modules/messages.js");
 
@@ -60,7 +60,7 @@ exports.commandData = {
   category: "Info",
   options: [{
     name: "command",
-    type: "STRING",
+    type: ApplicationCommandOptionType.String,
     description: "Specific command to get help on.",
     required: false,   
   }],

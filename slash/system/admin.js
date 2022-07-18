@@ -1,7 +1,5 @@
 // owner & admin commands for stuff
-
-const { codeBlock } = require("@discordjs/builders");
-const { MessageActionRow, MessageButton } = require("discord.js");
+const { ApplicationCommandOptionType, ActionRowBuilder, ButtonBuilder, ButtonStyle, codeBlock } = require("discord.js");
 const { settings } = require("../../modules/settings.js");
 const { awaitButton } = require("../../modules/functions.js");
 const messages = require("../../modules/messages.js");
@@ -51,12 +49,12 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
 
       if (!defaults[key]) return await messages.error("This key does not exist in the settings", interaction);
 
-      const confButton2 = new MessageActionRow()
+      const confButton2 = new ActionRowBuilder()
         .addComponents(
-          new MessageButton()
+          new ButtonBuilder()
             .setCustomId("confButton2")
             .setLabel("Confirm")
-            .setStyle("DANGER"),
+            .setStyle(ButtonStyle.Danger),
         );
       await interaction.editReply({ content: `Are you sure you want to permanently delete \`${key}\` from all guilds? This **CANNOT** be undone.`, components: [confButton2] });
 
@@ -131,60 +129,60 @@ exports.commandData = {
   category: "System",
   options: [{
     name: "conf",
-    type: "SUB_COMMAND_GROUP",
+    type: ApplicationCommandOptionType.SubcommandGroup,
     description: "Change the bot's defualt settings.",
     options: [{
       name: "add",
-      type: "SUB_COMMAND",
+      type: ApplicationCommandOptionType.Subcommand,
       description: "Add a new key & value to all guilds.",
       options: [{
         name: "key",
-        type: "STRING",
+        type: ApplicationCommandOptionType.String,
         description: "Key to add.",
         required: true,
       },
       {
         name: "value",
-        type: "STRING",
+        type: ApplicationCommandOptionType.String,
         description: "Value to add.",
         required: true,
       }],
     },
     {
       name: "edit",
-      type: "SUB_COMMAND",
+      type: ApplicationCommandOptionType.Subcommand,
       description: "Edit a keys default value.",
       options: [{
         name: "key",
-        type: "STRING",
+        type: ApplicationCommandOptionType.String,
         description: "Key to edit.",
         required: true,
       },
       {
         name: "value",
-        type: "STRING",
+        type: ApplicationCommandOptionType.String,
         description: "Value to set.",
         required: true,
       }],
     },
     {
       name: "delete",
-      type: "SUB_COMMAND",
+      type: ApplicationCommandOptionType.Subcommand,
       description: "Delete a key from all guilds.",
       options: [{
         name: "key",
-        type: "STRING",
+        type: ApplicationCommandOptionType.String,
         description: "Key to delete.",
         required: true,
       }],
     },
     {
       name: "view",
-      type: "SUB_COMMAND",
+      type: ApplicationCommandOptionType.Subcommand,
       description: "View defualt settings.",
       options: [{
         name: "key",
-        type: "STRING",
+        type: ApplicationCommandOptionType.String,
         description: "Specific key to view.",
         required: false,
       }],
@@ -192,13 +190,13 @@ exports.commandData = {
   },
   {
     name: "deploy",
-    type: "SUB_COMMAND",
+    type: ApplicationCommandOptionType.Subcommand,
     description: "Deploy all slash commands to guilds.",
     options: [],
   },
   {
     name: "reboot",
-    type: "SUB_COMMAND",
+    type: ApplicationCommandOptionType.Subcommand,
     description: "Shuts down the bot. If running under PM2, bot will restart automatically.",
     options: [],
   }],

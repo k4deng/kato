@@ -3,7 +3,7 @@
 // ================= Slash Command Example ==================
 // ==========================================================
 
-const { MessageEmbed } = require("discord.js");
+const { ApplicationCommandOptionType, EmbedBuilder } = require("discord.js");
 const { settings } = require("../../modules/settings.js");
 const { points } = require("../../modules/settings.js");
 const config = require("../../config.js");
@@ -21,7 +21,7 @@ exports.commandData = {
   category: "Category",
   options: [{
     name: "name",
-    type: "STRING",
+    type: ApplicationCommandOptionType.String,
     description: "desc",
     required: true,   
   }],

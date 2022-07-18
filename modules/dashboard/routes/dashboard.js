@@ -10,7 +10,7 @@ const { points } = require("../../settings.js");
 const path = require("path");
 
 // Used for Permission Resolving...
-const { Permissions } = require("discord.js");
+const { PermissionsBitField, ChannelType } = require("discord.js");
 
 // For stats
 const moment = require("moment");
@@ -24,7 +24,7 @@ module.exports = function(client, templateDir, checkAuth, changeSetting) {
     if (!guild) return res.status(404);
     const isManaged =
       guild && guild.members.cache.get(req.user.id)  
-        ? guild.members.cache.get(req.user.id).permissions.has("MANAGE_GUILD")
+        ? guild.members.cache.get(req.user.id).PermissionsBitField.has("MANAGE_GUILD")
         : false;
     if (req.user.id === process.env.OWNER) {
       console.log(`Admin bypass for managing server: ${req.params.guildID}`);
@@ -59,7 +59,7 @@ module.exports = function(client, templateDir, checkAuth, changeSetting) {
         `${templateDir}${path.sep}dashboard${path.sep}dashboard.ejs`
       ),
       {
-        perms: Permissions,
+        perms: PermissionsBitField,
         bot: client,
         guild: guild,
         user: req.user,
@@ -75,7 +75,7 @@ module.exports = function(client, templateDir, checkAuth, changeSetting) {
     if (!guild) return res.status(404);
     const isManaged =
       guild && guild.members.cache.get(req.user.id)  
-        ? guild.members.cache.get(req.user.id)  .permissions.has("MANAGE_GUILD")
+        ? guild.members.cache.get(req.user.id).permissions.has("MANAGE_GUILD")
         : false;
     if (req.user.id === process.env.OWNER) {
       console.log(`Admin bypass for managing server: ${req.params.guildID}`);
@@ -93,7 +93,7 @@ module.exports = function(client, templateDir, checkAuth, changeSetting) {
     if (!guild) return res.status(404);
     const isManaged =
       guild && guild.members.cache.get(req.user.id)  
-        ? guild.members.cache.get(req.user.id)  .permissions.has("MANAGE_GUILD")
+        ? guild.members.cache.get(req.user.id).permissions.has("MANAGE_GUILD")
         : false;
     if (req.user.id === process.env.OWNER) {
       console.log(`Admin bypass for managing server: ${req.params.guildID}`);
@@ -106,7 +106,8 @@ module.exports = function(client, templateDir, checkAuth, changeSetting) {
         `${templateDir}${path.sep}dashboard${path.sep}moderation.ejs`
       ),
       {
-        perms: Permissions,
+        perms: PermissionsBitField,
+        ChannelType: ChannelType,
         bot: client,
         guild: guild,
         user: req.user,
@@ -122,7 +123,7 @@ module.exports = function(client, templateDir, checkAuth, changeSetting) {
     if (!guild) return res.status(404);
     const isManaged =
       guild && guild.members.cache.get(req.user.id)  
-        ? guild.members.cache.get(req.user.id)  .permissions.has("MANAGE_GUILD")
+        ? guild.members.cache.get(req.user.id).permissions.has("MANAGE_GUILD")
         : false;
     if (req.user.id === process.env.OWNER) {
       console.log(`Admin bypass for managing server: ${req.params.guildID}`);
@@ -160,7 +161,8 @@ module.exports = function(client, templateDir, checkAuth, changeSetting) {
         `${templateDir}${path.sep}dashboard${path.sep}level.ejs`
       ),
       {
-        perms: Permissions,
+        perms: PermissionsBitField,
+        ChannelType: ChannelType,
         bot: client,
         guild: guild,
         user: req.user,
@@ -186,7 +188,7 @@ module.exports = function(client, templateDir, checkAuth, changeSetting) {
     const resp = filtered.sort((a, b) => b.points - a.points);
     
     res.render(path.resolve(`${templateDir}${path.sep}dashboard${path.sep}leaderboard.ejs`), {
-      perms: Permissions,
+      perms: PermissionsBitField,
       bot: client,
       guild: guild,
       auth: req.isAuthenticated() ? true : false,
@@ -203,7 +205,7 @@ module.exports = function(client, templateDir, checkAuth, changeSetting) {
     if (!guild) return res.status(404);
     const isManaged =
       guild && guild.members.cache.get(req.user.id)  
-        ? guild.members.cache.get(req.user.id)  .permissions.has("MANAGE_GUILD")
+        ? guild.members.cache.get(req.user.id).permissions.has("MANAGE_GUILD")
         : false;
     if (req.user.id === process.env.OWNER) {
       console.log(`Admin bypass for managing server: ${req.params.guildID}`);
@@ -242,7 +244,7 @@ module.exports = function(client, templateDir, checkAuth, changeSetting) {
       {
         moment: moment,
         members: returnObject,
-        perms: Permissions,
+        perms: PermissionsBitField,
         bot: client,
         guild: guild,
         user: req.user,
@@ -292,7 +294,8 @@ module.exports = function(client, templateDir, checkAuth, changeSetting) {
         `${templateDir}${path.sep}dashboard${path.sep}welcome.ejs`
       ),
       {
-        perms: Permissions,
+        perms: PermissionsBitField,
+        ChannelType: ChannelType,
         bot: client,
         guild: guild,
         user: req.user,
@@ -309,7 +312,7 @@ module.exports = function(client, templateDir, checkAuth, changeSetting) {
     if (!guild) return res.status(404);
     const isManaged =
       guild && guild.members.cache.get(req.user.id)  
-        ? guild.members.cache.get(req.user.id)  .permissions.has("MANAGE_GUILD")
+        ? guild.members.cache.get(req.user.id).permissions.has("MANAGE_GUILD")
         : false;
     if (req.user.id === process.env.OWNER) {
       console.log(`Admin bypass for managing server: ${req.params.guildID}`);
@@ -337,7 +340,7 @@ module.exports = function(client, templateDir, checkAuth, changeSetting) {
     if (!guild) return res.status(404);
     const isManaged =
       guild && guild.members.cache.get(req.user.id)  
-        ? guild.members.cache.get(req.user.id)  .permissions.has("MANAGE_GUILD")
+        ? guild.members.cache.get(req.user.id).permissions.has("MANAGE_GUILD")
         : false;
     if (req.user.id === process.env.OWNER) {
       console.log(`Admin bypass for managing server: ${req.params.guildID}`);
@@ -357,7 +360,7 @@ module.exports = function(client, templateDir, checkAuth, changeSetting) {
     if (!guild) return res.status(404);
     const isManaged =
       guild && guild.members.cache.get(req.user.id)  
-        ? guild.members.cache.get(req.user.id)  .permissions.has("MANAGE_GUILD")
+        ? guild.members.cache.get(req.user.id).permissions.has("MANAGE_GUILD")
         : false;
     if (req.user.id === process.env.OWNER) {
       console.log(`Admin bypass for managing server: ${req.params.guildID}`);

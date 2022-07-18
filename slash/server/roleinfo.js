@@ -1,16 +1,24 @@
-const { MessageEmbed } = require("discord.js");
-const { toProperCase } = require("../../modules/functions.js");
+const { ApplicationCommandOptionType, EmbedBuilder, PermissionsBitField } = require("discord.js");
 const moment = require("moment");
 
 exports.run = async (client, interaction) => { // eslint-disable-line no-unused-vars
   const role = interaction.guild.roles.cache.get(interaction.options.get("role").value);
   
   let permissions;
-  if (role.permissions.has("ADMINISTRATOR")) permissions = "Administrator";
-  else permissions = toProperCase(role.permissions.toArray().join(" » ").replace(/[-_]/g, " ")) || "None";
+  if (role.permissions.has(PermissionsBitField.Flags.Administrator)) {
+    permissions = "Administrator";
+  } else { 
+    const allPerms = role.permissions.toArray();
+    const newPerms = [];
+    for (const perm of allPerms) {
+      const splitPerm = perm.split(/([A-Z][a-z]+)/).join(" ");
+      newPerms.push(splitPerm);
+    }
+    permissions = newPerms.join(" **»** ") || "None";
+  }
   
-  const embed = new MessageEmbed()
-    .setAuthor(`${role.name} info`)
+  const embed = new EmbedBuilder()
+    .setAuthor({ name: `${role.name} info` })
     .setColor(role.color)
     .addFields(
       { name: "Role", value: `<@&${role.id}> (${role.id})`, inline: true },
@@ -21,7 +29,7 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
       { name: "Hoisted", value: role.hoist ? "Yes" : "No", inline: true },
       { name: "Color", value: `\`${role.hexColor}\` (\`${role.color}\`)`, inline: true },
       { name: "Mentionable", value: role.mentionable ? "Yes" : "No", inline: true },
-      { name: "Permissions", value: permissions },
+      { name: "Permissions", value: `${permissions}` },
     )
     .setTimestamp()
     .setFooter({ text: `Requested by: ${interaction.user.tag}` });
@@ -35,7 +43,7 @@ exports.commandData = {
   category: "Server",
   options: [{
     name: "role",
-    type: "ROLE",
+    type: ApplicationCommandOptionType.Role,
     description: "The role you want information of",
     required: true,   
   }],

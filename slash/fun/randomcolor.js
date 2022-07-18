@@ -1,4 +1,4 @@
-const { MessageEmbed, MessageAttachment } = require("discord.js");
+const { EmbedBuilder, AttachmentBuilder, ApplicationCommandOptionType } = require("discord.js");
 const randomColor = require("randomcolor");
 const Canvas = require("canvas");
 
@@ -30,10 +30,10 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
   }
   
   // generate attachment
-  const attachment = new MessageAttachment(canvas.toBuffer(), `${hex.substring(1)}.png`);
+  const attachment = new AttachmentBuilder(canvas.toBuffer(), { name: `${hex.substring(1)}.png` });
 
   // make embed
-  const embed = new MessageEmbed()
+  const embed = new EmbedBuilder()
     .setColor(hex);
   if (advancedMode) {
     embed.setThumbnail(`attachment://${hex.substring(1)}.png`);
@@ -56,7 +56,7 @@ exports.commandData = {
   category: "Fun",
   options: [{
     name: "advanced",
-    type: "STRING",
+    type: ApplicationCommandOptionType.String,
     description: "Show more details about random color.",
     required: false,   
     choices: [{

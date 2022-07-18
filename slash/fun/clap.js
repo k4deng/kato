@@ -1,4 +1,6 @@
+const { ApplicationCommandOptionType } = require("discord.js");
 const messages = require("../../modules/messages.js");
+
 exports.run = async (client, interaction) => { // eslint-disable-line no-unused-vars
 
   var message = interaction.options.get("message")?.value; 
@@ -24,7 +26,7 @@ exports.commandData = {
   category: "Fun",
   options: [{
     name: "message",
-    type: "STRING",
+    type: ApplicationCommandOptionType.String,
     description: "Message to clap-ify.",
     required: true,   
   }],

@@ -71,7 +71,7 @@
                 <div class="widget-user-header">
                   <!--<h5><%= x %></h5>-->
                   <div class="widget-user-image">
-                    <img class="img-circle elevation-2" src="<%= bot.users.cache.get(ranks[i].user) ? bot.users.cache.get(ranks[i].user).displayAvatarURL({ dynamic: false, size: 128 }) : 'https://cdn.discordapp.com/embed/avatars/1.png' %>" alt="User Avatar">
+                    <img class="img-circle elevation-2" src="<%= bot.users.cache.get(ranks[i].user) ? bot.users.cache.get(ranks[i].user).displayAvatarURL({ forceStatic: true, size: 128 }) : 'https://cdn.discordapp.com/embed/avatars/1.png' %>" alt="User Avatar">
                   </div>
                   <!-- /.widget-user-image -->
                   <h3 class="widget-user-username"><%= bot.users.cache.get(ranks[i].user).username ?? "User left"%></h3>

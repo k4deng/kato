@@ -1,4 +1,4 @@
-const { MessageEmbed, MessageButton, MessageActionRow } = require("discord.js");
+const { EmbedBuilder, ButtonBuilder, ButtonStyle, ActionRowBuilder } = require("discord.js");
 const config = require("../../config.js");
 
 exports.run = async (client, interaction) => { // eslint-disable-line no-unused-vars
@@ -6,15 +6,15 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
     permissions: BigInt(config.invitePerm),
     scopes: ["bot", "applications.commands"] });
 
-  const row = new MessageActionRow()
+  const row = new ActionRowBuilder()
     .addComponents(
-      new MessageButton()
+      new ButtonBuilder()
         .setLabel("Invite Link")
         .setURL(link)
-        .setStyle("LINK"),
+        .setStyle(ButtonStyle.Link),
     );
   
-  const embed = new MessageEmbed()
+  const embed = new EmbedBuilder()
     .setColor(config.themeColor)
     .setDescription("Click the button below to get a invite link for the bot.");
   

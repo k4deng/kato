@@ -1,5 +1,5 @@
 const fetch = require("node-fetch");
-const { MessageEmbed } = require("discord.js");
+const { ApplicationCommandOptionType, EmbedBuilder } = require("discord.js");
 const logger = require("../../modules/logger.js");
 const messages = require("../../modules/messages.js");
 exports.run = async (client, interaction) => { // eslint-disable-line no-unused-vars
@@ -11,9 +11,9 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
     if (member) joke = `${member}, ${joke.charAt(0).toLowerCase() + joke.slice(1)}`;
     if (!joke.endsWith("!") && !joke.endsWith(".") && !joke.endsWith("\"")) joke += "!";
     
-    const embed = new MessageEmbed()
+    const embed = new EmbedBuilder()
       .setDescription(joke)
-      .setColor("RANDOM");
+      .setColor("Random");
     
     await interaction.reply({ embeds: [embed] });
   } catch (err) {
@@ -29,7 +29,7 @@ exports.commandData = {
   category: "Fun",
   options: [{
     name: "user",
-    type: "USER",
+    type: ApplicationCommandOptionType.User,
     description: "Joke reciepient.",
     required: false,   
   }],

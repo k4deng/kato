@@ -3,8 +3,7 @@
 
 // Note that there's no "checks" in this basic version - no config "types" like
 // Role, String, Int, etc... It's basic, to be extended with you
-const { codeBlock } = require("@discordjs/builders");
-const { MessageActionRow, MessageButton } = require("discord.js");
+const { ApplicationCommandOptionType, codeBlock, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require("discord.js");
 const { settings } = require("../../modules/settings.js");
 const { awaitButton } = require("../../modules/functions.js");
 const messages = require("../../modules/messages.js");
@@ -48,12 +47,12 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
     if (!defaults[key]) return await messages.error("This key does not exist in the settings", interaction);
     if (!overrides[key]) return await messages.error("This key does not have an override and is already using defaults.", interaction);
 
-    const confButton = new MessageActionRow()
+    const confButton = new ActionRowBuilder()
       .addComponents(
-        new MessageButton()
+        new ButtonBuilder()
           .setCustomId("confButton")
           .setLabel("Confirm")
-          .setStyle("DANGER"),
+          .setStyle(ButtonStyle.Danger),
       );
     await interaction.editReply({ content: `Please confirm to reset \`${key}\` to defualt.`, components: [confButton] });
 
@@ -95,39 +94,39 @@ exports.commandData = {
   category: "System",
   options: [{
     name: "view",
-    type: "SUB_COMMAND",
+    type: ApplicationCommandOptionType.Subcommand,
     description: "View the servers settings.",
     options: [{
       name: "key",
-      type: "STRING",
+      type: ApplicationCommandOptionType.String,
       description: "Specific key to view.",
       required: false,
     }],
   },
   {
     name: "edit",
-    type: "SUB_COMMAND",
+    type: ApplicationCommandOptionType.Subcommand,
     description: "Edit a server setting.",
     options: [{
       name: "key",
-      type: "STRING",
+      type: ApplicationCommandOptionType.String,
       description: "Key to edit.",
       required: true,
     },
     {
       name: "value",
-      type: "STRING",
+      type: ApplicationCommandOptionType.String,
       description: "Value to set.",
       required: true,
     }],
   },
   {
     name: "reset",
-    type: "SUB_COMMAND",
+    type: ApplicationCommandOptionType.Subcommand,
     description: "Reset a server setting to the defualt.",
     options: [{
       name: "key",
-      type: "STRING",
+      type: ApplicationCommandOptionType.String,
       description: "Key to reset.",
       required: true,
     }],

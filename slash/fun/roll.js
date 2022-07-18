@@ -1,8 +1,8 @@
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 const { themeColor } = require("../../config.js");
 
 exports.run = async (client, interaction) => { // eslint-disable-line no-unused-vars
-  const embed = new MessageEmbed()
+  const embed = new EmbedBuilder()
     .setColor(themeColor)
     .setTitle("Result:");
 
