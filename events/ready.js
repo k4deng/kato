@@ -1,3 +1,4 @@
+const { ActivityType } = require("discord.js")
 const logger = require("../modules/logger.js");
 
 module.exports = async client => {
@@ -7,8 +8,11 @@ module.exports = async client => {
   // makes sure that client.application has latest info
   client.application = await client.application.fetch();
   
-  // Make the bot "play the game" which is the help command with default prefix.
-  client.user.setActivity("/help", { type: "WATCHING" });
+  // Make the bot "watch" the help command.
+  client.user.setActivity({
+    type: ActivityType.Watching,
+    name: "/help"
+  });
 
   //init dashboard
   try {
