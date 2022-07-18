@@ -1,4 +1,4 @@
-const { ActivityType } = require("discord.js")
+const { ActivityType } = require("discord.js");
 const logger = require("../modules/logger.js");
 
 module.exports = async client => {
