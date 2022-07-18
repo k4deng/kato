@@ -1,10 +1,10 @@
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 const config = require("../../config.js");
 const protocol = config.dashboard.secure === "true" ? "https://" : "http://";
 
 exports.run = async (client, interaction) => { // eslint-disable-line no-unused-vars
   
-  const embed = new MessageEmbed()
+  const embed = new EmbedBuilder()
     .setColor("#0099ff")
     .setAuthor({ name: client.user.username , iconURL: `https://cdn.discordapp.com/avatars/${client.user.id}/${client.user.avatar}.png?size=128` })
     .addFields(
@@ -66,12 +66,10 @@ exports.commandData = {
   description: "Shows some info about the bot.",
   category: "Info",
   options: [],
-  defaultPermission: true,
+  dmPermission: true,
+  defaultMemberPermissions: null
 };
 
-// Set guildOnly to true if you want it to be available on guilds only.
-// Otherwise false is global.
 exports.conf = {
-  permLevel: "User",
-  guildOnly: false
+  permLevel: "User"
 };

@@ -3,7 +3,7 @@
 // ================= Slash Command Example ==================
 // ==========================================================
 
-const { MessageEmbed } = require("discord.js");
+const { ApplicationCommandOptionType, EmbedBuilder } = require("discord.js");
 const { settings } = require("../../modules/settings.js");
 const { points } = require("../../modules/settings.js");
 const config = require("../../config.js");
@@ -21,18 +21,16 @@ exports.commandData = {
   category: "Category",
   options: [{
     name: "name",
-    type: "STRING",
+    type: ApplicationCommandOptionType.String,
     description: "desc",
     required: true,   
   }],
-  defaultPermission: true,
+  dmPermission: true,
+  defaultMemberPermissions: null
 };
 
-// Set guildOnly to true if you want it to be available on guilds only.
-// Otherwise false is global.
 exports.conf = {
-  permLevel: "User",
-  guildOnly: false
+  permLevel: "User"
 };
 
 // ==========================================================
@@ -52,9 +50,6 @@ exports.commandData = {
   category: "Category",
 };
 
-// Set guildOnly to true if you want it to be available on guilds only.
-// Otherwise false is global.
 exports.conf = {
-  permLevel: "User",
-  guildOnly: false
+  permLevel: "User"
 };

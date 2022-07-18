@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <%- include(`../../partials/head`) %>
+  <%- include("../../partials/head") %>
   <!-- DataTables -->
   <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
@@ -16,14 +16,14 @@
 <div class="wrapper">
 
   <!-- Preloader -->
-  <%- include(`../../partials/preloader`) %>
+  <%- include("../../partials/preloader") %>
 
   <!-- Navbar -->
-  <%- include(`../../partials/navbar`) %>
+  <%- include("../../partials/navbar") %>
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
-  <%- include(`../../partials/sidebar`) %>
+  <%- include("../../partials/sidebar") %>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -49,7 +49,7 @@
     <!-- Main content -->
     <section class="content">
       <div class="col-12 col-sm-8 mx-auto">
-        <%- include(`../../partials/serverwidget`) %>
+        <%- include("../../partials/serverwidget") %>
       </div>
 
       <div class="row">
@@ -68,25 +68,24 @@
                 </tr>
                 </thead>
                 <tbody>
-                  <% for(var i = 0; i < members.length; i++) { %>
+                  <% for (var i = 0; i < members.length; i++) { %>
 
                     <% member = members[i]; %>
                     <% 
-
-                    function hexToRgb(hex) {
-                      var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-                      return result ? {
-                          r: parseInt(result[1], 16),
-                          g: parseInt(result[2], 16),
-                          b: parseInt(result[3], 16)
-                      } : null;
-                    }
-
-                    const color = member.highestRole.hexColor === "#000000" ? '#FFFFFF' : member.highestRole.hexColor;
-                    const roles = member.roles.filter(r=>r.name !== "@everyone").map(r=> {
-                      var rc = r.hexColor === "#ffffff" ? {r:0,g:0,b:0} : hexToRgb(r.hexColor);
-                      return `<span style="color: rgb(${rc.r}, ${rc.g}, ${rc.b});">${r.name}</span>`;
-                    }).join(" ");
+  function hexToRgb(hex) {
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? {
+      r: parseInt(result[1], 16),
+      g: parseInt(result[2], 16),
+      b: parseInt(result[3], 16)
+    } : null;
+  }
+  
+  const color = member.highestRole.hexColor === "#000000" ? "#FFFFFF" : member.highestRole.hexColor;
+  const roles = member.roles.filter(r=>r.name !== "@everyone").map(r=> {
+    var rc = r.hexColor === "#ffffff" ? {r:0,g:0,b:0} : hexToRgb(r.hexColor);
+    return `<span style="color: rgb(${rc.r}, ${rc.g}, ${rc.b});">${r.name}</span>`;
+  }).join(" ");
                     %>
                     <tr>
                       <th><%= member.displayName %></th>
@@ -96,7 +95,7 @@
                       <th><%- roles %></th>
                     </tr>
 
-                  <% }; %>
+                  <% } %>
                 </tbody>
                 <tfoot>
                 <tr>
@@ -120,7 +119,7 @@
   </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
-    <%- include(`../../partials/footer`) %>
+    <%- include("../../partials/footer") %>
   </footer>
 
   <!-- Control Sidebar -->
@@ -130,7 +129,7 @@
   <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
-<%- include(`../../partials/doc_end`) %>
+<%- include("../../partials/doc_end") %>
 
 <!-- DataTables  & Plugins -->
 <script src="../../plugins/datatables/jquery.dataTables.min.js"></script>

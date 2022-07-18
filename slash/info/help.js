@@ -5,7 +5,7 @@ command is also filtered by level, so if a user does not have access to
 a command, it is not shown to them. If a command name is given with the
 help command, its extended help is shown.
 */
-const { codeBlock } = require("@discordjs/builders");
+const { ApplicationCommandOptionType, codeBlock } = require("discord.js");
 const { toProperCase, permlevel } = require("../../modules/functions.js");
 const messages = require("../../modules/messages.js");
 
@@ -22,7 +22,7 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
       
     // Filter all commands by which are available for the user's level, using the <Collection>.filter() method.
     const myCommands = interaction.guild ? container.slashcmds.filter(cmd => container.levelCache[cmd.conf.permLevel] <= level) :
-      container.slashcmds.filter(cmd => container.levelCache[cmd.conf.permLevel] <= level && cmd.conf.guildOnly !== true);
+      container.slashcmds.filter(cmd => container.levelCache[cmd.conf.permLevel] <= level && cmd.commandData.dmPermission == true);
 
     // Here we have to get the command names only, and we use that array to get the longest name.
     const commandNames = [...myCommands.keys()];
@@ -60,16 +60,14 @@ exports.commandData = {
   category: "Info",
   options: [{
     name: "command",
-    type: "STRING",
+    type: ApplicationCommandOptionType.String,
     description: "Specific command to get help on.",
     required: false,   
   }],
-  defaultPermission: true,
+  dmPermission: true,
+  defaultMemberPermissions: null
 };
 
-// Set guildOnly to true if you want it to be available on guilds only.
-// Otherwise false is global.
 exports.conf = {
-  permLevel: "User",
-  guildOnly: false
+  permLevel: "User"
 };

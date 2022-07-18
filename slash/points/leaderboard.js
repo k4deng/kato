@@ -1,24 +1,24 @@
 const { points } = require("../../modules/settings.js");
-const { MessageEmbed, MessageActionRow, MessageButton } = require("discord.js");
+const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require("discord.js");
 const config = require("../../config.js");
 
 exports.run = async (client, interaction) => { // eslint-disable-line no-unused-vars 
   const filtered = points.filter( p => p.guild === interaction.guild.id ).array();
   const res = filtered.sort((a, b) => b.points - a.points);
 
-  var embed = new MessageEmbed()
+  var embed = new EmbedBuilder()
     .setTitle("Leaderboard")
     .setColor(config.themeColor);
 
   var row;
   if (config.dashboard.enabled === "true") {
     const protocol = config.dashboard.secure === "true" ? "https://" : "http://";  
-    row = new MessageActionRow()
+    row = new ActionRowBuilder()
       .addComponents(
-        new MessageButton()
+        new ButtonBuilder()
           .setLabel("Leaderboard Link")
           .setURL(`${protocol}${config.dashboard.domain}/leaderboard/${interaction.guild.id}`)
-          .setStyle("LINK"),
+          .setStyle(ButtonStyle.Link),
       );
   }
 
@@ -43,12 +43,10 @@ exports.commandData = {
   description: "Shows the top level users in the discord server.",
   category: "Points",
   options: [],
-  defaultPermission: true,
+  dmPermission: false,
+  defaultMemberPermissions: null
 };
 
-// Set guildOnly to true if you want it to be available on guilds only.
-// Otherwise false is global.
 exports.conf = {
-  permlevel: "User",
-  guildOnly: false
+  permLevel: "User"
 };

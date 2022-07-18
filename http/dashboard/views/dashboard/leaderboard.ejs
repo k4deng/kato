@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <%- include(`../../partials/head`) %>
+  <%- include("../../partials/head") %>
   <meta content="<%= guild.name %> Dashboard" property="og:title">
   <meta content="View <%= guild.name %>'s level leaderboard with <%= bot.user.username %>!" property="og:description">
   <meta content="<%= bot.protocol + bot.config.dashboard.domain %>/leaderboard/<%= guild.id %>" property="og:url">
@@ -11,14 +11,14 @@
 <div class="wrapper">
 
   <!-- Preloader -->
-  <%- include(`../../partials/preloader`) %>
+  <%- include("../../partials/preloader") %>
 
   <!-- Navbar -->
-  <%- include(`../../partials/navbar`) %>
+  <%- include("../../partials/navbar") %>
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
-  <%- include(`../../partials/sidebar`) %>
+  <%- include("../../partials/sidebar") %>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -32,7 +32,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="/">Home</a></li>
-              <li class="breadcrumb-item <% if(managed) { %>"><a href="/servers">Servers</a>
+              <li class="breadcrumb-item <% if (managed) { %>"><a href="/servers">Servers</a>
                 <% } else { %>active">Servers<% } %></li>
               <li class="breadcrumb-item active"> <%= guild.name %>  /  Leaderboard</li>
             </ol>
@@ -45,7 +45,7 @@
     <!-- Main content -->
     <section class="content">
       <div class="col-12 col-sm-8 mx-auto">
-        <%- include(`../../partials/serverwidget`) %>
+        <%- include("../../partials/serverwidget") %>
       </div>
 
       <div class="row">
@@ -56,14 +56,14 @@
             <p>Every minute that you're messaging, you randomly gain between <%= bot.config.points.xpMin %> and <%= bot.config.points.xpMax %> points.</p>
             <p>To avoid spamming, earning points is limited to once a minute per user.</p>
             <p>In the server, you type /rank to see your rank and level.</p>
-            <% if(managed) { %>
+            <% if (managed) { %>
               <button class="btn btn-danger button" data-toggle="modal" data-target="#levelsResetModal">Reset Server Levels</button>
             <% } %>
           </div>
         </div>
 
         <div class="order-md-1 col-md-8">
-          <%let x = 1;%>
+          <% const x = 1;%>
           <% const totUsers = ranks.length > 100 ? 100 : ranks.length; %>
           <% for (let i= 0; i < totUsers; i++) { %>
             <% if (bot.users.cache.get(ranks[i].user)) { %>
@@ -71,7 +71,7 @@
                 <div class="widget-user-header">
                   <!--<h5><%= x %></h5>-->
                   <div class="widget-user-image">
-                    <img class="img-circle elevation-2" src="<%= bot.users.cache.get(ranks[i].user) ? bot.users.cache.get(ranks[i].user).displayAvatarURL({ dynamic: false, size: 128 }) : 'https://cdn.discordapp.com/embed/avatars/1.png' %>" alt="User Avatar">
+                    <img class="img-circle elevation-2" src="<%= bot.users.cache.get(ranks[i].user) ? bot.users.cache.get(ranks[i].user).displayAvatarURL({ forceStatic: true, size: 128 }) : 'https://cdn.discordapp.com/embed/avatars/1.png' %>" alt="User Avatar">
                   </div>
                   <!-- /.widget-user-image -->
                   <h3 class="widget-user-username"><%= bot.users.cache.get(ranks[i].user).username ?? "User left"%></h3>
@@ -79,7 +79,7 @@
                 </div>
               </div>
             <% } %>
-          <% }; %>
+          <% } %>
           <% if (!ranks.length) { %>
             <div class="card card-widget widget-user-2">
               <div class="widget-user-header">
@@ -124,7 +124,7 @@
   </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
-    <%- include(`../../partials/footer`) %>
+    <%- include("../../partials/footer") %>
   </footer>
 
   <!-- Control Sidebar -->
@@ -135,7 +135,7 @@
 </div>
 <!-- ./wrapper -->
                       
-  <%- include(`../../partials/doc_end`) %>
+  <%- include("../../partials/doc_end") %>
     
 </body>
 </html>

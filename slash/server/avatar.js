@@ -1,12 +1,18 @@
-const { MessageEmbed } = require("discord.js");
+const { ApplicationCommandOptionType, EmbedBuilder } = require("discord.js");
 const { themeColor } = require("../../config.js");
 
 exports.run = async (client, interaction) => { // eslint-disable-line no-unused-vars
   const member = interaction.guild.members.cache.get(interaction.options.get("user")?.value ?? interaction.user.id);
-  const embed = new MessageEmbed()
+
+  const png = member.user.displayAvatarURL({ extension: "png", size: 1024 });
+  const jpg = member.user.displayAvatarURL({ extension: "jpg", size: 1024 });
+  const gif = member.user.displayAvatarURL({ extension: "gif", size: 1024 });
+  const webp = member.user.displayAvatarURL({ extension: "webp", size: 1024 });
+  
+  const embed = new EmbedBuilder()
     .setTitle(`${member.user.tag}'s avatar`)
-    .setDescription(`**Links:**\n[png](${member.user.displayAvatarURL({ format: "png", size: 1024 })}) | [jpg](${member.user.displayAvatarURL({ format: "jpg", size: 1024 })}) | [gif](${member.user.displayAvatarURL({ format: "gif", size: 1024, dynamic: true })}) | [webp](${member.user.displayAvatarURL({ format: "webp", size: 1024 })})`)
-    .setImage(`${member.user.displayAvatarURL({ dynamic: true, size: 1024 })}`)
+    .setDescription(`**Links:**\n[png](${png}) | [jpg](${jpg}) | [gif](${gif}) | [webp](${webp})`)
+    .setImage(`${member.user.displayAvatarURL({ size: 1024 })}`)
     .setColor(themeColor);
   interaction.reply({ embeds: [embed] });
 };
@@ -17,16 +23,14 @@ exports.commandData = {
   category: "Server",
   options: [{
     name: "user",
-    type: "USER",
+    type: ApplicationCommandOptionType.User,
     description: "The user you want the avatar of",
     required: false,   
   }],
-  defaultPermission: true,
+  dmPermission: false,
+  defaultMemberPermissions: null
 };
 
-// Set guildOnly to true if you want it to be available on guilds only.
-// Otherwise false is global.
 exports.conf = {
-  permLevel: "User",
-  guildOnly: false
+  permLevel: "User"
 };

@@ -1,4 +1,4 @@
-const { Intents } = require("discord.js");
+const { GatewayIntentBits, Partials } = require("discord.js");
 
 /* config */
 const config = {
@@ -8,9 +8,9 @@ const config = {
   * For join messages to work you need Guild Members, which is privileged and requires extra setup.
   * For more info about intents see the README.
   */
-  intents: [ Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.DIRECT_MESSAGES, Intents.FLAGS.GUILD_PRESENCES, Intents.FLAGS.GUILD_MEMBERS ],
+  intents: [ GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.DirectMessages, GatewayIntentBits.GuildPresences, GatewayIntentBits.GuildMembers, GatewayIntentBits.MessageContent ],
   // Partials your bot may need should go here, CHANNEL is required for DM's
-  partials: ["CHANNEL"],
+  partials: [ Partials.Channel ],
 
   "invitePerm": "1615947361495", // The bots invite link oauth permission integer
   
@@ -47,7 +47,6 @@ const config = {
     domain: "example.com", // Domain name (with port if not running behind proxy running on port 80). Example: 'domain': 'dashboard.bot-website.com' OR 'domain': 'localhost:33445'
     port: "3000", // The port that it should run on
     protectStats: "false", //if stats page is visible
-    borderedStats: "true", // Controls whether stats in the dashboard should have a border or not
     legalTemplates: {
       contactEmail: "johndoe@example.com", // This email will be used in the legal page of the dashboard if someone needs to contact you for any reason regarding this page
       lastEdited: "16 April 2021" // Change this if you update the `TERMS.md` or `PRIVACY.md` files in `dashboard/public/`

@@ -1,11 +1,11 @@
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 const { themeColor } = require("../../config.js");
 const { DurationFormatter } = require("@sapphire/time-utilities");
 const durationFormatter = new DurationFormatter();
 
 exports.run = async (client, interaction) => { // eslint-disable-line no-unused-vars
   const duration = durationFormatter.format(client.uptime);
-  const embed = new MessageEmbed()
+  const embed = new EmbedBuilder()
     .setTitle(duration)
     .setColor(themeColor);
   await interaction.reply({ embeds: [embed] });
@@ -16,12 +16,10 @@ exports.commandData = {
   description: "The bot's uptime",
   category: "Misc",
   options: [],
-  defaultPermission: true,
+  dmPermission: true,
+  defaultMemberPermissions: null
 };
 
-// Set guildOnly to true if you want it to be available on guilds only.
-// Otherwise false is global.
 exports.conf = {
-  permLevel: "User",
-  guildOnly: false
+  permLevel: "User"
 };

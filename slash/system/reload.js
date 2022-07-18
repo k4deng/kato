@@ -1,3 +1,4 @@
+const { ApplicationCommandOptionType } = require("discord.js");
 const messages = require("../../modules/messages.js");
 
 exports.run = async (client, interaction) => { // eslint-disable-line no-unused-vars
@@ -28,22 +29,20 @@ exports.commandData = {
   category: "System",
   options: [{
     name: "subfolder",
-    type: "STRING",
+    type: ApplicationCommandOptionType.String,
     description: "Subfolder to search in.",
     required: true,   
   },
   {
     name: "command",
-    type: "STRING",
+    type: ApplicationCommandOptionType.String,
     description: "Command to reload.",
     required: true,   
   }],
-  defaultPermission: true,
+  dmPermission: true,
+  defaultMemberPermissions: null
 };
 
-// Set guildOnly to true if you want it to be available on guilds only.
-// Otherwise false is global.
 exports.conf = {
-  permLevel: "Bot Admin",
-  guildOnly: false
+  permLevel: "Bot Admin"
 };

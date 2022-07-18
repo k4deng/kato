@@ -1,8 +1,8 @@
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 const { themeColor } = require("../../config.js");
 
 exports.run = async (client, interaction) => { // eslint-disable-line no-unused-vars
-  const embed = new MessageEmbed()
+  const embed = new EmbedBuilder()
     .setColor(themeColor)
     .setTitle("Result:");
 
@@ -24,12 +24,10 @@ exports.commandData = {
   description: "Roll a 6 sided dice.",
   category: "Fun",
   options: [],
-  defaultPermission: true,
+  dmPermission: true,
+  defaultMemberPermissions: null
 };
 
-// Set guildOnly to true if you want it to be available on guilds only.
-// Otherwise false is global.
 exports.conf = {
-  permLevel: "User",
-  guildOnly: false
+  permLevel: "User"
 };

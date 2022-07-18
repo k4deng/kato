@@ -164,7 +164,7 @@
                     <i><%= command.commandData.description %></i><br><br>
 
                     Permission Needed: <%= command.conf.permLevel %><br>
-                    Server Only: <%= command.conf.guildOnly ? "Yes" : "No" %>
+                    Server Only: <%= command.commandData.dmPermission ? "No" : "Yes" %>
                   </div>
                   <% commandHelpActiveCount++ %>
                 <% } %>

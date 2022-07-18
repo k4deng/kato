@@ -39,10 +39,10 @@ module.exports = async (client, message) => {
   // Points system
   if (message.guild && !prefix) {
     if (settings.levelIgnoreChannels?.includes(message.channel.id)) return;
-    
+
     const roles = message.member.roles.cache.map(r => r.id);
     if (roles.some(r => settings.levelIgnoreRoles?.includes(r))) return;
-    
+
     const key = `${message.guild.id}-${message.author.id}`;
     // Make sure there are defualts for all new users
     points.ensure(key, {
@@ -55,7 +55,6 @@ module.exports = async (client, message) => {
     // if the user isnt on cooldown, give them the random points
     if (!cooldown.has(key))
       points.math(key, "+", between(config.points.xpMin, config.points.xpMax)*settings.levelMultiplier, "points");
-
     var dblevel = points.get(key, "level");
     // calculate if points needed for next level is more than user currently has
     // and if so level them up :)
@@ -70,7 +69,7 @@ module.exports = async (client, message) => {
       }
       points.inc(key, "level");      
     }
-    
+
     // add cooldown
     cooldown.add(key);
     setTimeout(() => {
@@ -81,7 +80,7 @@ module.exports = async (client, message) => {
   // This will return and stop the code from continuing if it's missing
   // our prefix (be it mention or from the settings).
   if (!prefix) return;
-    
+
   // Here we separate our "command" name, and our "arguments" for the command.
   // e.g. if we have the message "+say Is this the real life?" , we'll get the following:
   // command = say
