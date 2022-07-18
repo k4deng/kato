@@ -131,12 +131,10 @@ exports.commandData = {
       required: true,
     }],
   }],
-  defaultPermission: true,
+  dmPermission: false,
+  defaultMemberPermissions: null
 };
 
-// Set guildOnly to true if you want it to be available on guilds only.
-// Otherwise false is global.
 exports.conf = {
-  permLevel: "Bot Support",
-  guildOnly: false
+  permLevel: "Bot Support"
 };

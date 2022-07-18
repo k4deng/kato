@@ -1,17 +1,17 @@
-const { EmbedBuilder } = require("discord.js");
+const { EmbedBuilder, Colors } = require("discord.js");
 const logger = require("../modules/logger.js");
 const config = require("../config.js");
 
-module.exports = async (client, { route, timeout, limit }) => {
-  logger.error(`Rate limit: ${route} (Cooldown: ${timeout}ms)`);
+module.exports = async (client, { route, timeToReset, limit }) => {
+  logger.error(`Rate limit: ${route} (Cooldown: ${timeToReset}ms)`);
 
   const embed = new EmbedBuilder()
     .setTitle("RateLimit hit")
-    .setColor("RED")
+    .setColor(Colors.Red)
     .addFields([
-      { name: "Path", value: route },
-      { name: "Limit", value: limit, inline: true },
-      { name: "Cooldown", value: `${timeout}ms`, inline: true },
+      { name: "Path", value: `${route}` },
+      { name: "Limit", value: `${limit}`, inline: true },
+      { name: "Cooldown", value: `${timeToReset}ms`, inline: true },
     ])
     .setTimestamp();
 

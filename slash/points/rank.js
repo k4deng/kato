@@ -54,12 +54,10 @@ exports.commandData = {
     description: "User to view rank of.",
     required: false,   
   }],
-  defaultPermission: true,
+  dmPermission: false,
+  defaultMemberPermissions: null
 };
 
-// Set guildOnly to true if you want it to be available on guilds only.
-// Otherwise false is global.
 exports.conf = {
-  permlevel: "User",
-  guildOnly: false
+  permLevel: "User"
 };

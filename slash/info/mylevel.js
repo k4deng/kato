@@ -14,12 +14,10 @@ exports.commandData = {
   description: "Tells you your permission level for the current message location.",
   category: "Info",
   options: [],
-  defaultPermission: true,
+  dmPermission: true,
+  defaultMemberPermissions: null
 };
 
-// Set guildOnly to true if you want it to be available on guilds only.
-// Otherwise false is global.
 exports.conf = {
-  permLevel: "User",
-  guildOnly: false
+  permLevel: "User"
 };

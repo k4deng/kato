@@ -41,12 +41,10 @@ exports.commandData = {
     description: "The user you want information of",
     required: false,   
   }],
-  defaultPermission: true,
+  dmPermission: false,
+  defaultMemberPermissions: null
 };
 
-// Set guildOnly to true if you want it to be available on guilds only.
-// Otherwise false is global.
 exports.conf = {
-  permLevel: "User",
-  guildOnly: false
+  permLevel: "User"
 };

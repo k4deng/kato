@@ -32,12 +32,10 @@ exports.commandData = {
     description: "How long for slowmode (\"off\" to disable)",
     required: true,   
   }],
-  defaultPermission: true,
+  dmPermission: false,
+  defaultMemberPermissions: null
 };
 
-// Set guildOnly to true if you want it to be available on guilds only.
-// Otherwise false is global.
 exports.conf = {
-  permLevel: "Moderator",
-  guildOnly: false
+  permLevel: "Moderator"
 };

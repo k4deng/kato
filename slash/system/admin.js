@@ -98,20 +98,12 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
     } 
   } else
     
-  if (subcommand === "deploy") {
-    // We'll partition the slash commands based on the guildOnly boolean.
-    // Separating them into the correct objects defined in the array below.
-    const [globalCmds, guildCmds] = client.container.slashcmds.partition(c => !c.conf.guildOnly);
-  
+  if (subcommand === "deploy") {  
     // Give the user a notification the commands are deploying.
     messages.loading("Deploying commands", interaction);
   
-    // We'll use set but please keep in mind that `set` is overkill for a singular command.
-    // Set the guild commands like 
-    await client.guilds.cache.get(interaction.guild.id)?.commands.set(guildCmds.map(c => c.commandData));
-  
     // Then set the global commands like 
-    await client.application?.commands.set(globalCmds.map(c => c.commandData)).catch(e => console.log(e));
+    await client.application?.commands.set(client.container.slashcmds.map(c => c.commandData)).catch(e => console.log(e));
   
     // Reply to the user that the commands have been deployed.
     await interaction.editReply({ embeds: [messages.success("All commands deployed!", interaction, false, true)] });
@@ -200,12 +192,10 @@ exports.commandData = {
     description: "Shuts down the bot. If running under PM2, bot will restart automatically.",
     options: [],
   }],
-  defaultPermission: true,
+  dmPermission: true,
+  defaultMemberPermissions: null
 };
 
-// Set guildOnly to true if you want it to be available on guilds only.
-// Otherwise false is global.
 exports.conf = {
-  permLevel: "Bot Admin",
-  guildOnly: false
+  permLevel: "Bot Admin"
 };

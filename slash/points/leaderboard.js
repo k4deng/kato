@@ -43,12 +43,10 @@ exports.commandData = {
   description: "Shows the top level users in the discord server.",
   category: "Points",
   options: [],
-  defaultPermission: true,
+  dmPermission: false,
+  defaultMemberPermissions: null
 };
 
-// Set guildOnly to true if you want it to be available on guilds only.
-// Otherwise false is global.
 exports.conf = {
-  permlevel: "User",
-  guildOnly: false
+  permLevel: "User"
 };

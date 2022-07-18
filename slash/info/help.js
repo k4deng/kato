@@ -22,7 +22,7 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
       
     // Filter all commands by which are available for the user's level, using the <Collection>.filter() method.
     const myCommands = interaction.guild ? container.slashcmds.filter(cmd => container.levelCache[cmd.conf.permLevel] <= level) :
-      container.slashcmds.filter(cmd => container.levelCache[cmd.conf.permLevel] <= level && cmd.conf.guildOnly !== true);
+      container.slashcmds.filter(cmd => container.levelCache[cmd.conf.permLevel] <= level && cmd.commandData.dmPermission == true);
 
     // Here we have to get the command names only, and we use that array to get the longest name.
     const commandNames = [...myCommands.keys()];
@@ -64,12 +64,10 @@ exports.commandData = {
     description: "Specific command to get help on.",
     required: false,   
   }],
-  defaultPermission: true,
+  dmPermission: true,
+  defaultMemberPermissions: null
 };
 
-// Set guildOnly to true if you want it to be available on guilds only.
-// Otherwise false is global.
 exports.conf = {
-  permLevel: "User",
-  guildOnly: false
+  permLevel: "User"
 };
