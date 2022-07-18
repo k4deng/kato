@@ -35,7 +35,7 @@ module.exports = async (client, message) => {
   // It's also good practice to ignore any and all messages that do not start
   // with our prefix, or a bot mention.
   const prefix = new RegExp(`^<@!?${client.user.id}> |^\\${settings.prefix}`).exec(message.content);
-
+  
   // Points system
   if (message.guild && !prefix) {
     if (settings.levelIgnoreChannels?.includes(message.channel.id)) return;
@@ -77,11 +77,11 @@ module.exports = async (client, message) => {
       cooldown.delete(key);
     }, config.points.cooldownSeconds * 1000);
   }
-  
+
   // This will return and stop the code from continuing if it's missing
   // our prefix (be it mention or from the settings).
   if (!prefix) return;
-    
+
   // Here we separate our "command" name, and our "arguments" for the command.
   // e.g. if we have the message "+say Is this the real life?" , we'll get the following:
   // command = say
