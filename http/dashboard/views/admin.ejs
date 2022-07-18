@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <%- include(`../partials/head`) %>
+  <%- include("../partials/head") %>
   <meta content="<%= bot.user.username %> Admin Dashboard" property="og:title">
   <meta content="Dashboard for admins of <%= bot.user.username %>" property="og:description">
   <meta content="<%= bot.protocol + bot.config.dashboard.domain %>/admin" property="og:url">
@@ -11,14 +11,14 @@
 <div class="wrapper">
 
   <!-- Preloader -->
-  <%- include(`../partials/preloader`) %>
+  <%- include("../partials/preloader") %>
 
   <!-- Navbar -->
-  <%- include(`../partials/navbar`) %>
+  <%- include("../partials/navbar") %>
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
-  <%- include(`../partials/sidebar`) %>
+  <%- include("../partials/sidebar") %>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -193,7 +193,7 @@
   </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
-    <%- include(`../partials/footer`) %>
+    <%- include("../partials/footer") %>
   </footer>
 
   <!-- Control Sidebar -->
@@ -204,6 +204,6 @@
 </div>
 <!-- ./wrapper -->
 
-  <%- include(`../partials/doc_end`) %>
+  <%- include("../partials/doc_end") %>
 </body>
 </html>

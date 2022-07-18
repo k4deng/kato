@@ -5,7 +5,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 -->
 <html lang="en">
 <head>
-  <%- include(`../partials/head`) %>
+  <%- include("../partials/head") %>
   <meta content="<%= bot.user.username %> Website" property="og:title">
   <meta content="<%= bot.application.description %>" property="og:description">
   <meta content="<%= bot.protocol + bot.config.dashboard.domain %>/" property="og:url">
@@ -15,11 +15,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <div class="wrapper">
 
   <!-- Navbar -->
-    <%- include(`../partials/navbar`) %>
+    <%- include("../partials/navbar") %>
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
-  <%- include(`../partials/sidebar`) %>
+  <%- include("../partials/sidebar") %>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -120,12 +120,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
   <!-- Main Footer -->
   <footer class="main-footer">
-    <%- include(`../partials/footer`) %>
+    <%- include("../partials/footer") %>
   </footer>
 </div>
 <!-- ./wrapper -->
 
 <!-- REQUIRED SCRIPTS -->
-  <%- include(`../partials/doc_end`) %>
+  <%- include("../partials/doc_end") %>
 </body>
 </html>
