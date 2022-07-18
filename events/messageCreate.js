@@ -35,14 +35,14 @@ module.exports = async (client, message) => {
   // It's also good practice to ignore any and all messages that do not start
   // with our prefix, or a bot mention.
   const prefix = new RegExp(`^<@!?${client.user.id}> |^\\${settings.prefix}`).exec(message.content);
-  
+
   // Points system
   if (message.guild && !prefix) {
     if (settings.levelIgnoreChannels?.includes(message.channel.id)) return;
-    
+
     const roles = message.member.roles.cache.map(r => r.id);
     if (roles.some(r => settings.levelIgnoreRoles?.includes(r))) return;
-    
+
     const key = `${message.guild.id}-${message.author.id}`;
     // Make sure there are defualts for all new users
     points.ensure(key, {
@@ -55,7 +55,6 @@ module.exports = async (client, message) => {
     // if the user isnt on cooldown, give them the random points
     if (!cooldown.has(key))
       points.math(key, "+", between(config.points.xpMin, config.points.xpMax)*settings.levelMultiplier, "points");
-
     var dblevel = points.get(key, "level");
     // calculate if points needed for next level is more than user currently has
     // and if so level them up :)
@@ -70,14 +69,14 @@ module.exports = async (client, message) => {
       }
       points.inc(key, "level");      
     }
-    
+
     // add cooldown
     cooldown.add(key);
     setTimeout(() => {
       cooldown.delete(key);
     }, config.points.cooldownSeconds * 1000);
   }
-
+  
   // This will return and stop the code from continuing if it's missing
   // our prefix (be it mention or from the settings).
   if (!prefix) return;
