@@ -81,6 +81,7 @@ module.exports = client => {
   app.use("/api/statistics", require(`${apiDir}${path.sep}statistics.js`)(client));
   app.use("/api/commands", require(`${apiDir}${path.sep}commands.js`)(client));
   app.use("/api/guilds", require(`${apiDir}${path.sep}guilds.js`)(client));
+  app.use("/api/logs", require(`${apiDir}${path.sep}logs.js`)(client));
   client.apiURL = `https://${config.dashboard.domain}/api`;
   logger.log(`API URL: ${client.apiURL}`);
 
