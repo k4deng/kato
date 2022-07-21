@@ -1,5 +1,4 @@
-const { version } = require("discord.js");
-const { codeBlock } = require("@discordjs/builders");
+const { codeBlock, version } = require("discord.js");
 const { DurationFormatter } = require("@sapphire/time-utilities");
 const durationFormatter = new DurationFormatter();
 
@@ -21,12 +20,10 @@ exports.commandData = {
   description: "Show's the bots stats.",
   category: "Misc",
   options: [],
-  defaultPermission: true,
+  dmPermission: true,
+  defaultMemberPermissions: null
 };
 
-// Set guildOnly to true if you want it to be available on guilds only.
-// Otherwise false is global.
 exports.conf = {
-  permLevel: "Bot Owner",
-  guildOnly: false
+  permLevel: "Bot Owner"
 };

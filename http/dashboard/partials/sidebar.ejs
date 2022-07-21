@@ -85,7 +85,7 @@
                   <% let counter = 0; %>
                   <% user.guilds.forEach(guild => { %>
                     <% const permsOnGuild = new perms(guild.permissions_new); %>
-                    <% if(!permsOnGuild.has("MANAGE_GUILD")) return; %>
+                    <% if(!permsOnGuild.has(perms.Flags.ManageGuild)) return; %>
                     <% counter++ %>
                   <% }); %>
                   <span class="right badge badge-info"><%= counter %></span>

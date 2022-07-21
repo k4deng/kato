@@ -1,3 +1,4 @@
+const { InteractionType } = require("discord.js");  
 const logger = require("../modules/logger.js");
 const { getSettings, permlevel } = require("../modules/functions.js");
 const { error } = require("../modules/messages.js");
@@ -6,7 +7,7 @@ const config = require("../config.js");
 module.exports = async (client, interaction) => {
   
   // Slash Command Handling
-  if (interaction.isCommand()) {
+  if (interaction.type === InteractionType.ApplicationCommand) {
     // Grab the settings for this server from Enmap.
     // If there is no guild, get default conf (DMs)
     const settings = interaction.settings = getSettings(interaction.guild);
@@ -57,7 +58,7 @@ module.exports = async (client, interaction) => {
   } else
 
   // Context Menu Handling
-  if (interaction.isContextMenu()) {
+  if (interaction.isUserContextMenu()) {
     // Grab the settings for this server from Enmap.
     // If there is no guild, get default conf (DMs)
     const settings = interaction.settings = getSettings(interaction.guild);

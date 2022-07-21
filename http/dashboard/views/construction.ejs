@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <%- include(`../partials/head`) %>
+  <%- include("../partials/head") %>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
 
   <!-- Preloader -->
-  <%- include(`../partials/preloader`) %>
+  <%- include("../partials/preloader") %>
 
   <!-- Navbar -->
-  <%- include(`../partials/navbar`) %>
+  <%- include("../partials/navbar") %>
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
-  <%- include(`../partials/sidebar`) %>
+  <%- include("../partials/sidebar") %>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -45,7 +45,7 @@
           <h3>Sorry! This Page is Under Construction.</h3>
           <p>
             This page is currently not available and will be coming soon.<br>
-            You can try to check back later<% if(auth) { %>, <a href="/servers">choose a server</a>,<% } %> or <a href="/">return to home</a>.
+            You can try to check back later<% if (auth) { %>, <a href="/servers">choose a server</a>,<% } %> or <a href="/">return to home</a>.
           </p>
         </div>
         <!-- /.error-content -->
@@ -56,7 +56,7 @@
   </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
-    <%- include(`../partials/footer`) %>
+    <%- include("../partials/footer") %>
   </footer>
 
   <!-- Control Sidebar -->
@@ -67,6 +67,6 @@
 </div>
 <!-- ./wrapper -->
 
-  <%- include(`../partials/doc_end`) %>
+  <%- include("../partials/doc_end") %>
 </body>
 </html>

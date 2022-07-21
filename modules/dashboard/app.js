@@ -18,7 +18,7 @@ const { settings } = require("../settings.js");
 const path = require("path");
 
 // Used for Permission Resolving...
-const { Permissions } = require("discord.js");
+const { PermissionsBitField } = require("discord.js");
 
 // Express Session
 const express = require("express");
@@ -81,6 +81,7 @@ module.exports = client => {
   app.use("/api/statistics", require(`${apiDir}${path.sep}statistics.js`)(client));
   app.use("/api/commands", require(`${apiDir}${path.sep}commands.js`)(client));
   app.use("/api/guilds", require(`${apiDir}${path.sep}guilds.js`)(client));
+  app.use("/api/logs", require(`${apiDir}${path.sep}logs.js`)(client));
   client.apiURL = `https://${config.dashboard.domain}/api`;
   logger.log(`API URL: ${client.apiURL}`);
 
@@ -247,7 +248,7 @@ module.exports = client => {
   app.get("*", function(req, res) {
     if (req.isAuthenticated()) {
       res.status(404).render(path.resolve(`${templateDir}${path.sep}error.ejs`), {
-        perms: Permissions,
+        perms: PermissionsBitField,
         bot: client,
         auth: true,
         user: req.user,

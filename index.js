@@ -60,7 +60,7 @@ const init = async () => {
     for (const file of slashCommands) {
       const command = require(`./slash/${dir}/${file}`);
       const commandName = file.split(".")[0];
-      logger.log(`Loading Slash command: ${commandName}. 👌`, "log");
+      logger.log(`Loading Slash command: ${commandName}. 👌`);
       // Now set the name of the command with it's properties.
       client.container.slashcmds.set(command.commandData.name, command);
     }
@@ -70,18 +70,15 @@ const init = async () => {
   const eventFiles = readdirSync("./events/").filter(file => file.endsWith(".js"));
   for (const file of eventFiles) {
     const eventName = file.split(".")[0];
-    logger.log(`Loading Event: ${eventName}. 👌`, "log");
+    logger.log(`Loading Event: ${eventName}. 👌`);
     const event = require(`./events/${file}`);
+    // REST rate limited event
+    if (eventName == "rateLimited") client.rest.on(eventName, event.bind(null, client));
     // Bind the client to any event, before the existing arguments
     // provided by the discord.js event. 
     // This line is awesome by the way. Just sayin'.
     client.on(eventName, event.bind(null, client));
-  }  
-
-  // Threads are currently in BETA.
-  // This event will fire when a thread is created, if you want to expand
-  // the logic, throw this in it's own event file like the rest.
-  client.on("threadCreate", (thread) => thread.join());
+  }
 
   // Here we login the client.
   client.login();

@@ -2,9 +2,8 @@
 // THIS IS PERMISSION LEVEL 10 FOR A REASON! It's perm level 10 because eval
 // can be used to do **anything** on your machine, from stealing information to
 // purging the hard drive. DO NOT LET ANYONE ELSE USE THIS
-
-const { codeBlock } = require("@discordjs/builders");
-const { Util } = require("discord.js");
+const { ApplicationCommandOptionType, codeBlock } = require("discord.js");
+const { splitMessage } = require("../../modules/functions.js");
 
 /*
   MESSAGE CLEAN FUNCTION
@@ -35,7 +34,7 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
   const code = interaction.options.get("code")?.value; 
   const evaled = eval(code);
   const cleaned = await clean(client, evaled);
-  const text = Util.splitMessage(cleaned, { maxLength: "1900" });
+  const text = splitMessage(cleaned, { maxLength: "1900" });
   
   for (const split of text) {
     if (interaction.replied) await interaction.followUp({ content: codeBlock("js", split) });
@@ -49,16 +48,14 @@ exports.commandData = {
   category: "System",
   options: [{
     name: "code",
-    type: "STRING",
+    type: ApplicationCommandOptionType.String,
     description: "Code to Evaluate.",
     required: true,   
   }],
-  defaultPermission: true,
+  dmPermission: true,
+  defaultMemberPermissions: null
 };
 
-// Set guildOnly to true if you want it to be available on guilds only.
-// Otherwise false is global.
 exports.conf = {
-  permLevel: "Bot Owner",
-  guildOnly: false
+  permLevel: "Bot Owner"
 };

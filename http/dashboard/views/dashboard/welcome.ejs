@@ -73,7 +73,7 @@
                     <option value="" <% if (!settings.welcomeChannel || settings.welcomeChannel === "") { %> selected <% } else { %> disabled <% } %> >Please select a channel</option>
                     <% const channels = guild.channels.cache.sort((a, b) => a.rawPosition - b.rawPosition) %>
                     <% for (const channel of channels.values()) { %>
-                      <% if (channel.type == 'GUILD_TEXT') { %>
+                      <% if (channel.type == ChannelType.GuildText) { %>
                         <% if (settings.welcomeChannel == channel.id) { %>
                           <option value=<%= channel.id %> selected>#<%= channel.name %></option>
                         <% } else { %>

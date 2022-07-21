@@ -1,12 +1,12 @@
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 const config = require("../../config.js");
 const protocol = config.dashboard.secure === "true" ? "https://" : "http://";
 
 exports.run = async (client, interaction) => { // eslint-disable-line no-unused-vars
   
-  const embed = new MessageEmbed()
+  const embed = new EmbedBuilder()
     .setColor("#0099ff")
-    .setAuthor(client.user.username, `https://cdn.discordapp.com/avatars/${client.user.id}/${client.user.avatar}.png?size=128`)
+    .setAuthor({ name: client.user.username , iconURL: `https://cdn.discordapp.com/avatars/${client.user.id}/${client.user.avatar}.png?size=128` })
     .addFields(
       {
         name: `**What can ${client.user.username} do?**`,
@@ -56,7 +56,7 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
         inline: true
       },
     )
-    .setFooter("Bot created by k4deng", "https://cdn.discordapp.com/avatars/805546498028208190/37194e9d4a7b137294ff134c0cb6fec2.png");
+    .setFooter({ text: "Bot created by k4deng" , iconURL: "https://cdn.discordapp.com/avatars/805546498028208190/37194e9d4a7b137294ff134c0cb6fec2.png" });
   
   await interaction.reply({ embeds: [embed] });
 };
@@ -66,12 +66,10 @@ exports.commandData = {
   description: "Shows some info about the bot.",
   category: "Info",
   options: [],
-  defaultPermission: true,
+  dmPermission: true,
+  defaultMemberPermissions: null
 };
 
-// Set guildOnly to true if you want it to be available on guilds only.
-// Otherwise false is global.
 exports.conf = {
-  permLevel: "User",
-  guildOnly: false
+  permLevel: "User"
 };

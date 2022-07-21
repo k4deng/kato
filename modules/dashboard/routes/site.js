@@ -11,7 +11,7 @@ const path = require("path");
 
 // Used for Permission Resolving...
 const Discord = require("discord.js");
-const { Permissions } = require("discord.js");
+const { PermissionsBitField, ChannelType } = require("discord.js");
 
 // Express Plugins
 // Specifically, passport helps with oauth2 in general.
@@ -73,7 +73,7 @@ module.exports = function(client, dataDir, templateDir, checkAuth, cAuth, checkA
       res.render(
         path.resolve(`${dataDir}${path.sep}views${path.sep}index.ejs`),
         {
-          perms: Permissions,
+          perms: PermissionsBitField,
           bot: client,
           auth: true,
           user: req.user
@@ -95,7 +95,7 @@ module.exports = function(client, dataDir, templateDir, checkAuth, cAuth, checkA
   router.get("/commands", (req, res) => {
     if (req.isAuthenticated()) {
       res.render(path.resolve(`${templateDir}${path.sep}commands.ejs`), {
-        perms: Permissions,
+        perms: PermissionsBitField,
         bot: client,
         auth: true,
         user: req.user,
@@ -123,14 +123,14 @@ module.exports = function(client, dataDir, templateDir, checkAuth, cAuth, checkA
     const members = `${client.users.cache.filter(u => u.id !== "1").size} (${
       client.users.cache.filter(u => u.id !== "1").filter(u => u.bot).size
     } bots)`;
-    const textChannels = client.channels.cache.filter(c => c.type === "GUILD_TEXT")
+    const textChannels = client.channels.cache.filter(c => c.type === ChannelType.GuildText)
       .size;
-    const voiceChannels = client.channels.cache.filter(c => c.type === "GUILD_VOICE")
+    const voiceChannels = client.channels.cache.filter(c => c.type === ChannelType.GuildVoice)
       .size;
     const guilds = client.guilds.cache.size;
     res.render(path.resolve(`${templateDir}${path.sep}stats.ejs`), {
       bot: client,
-      perms: req.isAuthenticated() ? Permissions : null,
+      perms: req.isAuthenticated() ? PermissionsBitField : null,
       auth: req.isAuthenticated() ? true : false,
       user: req.isAuthenticated() ? req.user : null,
       stats: {
@@ -152,7 +152,7 @@ module.exports = function(client, dataDir, templateDir, checkAuth, cAuth, checkA
   router.get("/status", (req, res) => {
     if (req.isAuthenticated()) {
       res.render(path.resolve(`${templateDir}${path.sep}construction.ejs`), {
-        perms: Permissions,
+        perms: PermissionsBitField,
         bot: client,
         auth: true,
         user: req.user,
@@ -170,7 +170,7 @@ module.exports = function(client, dataDir, templateDir, checkAuth, cAuth, checkA
   router.get("/docs", (req, res) => {
     if (req.isAuthenticated()) {
       res.render(path.resolve(`${templateDir}${path.sep}construction.ejs`), {
-        perms: Permissions,
+        perms: PermissionsBitField,
         bot: client,
         auth: true,
         user: req.user,
@@ -188,7 +188,7 @@ module.exports = function(client, dataDir, templateDir, checkAuth, cAuth, checkA
   router.get("/premium", (req, res) => {
     if (req.isAuthenticated()) {
       res.render(path.resolve(`${templateDir}${path.sep}construction.ejs`), {
-        perms: Permissions,
+        perms: PermissionsBitField,
         bot: client,
         auth: true,
         user: req.user,
@@ -203,7 +203,7 @@ module.exports = function(client, dataDir, templateDir, checkAuth, cAuth, checkA
   });
 
   // privacy policy and terms of service
-  router.get("/legal", function(req, res) {
+  /*router.get("/legal", function(req, res) {
     md.setOptions({
       renderer: new md.Renderer(),
       gfm: true,
@@ -215,7 +215,7 @@ module.exports = function(client, dataDir, templateDir, checkAuth, cAuth, checkA
       smartypants: false
     });
 
-    /*var showdown	= require('showdown');
+    var showdown	= require('showdown');
 		var	converter = new showdown.Converter(),
 			textPr			= privacyMD,
 			htmlPr			= converter.makeHtml(textPr),
@@ -228,18 +228,18 @@ module.exports = function(client, dataDir, templateDir, checkAuth, cAuth, checkA
 			privacy: htmlPr.replace(/\\'/g, `'`),
 			terms: htmlTe.replace(/\\'/g, `'`),
 			edited: config.dashboard.legalTemplates.lastEdited
-		});*/
+		});
 
     res.render(path.resolve(`${templateDir}${path.sep}legal.ejs`), {
       bot: client,
-      perms: req.isAuthenticated() ? Permissions : null,
+      perms: req.isAuthenticated() ? PermissionsBitField : null,
       auth: req.isAuthenticated() ? true : false,
       user: req.isAuthenticated() ? req.user : null,
       privacy: md(privacyMD),
       terms: md(termsMD),
       edited: config.dashboard.legalTemplates.lastEdited
     });
-  });
+  });*/
 
   // admin page for owner only
   router.get("/admin", checkAdmin, (req, res) => {
@@ -251,7 +251,7 @@ module.exports = function(client, dataDir, templateDir, checkAuth, cAuth, checkA
       2
     );
     res.render(path.resolve(`${templateDir}${path.sep}admin.ejs`), {
-      perms: Permissions,
+      perms: PermissionsBitField,
       bot: client,
       user: req.user,
       auth: true,
@@ -259,14 +259,14 @@ module.exports = function(client, dataDir, templateDir, checkAuth, cAuth, checkA
         members: client.users.cache.filter(u => u.id !== "1").size,
         bots: client.users.cache.filter(u => u.id !== "1").filter(u => u.bot)
           .size,
-        text: client.channels.cache.filter(c => c.type === "GUILD_TEXT").size,
-        voice: client.channels.cache.filter(c => c.type === "GUILD_VOICE").size,
+        text: client.channels.cache.filter(c => c.type === ChannelType.GuildText).size,
+        voice: client.channels.cache.filter(c => c.type === ChannelType.GuildVoice).size,
         servers: client.guilds.cache.size,
         commands: client.container.commands.size + client.container.slashcmds.size,
         uptime: moment
           .duration(client.uptime)
           .format(" D [d], H [h], m [m], s [s]"),
-        msgps: client.botMessagesSent / (client.uptime / 1000).toFixed(2),
+        msgps: "N/A",
         memoryUsage: memoryUsage,
         totalMemory: totalMemory,
         memoryUsagePercent: parseInt((memoryUsage / totalMemory) * 100),
@@ -280,7 +280,7 @@ module.exports = function(client, dataDir, templateDir, checkAuth, cAuth, checkA
   // shows all managable servers
   router.get("/servers", checkAuth, (req, res) => {
     res.render(path.resolve(`${templateDir}${path.sep}servers.ejs`), {
-      perms: Permissions,
+      perms: PermissionsBitField,
       bot: client,
       user: req.user,
       auth: true
@@ -296,7 +296,7 @@ module.exports = function(client, dataDir, templateDir, checkAuth, cAuth, checkA
       req.params.guildID
     }&response_type=code&redirect_uri=${encodeURIComponent(
       `${client.callbackURL}`
-    )}&permissions=${config.invitePerm}`;
+    )}&PermissionsBitField=${config.invitePerm}`;
     if (client.guilds.cache.has(req.params.guildID)) {
       res.send(
         "<p>The bot is already there... <script>setTimeout(function () { window.location=\"/servers\"; }, 1000);</script><noscript><meta http-equiv=\"refresh\" content=\"1; url=/servers\" /></noscript>"
@@ -308,7 +308,7 @@ module.exports = function(client, dataDir, templateDir, checkAuth, cAuth, checkA
 
   // generic bot invite link
   router.get("/invite", (req, res) => {
-    var inviteURL = `https://discordapp.com/oauth2/authorize?client_id=${config.dashboard.clientID}&scope=bot%20applications.commands&permissions=${config.invitePerm}`;
+    var inviteURL = `https://discordapp.com/oauth2/authorize?client_id=${config.dashboard.clientID}&scope=bot%20applications.commands&PermissionsBitField=${config.invitePerm}`;
     res.redirect(inviteURL);
   });
 

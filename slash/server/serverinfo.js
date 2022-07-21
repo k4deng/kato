@@ -1,4 +1,4 @@
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 const { themeColor } = require("../../config.js");
 const moment = require("moment");
 
@@ -13,8 +13,8 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
   
   // Send server information
   const member = interaction.guild.members.cache;
-  const embed = new MessageEmbed()
-    .setAuthor(`${guild.name}'s server info`, guild.iconURL())
+  const embed = new EmbedBuilder()
+    .setAuthor({ name: `${guild.name}'s server info` , iconURL: guild.iconURL() })
     .setColor(themeColor)
     .setThumbnail(guild.iconURL())
     .addFields([
@@ -57,7 +57,7 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
       },
     ])
     .setTimestamp()
-    .setFooter(`Requested by: ${user.tag}`);
+    .setFooter({ text: `Requested by: ${user.tag}` });
   
   await interaction.reply({ embeds: [embed] });
 };
@@ -67,12 +67,10 @@ exports.commandData = {
   description: "Get information on the server.",
   category: "Server",
   options: [],
-  defaultPermission: true,
+  dmPermission: false,
+  defaultMemberPermissions: null
 };
 
-// Set guildOnly to true if you want it to be available on guilds only.
-// Otherwise false is global.
 exports.conf = {
-  permLevel: "User",
-  guildOnly: false
+  permLevel: "User"
 };
