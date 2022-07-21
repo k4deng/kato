@@ -1,6 +1,6 @@
 {
   "name": "kato",
-  "version": "1.2.1",
+  "version": "1.3.0",
   "description": "kato is the all-in-one Discord bot for all your needs. kato utilizes many discord features to enhance your server with advanced stuff like moderation, leveling, event logging, and much, much, more!",
   "main": "index.js",
   "scripts": {
