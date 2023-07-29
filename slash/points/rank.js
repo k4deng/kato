@@ -35,10 +35,10 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
       .setRank(rankScore + 1)
       .setRequiredXP(user.level == 0 ? lvlPoints(user.level + 1) : lvlPoints(user.level + 1)-lvlPoints(user.level))
       .setStatus(target.presence?.status ?? "offline", true)
-      //.setCustomStatusColor('#FFA800') -for theme color if wanted later
+      //.setCustomStatusColor(themeColor) -for theme color if wanted later
       .setProgressBar(["#FFFFFF", themeColor], "GRADIENT")
-      .setUsername(target.user.username)
-      .setDiscriminator(target.user.discriminator);
+      .setUsername(target.user.username);
+      //.setDiscriminator(target.user.discriminator);
     
     return rankcard.build();
   }

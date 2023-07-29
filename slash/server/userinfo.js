@@ -11,7 +11,7 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
     : "None";
   
   const embed = new EmbedBuilder()
-    .setAuthor({ name: `${member.user.tag}'s info` , iconURL: member.user.displayAvatarURL() })
+    .setAuthor({ name: `${member.user.username}'s info` , iconURL: member.user.displayAvatarURL() })
     .setColor(themeColor)
     .setThumbnail(member.user.displayAvatarURL({ extension: "png", size: 512 }))
     .addFields(

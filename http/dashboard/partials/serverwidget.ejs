@@ -3,7 +3,7 @@
           <!-- Add the bg color to the header using any of the bg-* classes -->
           <div class="widget-user-header bg-info">
             <h3 class="widget-user-username"><%= guild.name %></h3>
-            <span class="widget-user-desc">Owner: <%= guild.members.cache.get(guild.ownerId).user.tag %></span>
+            <span class="widget-user-desc">Owner: <%= guild.members.cache.get(guild.ownerId).user.username %><% if (guild.members.cache.get(guild.ownerId).user.discriminator != 0) { %>#<%= guild.members.cache.get(guild.ownerId).user.discriminator %><% } %></span>
           </div>
           <div class="widget-user-image">
             <% if (guild.iconURL()) { %><img class="img-circle elevation-2" src="https://cdn.discordapp.com/icons/<%= guild.id %>/<%= guild.icon %>.jpg?size=256" alt="Server Icon"> <% } %>

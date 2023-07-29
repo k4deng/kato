@@ -61,7 +61,7 @@
                 <thead>
                 <tr>
                   <th>Display Name</th>
-                  <th>User Tag</th>
+                  <th>Username</th>
                   <th>Created</th>
                   <th>Joined</th>
                   <th>Roles</th>
@@ -89,7 +89,7 @@
                     %>
                     <tr>
                       <th><%= member.displayName %></th>
-                      <th><%= member.tag %></th>
+                      <th><%= member.username %><% if (member.discriminator != 0) { %>#<%= member.discriminator %><% } %></th>
                       <th><%= moment(member.createdAt).format("MMMM Do YYYY, h:mm a") %></th>
                       <th><%= moment(member.joinedAt).format("MMMM Do YYYY, h:mm a") %></th>
                       <th><%- roles %></th>
@@ -100,7 +100,7 @@
                 <tfoot>
                 <tr>
                   <th>Display Name</th>
-                  <th>User Tag</th>
+                  <th>Username</th>
                   <th>Created</th>
                   <th>Joined</th>
                   <th>Roles</th>
