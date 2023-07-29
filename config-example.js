@@ -37,7 +37,7 @@ const config = {
   },
 
   dashboard: {
-    version: "1.0.0",
+    version: "1.3.1",
     enabled: "true", // This setting controls whether the dashboard is enabled or not.
     clientID: "123456789123456789", // the bots id
     supportDiscord: "https://discord.gg/invitecode", //discord support server url for the bot

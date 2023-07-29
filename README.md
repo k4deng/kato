@@ -48,4 +48,4 @@ kato also comes packed with a variety of features, such as:
   * And much more! There are over **15+** settings to tweak!
 
 ## Credits
-* **[k4deng#2003](https://k4deng.net)** - *Main developer and Everything*
+* **[k4deng](https://k4deng.net)** - *Main developer and Everything*
