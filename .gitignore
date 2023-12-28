@@ -1,3 +1,5 @@
 /data
 /config.js
 node_modules/
+*.env
+/.idea
