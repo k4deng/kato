@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+  kato:
+    image: k4deng/kato:latest
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - /docker/kato/data:/app/data
+      - /docker/kato/config.js:/app/config.js
