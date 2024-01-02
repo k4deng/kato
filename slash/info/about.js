@@ -32,7 +32,7 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
         value: `**More information**\nWant to know more about ${client.user.username}? Keep reading below!` },
       {
         name: "About the creator",
-        value: `${client.user.username} was orginally made by k4deng to help his discord server. You can find k4deng here: [k4deng.net](https://k4deng.net)`, 
+        value: `${client.user.username} was originally made by k4deng to help his discord server. You can find k4deng at [l.kk4deng.net](https://l.k4deng.net)`,
         inline: true
       },
       {
@@ -42,7 +42,7 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
       },
       {
         name: `${client.user.username}'s code`,
-        value: `${client.user.username} is coded in discord.js using node.js and replit.com. You can find ${client.user.username}'s code [here](https://github.com/k4deng/kato)`,
+        value: `${client.user.username} is coded in discord.js using node.js. You can find ${client.user.username}'s code [here](https://github.com/k4deng/kato)`,
         inline: true
       },
       {
@@ -56,7 +56,7 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
         inline: true
       },
     )
-    .setFooter({ text: "Bot created by k4deng" , iconURL: "https://cdn.discordapp.com/avatars/805546498028208190/37194e9d4a7b137294ff134c0cb6fec2.png" });
+    .setFooter({ text: "Bot created by k4deng" , iconURL: "https://k4deng.net/pfp.jpg" });
   
   await interaction.reply({ embeds: [embed] });
 };
