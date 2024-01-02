@@ -1,6 +1,6 @@
-FROM node:16.16.0-alpine
+# Stage 1: Build dependencies
+FROM node:16.16.0-alpine AS builder
 
-# Install system dependencies for canvas
 RUN apk update && \
     apk add --no-cache \
         build-base \
@@ -15,18 +15,30 @@ RUN apk update && \
         g++ \
         make \
         python3
-
-# Create app directory
+        
 WORKDIR /app
-
-# Install app dependencies
-# A wildcard is used to ensure both package.json AND package-lock.json are copied where available (npm@5+)
 COPY package*.json ./
-RUN npm ci --omit=dev
+RUN npm install --production
 
-# Bundle app source
+# Stage 2: Create lightweight production image
+FROM node:16.16.0-alpine
+
+# Install necessary system dependencies for canvas
+RUN apk update && \
+    apk add --no-cache \
+        cairo \
+        libjpeg \
+        pango \
+        giflib \
+        pixman \
+        libtool \
+        autoconf \
+        automake
+
+WORKDIR /app
+COPY --from=builder /app .
+
+# Copy only necessary files
 COPY . .
 
-EXPOSE 3000
-
-CMD [ "node", "index.js" ]
+CMD ["node", "index.js"]
