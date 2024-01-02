@@ -32,7 +32,7 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
       { name: "Permissions", value: `${permissions}` },
     )
     .setTimestamp()
-    .setFooter({ text: `Requested by: ${interaction.user.tag}` });
+    .setFooter({ text: `Requested by: ${interaction.user.username}` });
   
   await interaction.reply({ embeds: [embed] });
 };

@@ -26,7 +26,7 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
       { name: "Roles", value: member.roles.cache.size > 1 ? member.roles.cache.sort((a, b) => b.rawPosition - a.rawPosition).reduce((a, b) => `${a}, ${b}`) : "@everyone" },
     )
     .setTimestamp()
-    .setFooter({ text: `Requested by: ${interaction.user.tag}` });
+    .setFooter({ text: `Requested by: ${interaction.user.username}` });
   
   await interaction.reply({ embeds: [embed] });
 };
