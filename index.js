@@ -61,7 +61,7 @@ const init = async () => {
       const command = require(`./slash/${dir}/${file}`);
       const commandName = file.split(".")[0];
       logger.log(`Loading Slash command: ${commandName}. 👌`);
-      // Now set the name of the command with it's properties.
+      // Now set the name of the command with its properties.
       client.container.slashcmds.set(command.commandData.name, command);
     }
   }
@@ -80,8 +80,8 @@ const init = async () => {
     client.on(eventName, event.bind(null, client));
   }
 
-  // Here we login the client.
-  client.login();
+  // Here we log in the client.
+  await client.login();
 
 // End top-level async/await function.
 };
