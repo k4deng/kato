@@ -4,7 +4,6 @@ const moment = require("moment");
 
 exports.run = async (client, interaction) => { // eslint-disable-line no-unused-vars
   const guild = interaction.guild;
-  const user = interaction.member.user;
   
   const roles = [...guild.roles.cache.sort((a, b) => b.position - a.position).values()];
   while (roles.join(", ").length >= 1021) {
@@ -57,7 +56,7 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
       },
     ])
     .setTimestamp()
-    .setFooter({ text: `Requested by: ${user.tag}` });
+    .setFooter({ text: `Requested by: ${interaction.user.username}` });
   
   await interaction.reply({ embeds: [embed] });
 };

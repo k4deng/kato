@@ -1,4 +1,20 @@
-FROM node:16.16.0-slim
+FROM node:16.16.0-alpine
+
+# Install system dependencies for canvas
+RUN apk update && \
+    apk add --no-cache \
+        build-base \
+        cairo-dev \
+        jpeg-dev \
+        pango-dev \
+        giflib-dev \
+        pixman-dev \
+        libtool \
+        autoconf \
+        automake \
+        g++ \
+        make \
+        python3
 
 # Create app directory
 WORKDIR /app

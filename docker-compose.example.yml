@@ -6,6 +6,11 @@ services:
     restart: unless-stopped
     ports:
       - "3000:3000"
+    environment:
+      - OWNER=ownerid
+      - DISCORD_TOKEN=bot_token
+      - dashboardSessionSecret=random_secure_string
+      - dashboardOauthSecret=bot_oauth_secret
     volumes:
       - /docker/kato/data:/app/data
       - /docker/kato/config.js:/app/config.js
